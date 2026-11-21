@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picsart Academy 2.5 | C++ Course</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        picsart: {
+                            purple: '#8a2be2',
+                            pink: '#ff1493',
+                            blue: '#00d2ff',
+                            dark: '#0f172a',
+                            card: '#1e293b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19;
+            color: #f1f5f9;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .code-block {
+            font-family: 'Fira Code', monospace;
+            background-color: #0d1117;
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+            word-break: break-all;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(139, 92, 246, 0.3);
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(139, 92, 246, 0.6);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-purple-500 selection:text-white custom-scrollbar">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800 px-4 lg:px-8 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <button id="sidebarToggle" class="lg:hidden text-slate-400 hover:text-white p-2 rounded-lg hover:bg-slate-800 transition">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <div class="flex items-center gap-2">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 via-pink-500 to-blue-500 flex items-center justify-center font-bold text-white shadow-lg shadow-purple-500/20">
+                    C++
+                </div>
+                <div>
+                    <h1 class="font-bold text-base md:text-lg leading-tight tracking-tight">Picsart Academy 2.5</h1>
+                    <p id="headerSubtitle" class="text-xs text-purple-400 font-medium">C++ Fundamentals & Interactive Quizzes</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Right Action Controls -->
+        <div class="flex items-center gap-3">
+            <div class="hidden sm:flex items-center gap-2 text-xs bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700">
+                <i class="fa-solid fa-trophy text-amber-400"></i>
+                <span id="completedLabel" class="text-slate-400">Completed:</span>
+                <span id="globalScore" class="font-bold text-purple-400">0 / 2</span>
+            </div>
+            
+            <!-- Language Switcher Button (Flag icon) -->
+            <button id="langToggleBtn" class="flex items-center gap-2 text-xs bg-slate-800 hover:bg-slate-700 border border-slate-700 px-3 py-1.5 rounded-xl text-slate-200 font-medium transition shadow-sm">
+                <span id="langFlag">🇬🇧</span>
+                <span id="langText">English</span>
+            </button>
+
+            <button id="resetProgressBtn" title="Reset Progress" class="text-xs text-slate-400 hover:text-red-400 px-2 py-1 rounded hover:bg-slate-800 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-rotate-left"></i>
+                <span id="resetText" class="hidden md:inline">Reset</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="flex-1 flex overflow-hidden max-w-7xl w-full mx-auto p-3 md:p-6 gap-6">
+
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-72 bg-slate-900/95 lg:bg-transparent lg:static lg:w-80 flex-shrink-0 transition-transform duration-300 transform -translate-x-full lg:translate-x-0 flex flex-col gap-4 border-r border-slate-800 lg:border-none p-4 lg:p-0">
+            <div class="glass-panel rounded-2xl p-4 flex flex-col h-full overflow-hidden border border-slate-800">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+                    <h2 id="lessonsHeaderTitle" class="font-semibold text-slate-200 text-sm tracking-wide uppercase flex items-center gap-2">
+                        <i class="fa-solid fa-book-bookmark text-purple-400"></i>
+                        Lessons
+                    </h2>
+                    <span class="text-xs text-purple-400 bg-purple-950/60 border border-purple-800/50 px-2 py-0.5 rounded-full font-mono">v2.5</span>
+                </div>
+
+                <!-- Course Lessons List -->
+                <nav id="lessonsList" class="space-y-2 overflow-y-auto flex-1 pr-1 custom-scrollbar">
+                    <!-- Dynamic Lesson Buttons render here -->
+                </nav>
+
+                <!-- Dynamic Motivation Banner Sidebar -->
+                <div class="mt-4 p-3.5 rounded-xl bg-gradient-to-br from-purple-900/30 to-indigo-900/20 border border-purple-500/20 relative overflow-hidden">
+                    <i class="fa-solid fa-quote-left absolute top-2 right-2 text-purple-500/10 text-4xl"></i>
+                    <p class="text-xs text-slate-400 font-medium mb-1 flex items-center gap-1">
+                        <i class="fa-solid fa-lightbulb text-amber-400"></i>
+                        <span id="quoteTitle">Quote of the Day</span>
+                    </p>
+                    <p id="sidebarQuote" class="text-xs italic text-purple-200 font-sans leading-relaxed">
+                        "Code is like humor. When you have to explain it, it’s bad."
+                    </p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Sidebar Mobile Backdrop -->
+        <div id="sidebarBackdrop" class="fixed inset-0 bg-black/60 z-30 hidden lg:hidden"></div>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 flex flex-col min-w-0">
+
+            <!-- Hero/Lesson Title Bar -->
+            <div class="glass-panel rounded-2xl p-5 md:p-6 mb-6 border border-slate-800 relative overflow-hidden shadow-xl">
+                <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-purple-400 mb-1">
+                            <span id="lessonBadge" class="bg-purple-900/50 border border-purple-700/50 px-2 py-0.5 rounded-md">Lesson 1</span>
+                            <span>•</span>
+                            <span id="lessonTopic">Paradigms & Fundamentals</span>
+                        </div>
+                        <h2 id="lessonTitle" class="text-xl md:text-2xl font-bold text-white tracking-tight">
+                            C++ Paradigms & Language Fundamentals
+                        </h2>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button id="startQuizBtn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-semibold text-sm shadow-lg shadow-purple-600/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2">
+                            <i class="fa-solid fa-play"></i>
+                            <span id="startQuizText">Start Quiz</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Screen Container -->
+            <div id="quizContainer" class="flex-1 flex flex-col">
+                <!-- Welcome / Info Card -->
+                <div id="introCard" class="glass-panel rounded-2xl p-6 md:p-8 border border-slate-800 flex-1 flex flex-col justify-center items-center text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-2xl mb-4">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <h3 id="introTitle" class="text-xl font-bold text-white mb-2">Ready to test your knowledge?</h3>
+                    <p id="introDesc" class="text-slate-400 text-sm max-w-lg mb-6 leading-relaxed">
+                        Select a lesson from the sidebar and click "Start Quiz".
+                    </p>
+                </div>
+
+                <!-- Active Question Card -->
+                <div id="questionCard" class="hidden glass-panel rounded-2xl p-6 md:p-8 border border-slate-800 flex-1 flex flex-col justify-between">
+                    <div>
+                        <!-- Progress Indicator -->
+                        <div class="flex items-center justify-between mb-4">
+                            <span id="questionCounter" class="text-xs font-semibold text-purple-400 bg-purple-950/60 border border-purple-800/50 px-3 py-1 rounded-full">
+                                Question 1 / 10
+                            </span>
+                            <div class="w-32 bg-slate-800 rounded-full h-2 overflow-hidden border border-slate-700">
+                                <div id="progressBar" class="bg-gradient-to-r from-purple-500 to-pink-500 h-full w-0 transition-all duration-300"></div>
+                            </div>
+                        </div>
+
+                        <!-- Question Text -->
+                        <div id="questionContainer" class="text-base md:text-lg font-semibold text-white mb-5 leading-relaxed">
+                            <!-- Question rendered here -->
+                        </div>
+
+                        <!-- Options Box -->
+                        <div id="optionsContainer" class="space-y-2.5 mb-5">
+                            <!-- Dynamic Options Rendered Here -->
+                        </div>
+
+                        <!-- Explanation Card -->
+                        <div id="explanationBox" class="hidden p-4 rounded-xl bg-slate-800/80 border border-slate-700 mb-5 transition-all">
+                            <div class="flex items-center gap-2 font-semibold text-sm mb-1" id="explanationTitle">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <span>Explanation</span>
+                            </div>
+                            <div id="explanationText" class="text-xs md:text-sm text-slate-300 leading-relaxed"></div>
+                        </div>
+                    </div>
+
+                    <!-- Action Bar -->
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-800/80 mt-auto">
+                        <button id="prevBtn" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs md:text-sm transition flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <span id="prevText">Previous</span>
+                        </button>
+                        
+                        <button id="nextBtn" class="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs md:text-sm transition flex items-center gap-2 shadow-lg shadow-purple-600/20 disabled:opacity-40 disabled:cursor-not-allowed">
+                            <span id="nextText">Next</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Result Summary Card -->
+                <div id="resultCard" class="hidden glass-panel rounded-2xl p-6 md:p-10 border border-slate-800 flex-1 flex flex-col justify-center items-center text-center">
+                    <div id="scoreBadge" class="w-20 h-20 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center text-white text-3xl font-extrabold mb-4 shadow-xl shadow-purple-500/20">
+                        100%
+                    </div>
+                    <h3 id="resultTitle" class="text-2xl font-bold text-white mb-1">Completed!</h3>
+                    <p id="scoreSubtitle" class="text-slate-400 text-sm mb-6">You answered all questions correctly.</p>
+
+                    <div class="w-full max-w-lg p-4 rounded-xl bg-gradient-to-r from-purple-950/40 via-slate-900/60 to-indigo-950/40 border border-purple-500/30 mb-8">
+                        <i class="fa-solid fa-quote-left text-purple-400 text-lg mb-2"></i>
+                        <p id="resultMotivationalQuote" class="text-sm italic text-purple-200">
+                            "Any fool can write code that a computer can understand. Good programmers write code that humans can understand."
+                        </p>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button id="retryBtn" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-medium text-sm transition flex items-center gap-2">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span id="retryText">Retake Quiz</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript Engine & Course Data -->
+    <script>
+        const translations = {
+            en: {
+                headerSubtitle: "C++ Fundamentals & Interactive Quizzes",
+                completed: "Completed:",
+                reset: "Reset",
+                lessons: "Lessons",
+                quoteTitle: "Quote of the Day",
+                startQuiz: "Start Quiz",
+                introTitle: "Ready to test your knowledge?",
+                introDesc: 'Select a lesson from the sidebar and click "Start Quiz". This test will evaluate your understanding of key C++ topics.',
+                questionOf: "Question",
+                ofText: "of",
+                explanation: "Explanation",
+                correctTitle: "Correct!",
+                warningTitle: "Attention!",
+                warningSelect: "Please select an answer before proceeding.",
+                prev: "Previous",
+                next: "Next",
+                finish: "Finish",
+                completedHeader: "Completed!",
+                retake: "Retake Quiz",
+                resetConfirm: "Are you sure you want to reset all progress?"
+            },
+            hy: {
+                headerSubtitle: "C++ Ծրագրավորման Հիմունքներ և Թեստեր",
+                completed: "Ավարտված՝",
+                reset: "Զրոյացնել",
+                lessons: "Դասեր",
+                quoteTitle: "Օրվա Միտքը",
+                startQuiz: "Սկսել Թեստը",
+                introTitle: "Պատրա՞ստ եք ստուգել Ձեր գիտելիքները:",
+                introDesc: "Ընտրեք դասը ձախ ցանկից և սեղմեք «Սկսել Թեստը»։ Այս թեստը կստուգի ձեր գիտելիքները դասախոսական նյութերի վերաբերյալ:",
+                questionOf: "Հարց",
+                ofText: "/",
+                explanation: "Բացատրություն",
+                correctTitle: "Ճիշտ է!",
+                warningTitle: "Ուշադրություն!",
+                warningSelect: "Խնդրում ենք ընտրել պատասխան նախքան շարունակելը:",
+                prev: "Նախորդը",
+                next: "Հաջորդը",
+                finish: "Ավարտել",
+                completedHeader: "Ավարտվեց!",
+                retake: "Կրկնել Թեստը",
+                resetConfirm: "Վստա՞հ եք, որ ուզում եք զրոյացնել ամբողջ առաջընթացը:"
+            }
+        };
+
+        const motivationalQuotes = {
+            en: [
+                "“Code is like humor. When you have to explain it, it’s bad.” – Cory House",
+                "Every great programmer started with their first 'Hello World'.",
+                "Keep pushing! Every bug fixed in C++ is a step toward mastery.",
+                "Learning from bugs in C++ is the fastest path to expertise.",
+                "First, solve the problem. Then, write the code. – John Johnson",
+                "C++ gives you maximum control, but demands maximum attention."
+            ],
+            hy: [
+                "“Code is like humor. When you have to explain it, it’s bad.” – Կորի Հաուս",
+                "Ամեն մեծ ծրագրավորող սկսել է իր առաջին 'Hello World'-ից:",
+                "Առաջ շարժվիր! C++-ում շտկված ամեն սխալ քայլ է դեպի տիրապետում:",
+                "Սխալներից սովորելը C++-ում մասնագիտացման ամենաարագ ճանապարհն է:",
+                "Նախ լուծիր խնդիրը, հետո գրիր կոդը։ – Ջոն Ջոնսոն",
+                "C++-ը տալիս է առավելագույն վերահսկողություն, բայց պահանջում է ուշադրություն:"
+            ]
+        };
+
+        const lessonsData = [
+            {
+                id: 1,
+                title: {
+                    en: "Lesson 1: C++ Fundamentals & Paradigms",
+                    hy: "Դաս 1: C++ Հիմունքներ և Պարադիգմներ"
+                },
+                subtitle: {
+                    en: "Bell Labs, Dennis Ritchie, First-Class Citizens, nullptr & ODR",
+                    hy: "Bell Labs, Դենիս Ռիչի, First-Class Citizens, nullptr և ODR"
+                },
+                questions: [
+                    {
+                        id: 1,
+                        text: {
+                            en: "In which laboratory were C and C++ created?",
+                            hy: "Ո՞ր լաբորատորիայում են ստեղծվել C և C++ ծրագրավորման լեզուները:"
+                        },
+                        options: {
+                            en: ["MIT CS Lab", "Bell Labs (Bell Laboratories)", "Xerox PARC", "IBM Research"],
+                            hy: ["MIT CS Lab", "Bell Labs (Bell Laboratories)", "Xerox PARC", "IBM Research"]
+                        },
+                        correct: 1,
+                        explanation: {
+                            en: "Both C (Dennis Ritchie) and C++ (Bjarne Stroustrup) were created at Bell Labs.",
+                            hy: "C-ն (Դենիս Ռիչի) և C++-ը (Բյառն Ստրաուստրուպ) երկուսն էլ ստեղծվել են Bell Labs-ում:"
+                        }
+                    },
+                    {
+                        id: 2,
+                        text: {
+                            en: "Who created the C++ programming language?",
+                            hy: "Ո՞վ է ստեղծել C++ ծրագրավորման լեզուն:"
+                        },
+                        options: {
+                            en: ["Dennis Ritchie", "Bjarne Stroustrup", "Ken Thompson", "Guido van Rossum"],
+                            hy: ["Դենիս Ռիչի", "Բյառն Ստրաուստրուպ (Bjarne Stroustrup)", "Քեն Թոմսոն", "Գվիդո վան Ռոսում"]
+                        },
+                        correct: 1,
+                        explanation: {
+                            en: "C++ was created by Bjarne Stroustrup at Bell Labs.",
+                            hy: "C++-ը ստեղծել է Բյառն Ստրաուստրուպը Bell Labs-ում:"
+                        }
+                    },
+                    {
+                        id: 3,
+                        text: {
+                            en: "Are functions First-Class Citizens in C?",
+                            hy: "Արդյո՞ք ֆունկցիաները C-ում համարվում են First-Class Citizens:"
+                        },
+                        options: {
+                            en: [
+                                "Yes, functions in C can be passed and returned directly.",
+                                "No, C functions cannot be passed or returned directly without pointers.",
+                                "Only arrays are first-class citizens.",
+                                "Only applies to SQL databases."
+                            ],
+                            hy: [
+                                "Այո, C-ում ֆունկցիաները կարող են ուղղակիորեն փոխանցվել և վերադարձվել։",
+                                "Ոչ, C-ում ֆունկցիան առաջին կարգի քաղաքացի չէ, քանի որ չի կարող ուղղակիորեն փոխանցվել կամ վերադարձվել առանց pointers-ի։",
+                                "Առաջին կարգի քաղաքացիներ են միայն զանգվածները:",
+                                "Վերաբերում է միայն SQL-ին։"
+                            ]
+                        },
+                        correct: 1,
+                        explanation: {
+                            en: "In C, functions cannot be passed or returned directly without pointers.",
+                            hy: "C-ում ֆունկցիաներն առանց pointer-ների չեն կարող ուղղակիորեն փոխանցվել կամ վերադարձվել:"
+                        }
+                    },
+                    {
+                        id: 4,
+                        text: {
+                            en: "What is a deterministic function?",
+                            hy: "Ի՞նչ է դետերմինիստիկ ֆունկցիան (Deterministic function):"
+                        },
+                        options: {
+                            en: [
+                                "A function that depends on external state.",
+                                "A function that always returns the same output for the same inputs and has no external state dependencies.",
+                                "A function returning void.",
+                                "A function using random numbers."
+                            ],
+                            hy: [
+                                "Ֆունկցիա, որի աշխատանքը կախված է արտաքին state-ից:",
+                                "Ֆունկցիա, որը միևնույն մուտքային արժեքների դեպքում միշտ վերադարձնում է միևնույն արդյունքը և չունի կախվածություն արտաքին state-ից:",
+                                "Void վերադարձնող ֆունկցիա:",
+                                "Random թվերի հետ աշխատող ֆունկցիա:"
+                            ]
+                        },
+                        correct: 1,
+                        explanation: {
+                            en: "Deterministic functions yield predictable outputs without side effects.",
+                            hy: "Դետերմինիստիկ ֆունկցիան միևնույն մուտքային տվյալների դեպքում միշտ տալիս է նույն արդյունքը:"
+                        }
+                    },
+                    {
+                        id: 5,
+                        text: {
+                            en: "What is the C++ recommendation regarding C-style casts?",
+                            hy: "Ո՞րն է C++-ի մոտեցումը C-style cast-երի վերաբերյալ:"
+                        },
+                        options: {
+                            en: [
+                                "C++ encourages using C-style casts.",
+                                "C-style casts bypass strict type checking, so C++ recommends using safer C++ casts.",
+                                "C-style casts cause compilation errors.",
+                                "C-style casts apply only to returns."
+                            ],
+                            hy: [
+                                "C++-ը խրախուսում է C-style cast-երը:",
+                                "C-style cast-ը անտեսում է տիպերի խիստ ստուգումը, ուստի C++-ում խորհուրդ է տրվում օգտագործել ավելի անվտանգ C++ cast-եր:",
+                                "C-style cast-ը կոմպիլյացիայի սխալ է առաջացնում:",
+                                "Վերաբերում է միայն return-ներին:"
+                            ]
+                        },
+                        correct: 1,
+                        explanation: {
+                            en: "C++ cast operators provide type safety compared to C-style casting.",
+                            hy: "C++ cast-երն ավելի անվտանգ են տիպերի ստուգման տեսանկյունից:"
+                        }
+                    },
+                    {
+                        id: 6,
+                        text: {
+                            en: "How does nullptr differ from NULL in C++?",
+                            hy: "Ինչո՞վ է nullptr-ը տարբերվում NULL-ից C++-ում:"
+                        },
+                        options: {
+                            en: [
+                                "nullptr is a type-safe null pointer literal (std::nullptr_t), whereas NULL is often defined as 0 or (void*)0.",
+                                "They are completely identical.",
+                                "nullptr works only in C.",
+                                "NULL is newer than nullptr."
+                            ],
+                            hy: [
+                                "nullptr-ը type-safe null pointer literal է (std::nullptr_t), իսկ NULL-ը հաճախ 0 է կամ (void*)0:",
+                                "Դրանք բացարձակապես նույնն են:",
+                                "nullptr-ն աշխատում է միայն C-ում:",
+                                "NULL-ն ավելի նոր է, քան nullptr-ը:"
+                            ]
+                        },
+                        correct: 0,
+                        explanation: {
+                            en: "nullptr eliminates ambiguities in function overloading.",
+                            hy: "nullptr-ը կանխում է տիպերի անհամապատասխանությունները function overloading-ի ժամանակ:"
+                        }
+                    },
+                    {
+                        id: 7,
+                        text: {
+                            en: "What is the primary difference between class and struct in C++?",
+                            hy: "Ո՞րն է հիմնական տարբերությունը class-ի և struct-ի միջև C++-ում:"
+                        },
+                        options: {
+                            en: [
+                                "Structs cannot contain methods.",
+                                "Structs allocate memory differently.",
+                                "Default access specifier: members are public by default in struct, and private in class.",
+                                "Structs are not allowed in C++."
+                            ],
+                            hy: [
+                                "Struct-ը չի կարող ունենալ ֆունկցիաներ:",
+                                "Struct-ում հիշողությունն այլ կերպ է հատկացվում:",
+                                "Default visibility modifier-ը. struct-ում public է, իսկ class-ում՝ private:",
+                                "Struct-ն արգելված է C++-ում:"
+                            ]
+                        },
+                        correct: 2,
+                        explanation: {
+                            en: "Class and struct in C++ differ only by their default access specifier.",
+                            hy: "C++-ում class-ն ու struct-ը տարբերվում են միայն default visibility modifier-ով:"
+                        }
+                    },
+                    {
+                        id: 8,
+                        text: {
+                            en: "What are std::cin and std::cout in C++?",
+                            hy: "Ի՞նչ են std::cin-ը և std::cout-ը C++-ում:"
+                        },
+                        options: {
+                            en: [
+                                "Type-safe stream objects that do not require explicit format specifiers.",
+                                "Slower C macros.",
+                                "File-only operations.",
+                                "Legacy tools."
+                            ],
+                            hy: [
+                                "Type-safe stream օբյեկտներ, որոնք չեն պահանջում format specifiers (%d, %s):",
+                                "Դանդաղ C macro-ներ:",
+                                "Միայն ֆայլերի հետ աշխատող գործիքներ:",
+                                "Հնացած C++ գործիքներ:"
+                            ]
+                        },
+                        correct: 0,
+                        explanation: {
+                            en: "C++ streams manage type inference automatically.",
+                            hy: "C++ stream-երն ավտոմատ որոշում են տվյալների տիպը:"
+                        }
+                    },
+                    {
+                        id: 9,
+                        text: {
+                            en: "What is Generic Programming in C++?",
+                            hy: "Ի՞նչ է Generic Programming-ը C++-ում:"
+                        },
+                        options: {
+                            en: [
+                                "Writing algorithms/data structures independent of types using templates.",
+                                "Using void* for all data types.",
+                                "C-only technique.",
+                                "SQL pattern."
+                            ],
+                            hy: [
+                                "Ալգորիթմների կամ տվյալների կառուցվածքների գրում տիպերից անկախ՝ template-ների միջոցով:",
+                                "Void* օգտագործում բոլոր փոփոխականների համար:",
+                                "Միայն C-ին հատուկ մեթոդ:",
+                                "SQL հարցումների մեթոդ:"
+                            ]
+                        },
+                        correct: 0,
+                        explanation: {
+                            en: "Templates enable type-independent implementation.",
+                            hy: "Template-ները թույլ են տալիս գրել ընդհանրացված կոդ տիպերից անկախ:"
+                        }
+                    },
+                    {
+                        id: 10,
+                        text: {
+                            en: "What is the One Definition Rule (ODR)?",
+                            hy: "Ի՞նչ է One Definition Rule-ը (ODR) C++-ում:"
+                        },
+                        options: {
+                            en: [
+                                "An entity can only be defined once within a given scope; namespaces prevent collisions.",
+                                "Functions must be 1 line.",
+                                "Namespaces remove classes.",
+                                "Global scope allows 10 identical variables."
+                            ],
+                            hy: [
+                                "Սուբյեկտը տվյալ scope-ում կարող է սահմանվել միայն մեկ անգամ. namespace-երը կանխում են անունների բախումը:",
+                                "Ֆունկցիան պետք է լինի 1 տող:",
+                                "Namespace-ը ջնջում է class-ները:",
+                                "Գլոբալ տիրույթը թույլ է տալիս նույն անունով 10 փոփոխական:"
+                            ]
+                        },
+                        correct: 0,
+                        explanation: {
+                            en: "ODR requires single definition per entity within a translation unit.",
+                            hy: "ODR-ը պահանջում է կրկնվող սահմանումների բացառում:"
+                        }
+                    },
+                    {
+                        id: 11,
+                        text: {
+                            en: "What is a Range-based for loop in C++?",
+                            hy: "Ի՞նչ է Range-based for loop-ը C++-ում:"
+                        },
+                        options: {
+                            en: [
+                                "Syntax sugar for iterating over collections cleanly.",
+                                "Infinite loop syntax.",
+                                "Switch-case loop.",
+                                "Function caller."
+                            ],
+                            hy: [
+                                "Syntax sugar collection-ներով հեշտությամբ պտտվելու համար:",
+                                "Անվերջ loop-ի տեսակ:",
+                                "Switch-case-ի մեջ աշխատող loop:",
+                                "Ֆունկցիայի կանչման ձև:"
+                            ]
+                        },
+                        correct: 0,
+                        explanation: {
+                            en: "Range-based loops simplify iterator syntax.",
+                            hy: "Range-based for loop-ը հեշտացնում է տարրերով պտտվելը:"
+                        }
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: {
+                    en: "Lesson 2: Function Overloading & Value Categories",
+                    hy: "Դաս 2: Function Overloading և Value Categories"
+                },
+                subtitle: {
+                    en: "Overload Resolution Order, Name Mangling, Lvalue & Rvalue Mechanics",
+                    hy: "Overload Resolution Order, Name Mangling, Lvalue և Rvalue մեխանիզմներ"
+                },
+                questions: [
+                    {
+                        id: 1,
+                        text: {
+                            en: "What is Function Overloading in C++, and can functions be overloaded ONLY by their return type?",
+                            hy: "Ի՞նչ է Function Overloading-ը C++-ում, և կարո՞ղ են ֆունկցիաները overload լինել ՄԻԱՅՆ իրենց return type-ով:"
+                        },
+                        options: {
+                            en: [
+                                "Having functions with the same name but different parameters; functions CANNOT be overloaded by return type alone.",
+                                "Having functions with different names; return type overloading is fully supported.",
+                                "Creating global macros; return types determine priority.",
+                                "Renaming variables at runtime; return type must be void."
+                            ],
+                            hy: [
+                                "Նույն անունով, բայց տարբեր պարամետրերով ֆունկցիաների ստեղծում․ ֆունկցիաները ՉԵՆ ԿԱՐՈՂ overload լինել միայն return type-ով:",
+                                "Տարբեր անուններով ֆունկցիաների ստեղծում․ return type-ով overloading-ը լիովին աջակցվում է:",
+                                "Գլոբալ macro-ների ստեղծում, որտեղ return type-ը որոշում է առավելությունը:",
+                                "Runtime-ում փոփոխականների վերանվանում, որտեղ return type-ը պետք է լինի void:"
+                            ]
+                        },
+                        correct: 0,
+                        explanation: {
+                            en: "Function overloading requires different parameter lists (count, types, or order). Overloading solely by return type causes a compilation error because the compiler cannot determine which function to call.",
+                            hy: "Function overloading-ը պահանջում է տարբեր parameter list-եր (քանակ, տիպեր կամ հաջորդականություն)։ Միայն return type-ով overload անելը կոմպիլյացիայի սխալ է առաջացնում, քանի որ կանչելիս կոմպիլյատորը չի կարող որոշել, թե որ ֆունկցիան պետք է ընտրի:"
+                        }
+                    },
+                    {
+                        id: 2,
+                        text: {
+                            en: "Which priority sequence does the C++ compiler use during Overload Resolution?",
+                            hy: "Ի՞նչ հաջորդականությամբ է C++ կոմպիլյատորը ստուգում համապատասխանությունը Overload Resolution-ի ժամանակ:"
+                        },
+                        options: {
+                            en: [
+                                "1. Exact Match -> 2. Integral Promotion -> 3. Standard Conversion -> 4. User-Defined Conversion",
+                                "1. User-Defined Conversion -> 2. Standard Conversion -> 3. Integral Promotion -> 4. Exact Match",
+                                "1. Integral Promotion -> 2. User-Defined Conversion -> 3. Exact Match -> 4. Standard Conversion",
+                                "1. Standard Conversion -> 2. Exact Match -> 3. Integral Promotion -> 4. User-Defined Conversion"
+                            ],
+                            hy: [
+                                "1. Exact Match -> 2. Integral Promotion -> 3. Standard Conversion -> 4. User-Defined Conversion",
+                                "1. User-Defined Conversion -> 2. Standard Conversion -> 3. Integral Promotion -> 4. Exact Match",
+                                "1. Integral Promotion -> 2. User-Defined Conversion -> 3. Exact Match -> 4. Standard Conversion",
+                                "1. Standard Conversion -> 2. Exact Match -> 3. Integral Promotion -> 4. User-Defined Conversion"
+                            ]
+                        },
+                        correct: 0,
+                        explanation: {
+                            en: "The compiler searches for exact type matches first. If unavailable, it checks for Integral Promotion (e.g., char to int), then Standard Conversions (e.g., int to double), and finally User-Defined Conversions (constructors/conversion operators).",
+                            hy: "Կոմպիլյատորը նախ փնտրում է ճշգրիտ համընկնում (Exact Match)։ Եթե այն չկա, ստուգում է Integral Promotion (օր․՝ char -> int), ապա Standard Conversions (օր․՝ int -> double), և ամենավերջում՝ User-Defined Conversions (constructor-ներ կամ conversion operator-ներ):"
+                        }
+                    },
+                    {
+                        id: 3,
+                        text: {
+                            en: "Given the following C++ functions, which overload will be executed when calling `print('A')`?\n\n```cpp\nvoid print(int x);\nvoid print(double x);\n```",
+                            hy: "Տրված C++ ֆունկցիաների դեպքում `print('A')` կանչելիս ո՞ր overload-ը կկանչվի:\n\n```cpp\nvoid print(int x);\nvoid print(double x);\n```"
+                        },
+                        options: {
+                            en: [
+                                "`print(int x)` because char undergoes Integral Promotion to int.",
+                                "`print(double x)` because character code converts directly to floating point.",
+                                "It produces a compilation ambiguity error.",
+                                "Neither; char cannot be passed to numeric functions."
+                            ],
+                            hy: [
+                                "`print(int x)`-ը, քանի որ char-ը ենթարկվում է Integral Promotion-ի դեպի int:",
+                                "`print(double x)`-ը, քանի որ char-ը միանգամից փոխակերպվում է double-ի:",
+                                "Այն առաջացնում է կոմպիլյացիայի ambiguity (անորոշության) սխալ:",
+                                "Ոչ մեկը, քանի որ char-ը չի կարող փոխանցվել թվային ֆունկցիային:"
+                            ]
+                        },
+                        correct: 0,
+                        explanation: {
+                            en: "Passing a `char` to `print('A')` promotes `char` to `int` via Integral Promotion, which takes precedence over Standard Conversion to `double`.",
+                            hy: "`print('A')` կանչելիս `char` տիպը Integral Promotion-ի միջոցով դառնում է `int`, իսկ Promotion-ն ունի ավելի բարձր առաջնահերթություն, քան Standard Conversion-ը դեպի `double`:"
+                        }
+                    },
+                    {
+                        id: 4,
+                        text: {
+                            en: "What is Name Mangling (Name Decoration) in C++ compilers?",
+                            hy: "Ի՞նչ է Name Mangling-ը (Name Decoration) C++ կոմպիլյատորներում:"
+                        },
+                        options: {
+                            en: [
+                                "A process where the compiler encodes function names with parameter type details to support function overloading at the linker level.",
+                                "A syntax error handling procedure for inline functions.",
+                                "A runtime technique for dynamic memory allocation.",
+                                "A feature that converts C++ functions into pure C code."
+                            ],
+                            hy: [
+                                "Գործընթաց, որտեղ կոմպիլյատորը ֆունկցիայի անվանը ավելացնում է պարամետրերի տիպերի ինֆորմացիան՝ Linker-ի մակարդակում Function Overloading-ը ապահովելու համար:",
+                                "Սինտաքսային սխալների մշակման ընթացակարգ inline ֆունկցիաների համար:",
+                                "Runtime մեթոդ՝ հիշողության դինամիկ հատկացման համար:",
+                                "Հնարավորություն, որը C++ ֆունկցիաները ձևափոխում է C-ական կոդի:"
+                            ]
+                        },
+                        correct: 0,
+                        explanation: {
+                            en: "Because linkers require unique symbol names, C++ compilers use Name Mangling to transform function names (e.g., `print(int)` becomes `_Z5printi`) incorporating parameter signatures.",
+                            hy: "Քանի որ Linker-ին անհրաժեշտ են ունիկալ սիմվոլներ, C++ կոմպիլյատորն օգտագործում է Name Mangling, որպեսզի ֆունկցիայի անվան մեջ կոդավորի պարամետրերի տիպերը (օր․՝ `print(int)`-ը դարձնելով `_Z5printi`):"
+                        }
+                    },
+                    {
+                        id: 5,
+                        text: {
+                            en: "What defines an Lvalue expression in C++?",
+                            hy: "Ի՞նչն է սահմանում Lvalue արտահայտությունը C++-ում:"
+                        },
+                        options: {
+                            en: [
+                                "An expression that identifies a persistent memory location (has an accessible memory address) and can usually appear on the left side of an assignment.",
+                                "A temporary value that disappears immediately after statement evaluation.",
+                                "Literal values such as 42 or 3.14.",
+                                "A function return value returned by value."
+                            ],
+                            hy: [
+                                "Արտահայտություն, որն ունի հիշողության մեջ հստակ հասցե (identifiable memory location) և սովորաբար կարող է գտնվել վերագրման նշանի ձախ կողմում:",
+                                "Ժամանակավոր արժեք, որը չնչանում է հրամանի աշխատանքից անմիջապես հետո:",
+                                "Լիտերալ արժեքներ, ինչպիսիք են 42-ը կամ 3.14-ը:",
+                                "Ֆունկցիայի վերադարձրած արժեք, որը վերադարձվել է by value:"
+                            ]
+                        },
+                        correct: 0,
+                        explanation: {
+                            en: "An Lvalue (locator value) represents an object that occupies an identifiable location in memory. You can take its address using the `&` operator.",
+                            hy: "Lvalue-ն (locator value) ներկայացնում է օբյեկտ, որն ունի հիշողության մեջ որոշակի հասցե։ Դուք կարող եք վերցնել նրա հասցեն `&` օպերատորով:"
+                        }
+                    },
+                    {
+                        id: 6,
+                        text: {
+                            en: "What defines an Rvalue expression in C++?",
+                            hy: "Ի՞նչն է սահմանում Rvalue արտահայտությունը C++-ում:"
+                        },
+                        options: {
+                            en: [
+                                "A temporary expression that does not have a persistent memory address and typically resides on the right side of an assignment.",
+                                "A named variable with a long lifetime.",
+                                "A global structure with a fixed memory address.",
+                                "A reference returned from a function."
+                            ],
+                            hy: [
+                                "Ժամանակավոր արտահայտություն, որը չունի հիշողության մշտական հասցե և սովորաբար գտնվում է վերագրման նշանի աջ կողմում:",
+                                "Անվանված փոփոխական՝ երկար կյանքի տևողությամբ:",
+                                "Գլոբալ structure՝ հիշողության ֆիքսված հասցեով:",
+                                "Ֆունկցիայից վերադարձված reference:"
+                            ]
+                        },
+                        correct: 0,
+                        explanation: {
+                            en: "Rvalues represent temporary objects or literals (e.g., `10`, `x + y`, or temporary function return values) that do not persist beyond the expression evaluation statement.",
+                            hy: "Rvalue-ն ներկայացնում է ժամանակավոր օբյեկտներ կամ լիտերալներ (օր․՝ `10`, `x + y` կամ ֆունկցիայի վերադարձրած ժամանակավոր արժեքներ), որոնք չունեն մշտական հասցե հիշողության մեջ:"
+                        }
+                    },
+                    {
+                        id: 7,
+                        text: {
+                            en: "In the code snippet below, what categories do `x` and `20` belong to?\n\n```cpp\nint x = 10;\nx = 20;\n```",
+                            hy: "Հետևյալ կոդի կտորում ո՞ր կատեգորիաներին են պատկանում `x`-ը և `20`-ը:\n\n```cpp\nint x = 10;\nx = 20;\n```"
+                        },
+                        options: {
+                            en: [
+                                "`x` is an Lvalue; `20` is an Rvalue.",
+                                "`x` is an Rvalue; `20` is an Lvalue.",
+                                "Both `x` and `20` are Lvalues.",
+                                "Both `x` and `20` are Rvalues."
+                            ],
+                            hy: [
+                                "`x`-ը Lvalue է, իսկ `20`-ը՝ Rvalue:",
+                                "`x`-ը Rvalue է, իսկ `20`-ը՝ Lvalue:",
+                                "Երկուսն էլ (`x`-ն ու `20`-ը) Lvalue են:",
+                                "Երկուսն էլ (`x`-ն ու `20`-ը) Rvalue են:"
+                            ]
+                        },
+                        correct: 0,
+                        explanation: {
+                            en: "`x` has a persistent memory address (Lvalue), whereas `20` is a literal constant without a persistent address (Rvalue).",
+                            hy: "`x`-ն ունի հիշողության հասցե (Lvalue է), իսկ `20`-ը լիտերալ հաստատուն է առանց հիշողության մշտական հասցեի (Rvalue է):"
+                        }
+                    },
+                    {
+                        id: 8,
+                        text: {
+                            en: "What happens during an Lvalue-to-Rvalue conversion in C++?",
+                            hy: "Ի՞նչ է տեղի ունենում Lvalue-to-Rvalue conversion-ի ժամանակ C++-ում:"
+                        },
+                        options: {
+                            en: [
+                                "The compiler reads the value stored at an Lvalue's memory location to use it as an Rvalue in an expression (e.g., `y = x`).",
+                                "The compiler converts a temporary variable into a global object.",
+                                "The memory address of an object is permanently modified.",
+                                "A reference is created automatically on the heap."
+                            ],
+                            hy: [
+                                "Կոմպիլյատորը կարդում է Lvalue-ի հասցեում պահված արժեքը՝ այն արտահայտության մեջ որպես Rvalue օգտագործելու համար (օր․՝ `y = x`):",
+                                "Կոմպիլյատորը ժամանակավոր փոփոխականը դարձնում է գլոբալ օբյեկտ:",
+                                "Օբյեկտի հիշողության հասցեն մշտապես փոխվում է:",
+                                "Heap-ում ավտոմատ կերպով ստեղծվում է reference:"
+                            ]
+                        },
+                        correct: 0,
+                        explanation: {
+                            en: "When evaluating `y = x;`, `x` is an Lvalue, but the expression fetches its stored value (e.g. 10), performing an Lvalue-to-Rvalue conversion to assign it to `y`.",
+                            hy: "`y = x;` արտահայտությունը կատարելիս `x`-ը Lvalue է, սակայն նրա մեջ պահված արժեքը կարդացվում է որպես Rvalue (Lvalue-to-Rvalue conversion)՝ `y`-ին վերագրելու համար:"
+                        }
+                    },
+                    {
+                        id: 9,
+                        text: {
+                            en: "Can a `const Lvalue` expression appear on the left side of an assignment operator?",
+                            hy: "Կարո՞ղ է `const Lvalue` արտահայտությունը գտնվել վերագրման օպերատորի ձախ կողմում:"
+                        },
+                        options: {
+                            en: [
+                                "No, because a const Lvalue is non-modifiable, resulting in a compilation error.",
+                                "Yes, because all Lvalues can be modified freely.",
+                                "Yes, provided it is cast implicitly to double.",
+                                "Only if it is declared inside a namespace."
+                            ],
+                            hy: [
+                                "Ոչ, քանի որ const Lvalue-ն non-modifiable (անփոփոխելի) է, ինչը կբերի կոմպիլյացիայի սխալի:",
+                                "Այո, քանի որ բոլոր Lvalue-ները կարող են ազատորեն փոխվել:",
+                                "Այո, եթե այն implicit քաստվի double-ի:",
+                                "Միայն այն դեպքում, եթե հայտարարված է namespace-ի ներսում:"
+                            ]
+                        },
+                        correct: 0,
+                        explanation: {
+                            en: "Although `const int c = 5;` is an Lvalue (has a memory address), it is non-modifiable. Assigning `c = 10;` is rejected by the compiler.",
+                            hy: "Չնայած `const int c = 5;`-ն ունի հիշողության հասցե (Lvalue է), այն non-modifiable է։ `c = 10;` վերագրումը կոմպիլյատորի կողմից կարգելվի:"
+                        }
+                    },
+                    {
+                        id: 10,
+                        text: {
+                            en: "Consider the code below. What does `&x` represent and why is `&10` invalid?\n\n```cpp\nint x = 10;\nint* ptr = &x; // Valid\n// int* ptr2 = &10; // Invalid\n```",
+                            hy: "Դիտարկենք հետևյալ կոդը։ Ի՞նչ է ներկայացնում `&x`-ը, և ինչո՞ւ է `&10`-ն անթույլատրելի:\n\n```cpp\nint x = 10;\nint* ptr = &x; // Valid\n// int* ptr2 = &10; // Invalid\n```"
+                        },
+                        options: {
+                            en: [
+                                "`&x` takes the address of an Lvalue; `&10` fails because 10 is an Rvalue literal without an addressable memory location.",
+                                "`&10` fails because numeric literals are stored on the stack.",
+                                "`&x` fails at runtime while `&10` works only with pointers.",
+                                "Both expressions are invalid in C++11 and later."
+                            ],
+                            hy: [
+                                "`&x`-ը վերցնում է Lvalue-ի հասցեն, իսկ `&10`-ն սխալ է, քանի որ 10-ը Rvalue լիտերալ է և չունի հասցեավորվող հիշողություն:",
+                                "`&10`-ն սխալ է, քանի որ թվային լիտերալները պահվում են stack-ում:",
+                                "`&x`-ը սխալվում է runtime-ում, իսկ `&10`-ն աշխատում է միայն pointer-ների հետ:",
+                                "Երկուսն էլ անթույլատրելի են C++11 և ավելի նոր ստանդարտներում:"
+                            ]
+                        },
+                        correct: 0,
+                        explanation: {
+                            en: "The address-of operator `&` requires an Lvalue operand. Taking the address of an Rvalue literal like `10` causes a compilation error.",
+                            hy: "Address-of (`&`) օպերատորը պահանջում է Lvalue օպերանդ։ Rvalue լիտերալի (ինչպիսին է `10`-ը) հասցեն վերցնելու փորձը առաջացնում է կոմպիլյացիայի սխալ:"
+                        }
+                    }
+                ]
+            }
+        ];
+
+        // State Management
+        let currentLang = localStorage.getItem('picsart_cpp_lang') || 'en';
+        let currentLessonIndex = 0;
+        let currentQuestionIndex = 0;
+        let selectedAnswers = {}; 
+        let userProgress = JSON.parse(localStorage.getItem('picsart_cpp_progress')) || {};
+
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+        const lessonsList = document.getElementById('lessonsList');
+        const sidebarQuote = document.getElementById('sidebarQuote');
+        
+        const headerSubtitle = document.getElementById('headerSubtitle');
+        const completedLabel = document.getElementById('completedLabel');
+        const resetText = document.getElementById('resetText');
+        const lessonsHeaderTitle = document.getElementById('lessonsHeaderTitle');
+        const quoteTitle = document.getElementById('quoteTitle');
+        const langToggleBtn = document.getElementById('langToggleBtn');
+        const langFlag = document.getElementById('langFlag');
+        const langText = document.getElementById('langText');
+
+        const lessonBadge = document.getElementById('lessonBadge');
+        const lessonTopic = document.getElementById('lessonTopic');
+        const lessonTitle = document.getElementById('lessonTitle');
+        const globalScore = document.getElementById('globalScore');
+        const startQuizBtn = document.getElementById('startQuizBtn');
+        const startQuizText = document.getElementById('startQuizText');
+        const resetProgressBtn = document.getElementById('resetProgressBtn');
+
+        const introCard = document.getElementById('introCard');
+        const introTitle = document.getElementById('introTitle');
+        const introDesc = document.getElementById('introDesc');
+
+        const questionCard = document.getElementById('questionCard');
+        const resultCard = document.getElementById('resultCard');
+
+        const questionCounter = document.getElementById('questionCounter');
+        const progressBar = document.getElementById('progressBar');
+        const questionContainer = document.getElementById('questionContainer');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const explanationBox = document.getElementById('explanationBox');
+        const explanationTitle = document.getElementById('explanationTitle');
+        const explanationText = document.getElementById('explanationText');
+
+        const prevBtn = document.getElementById('prevBtn');
+        const prevText = document.getElementById('prevText');
+        const nextBtn = document.getElementById('nextBtn');
+        const nextText = document.getElementById('nextText');
+        const retryBtn = document.getElementById('retryBtn');
+        const retryText = document.getElementById('retryText');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultMotivationalQuote = document.getElementById('resultMotivationalQuote');
+
+        function initApp() {
+            updateLanguageUI();
+            renderSidebarLessons();
+            updateGlobalScore();
+            setRandomSidebarQuote();
+            setupEventListeners();
+            loadLesson(0);
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'hy' : 'en';
+            localStorage.setItem('picsart_cpp_lang', currentLang);
+            updateLanguageUI();
+            renderSidebarLessons();
+            loadLesson(currentLessonIndex);
+            if (!questionCard.classList.contains('hidden')) {
+                renderQuestion();
+            }
+        }
+
+        function updateLanguageUI() {
+            const t = translations[currentLang];
+            
+            if (currentLang === 'en') {
+                langFlag.textContent = '🇬🇧';
+                langText.textContent = 'English';
+            } else {
+                langFlag.textContent = '🇦🇲';
+                langText.textContent = 'Հայերեն';
+            }
+
+            headerSubtitle.textContent = t.headerSubtitle;
+            completedLabel.textContent = t.completed;
+            resetText.textContent = t.reset;
+            lessonsHeaderTitle.innerHTML = `<i class="fa-solid fa-book-bookmark text-purple-400"></i> ${t.lessons}`;
+            quoteTitle.textContent = t.quoteTitle;
+            startQuizText.textContent = t.startQuiz;
+            introTitle.textContent = t.introTitle;
+            introDesc.textContent = t.introDesc;
+            prevText.textContent = t.prev;
+            retryText.textContent = t.retake;
+            resultTitle.textContent = t.completedHeader;
+        }
+
+        function renderSidebarLessons() {
+            lessonsList.innerHTML = '';
+            lessonsData.forEach((lesson, index) => {
+                const isCompleted = userProgress[lesson.id] && userProgress[lesson.id].completed;
+                const isActive = index === currentLessonIndex;
+
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-3 rounded-xl transition flex items-start gap-3 border ${
+                    isActive 
+                    ? 'bg-purple-600/20 border-purple-500/50 text-white font-medium' 
+                    : 'bg-slate-800/40 hover:bg-slate-800 border-slate-800 text-slate-300'
+                }`;
+
+                btn.onclick = () => {
+                    currentLessonIndex = index;
+                    renderSidebarLessons();
+                    loadLesson(index);
+                    closeSidebar();
+                };
+
+                const titleText = lesson.title[currentLang];
+                const questionsCountText = currentLang === 'en' ? `${lesson.questions.length} Questions` : `${lesson.questions.length} Հարց`;
+
+                btn.innerHTML = `
+                    <div class="mt-0.5 w-6 h-6 rounded-lg ${isCompleted ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-700/50 text-slate-400'} flex items-center justify-center text-xs flex-shrink-0">
+                        ${isCompleted ? '<i class="fa-solid fa-check"></i>' : (index + 1)}
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="text-xs font-semibold ${isActive ? 'text-purple-300' : 'text-slate-200'} truncate">
+                            ${titleText}
+                        </div>
+                        <div class="text-[11px] text-slate-400 truncate mt-0.5">
+                            ${questionsCountText}
+                        </div>
+                    </div>
+                `;
+                lessonsList.appendChild(btn);
+            });
+        }
+
+        function loadLesson(index) {
+            currentLessonIndex = index;
+            currentQuestionIndex = 0;
+            selectedAnswers = {};
+
+            const lesson = lessonsData[index];
+            lessonBadge.textContent = `Lesson ${lesson.id}`;
+            lessonTopic.textContent = lesson.subtitle[currentLang];
+            lessonTitle.textContent = lesson.title[currentLang];
+
+            introCard.classList.remove('hidden');
+            questionCard.classList.add('hidden');
+            resultCard.classList.add('hidden');
+        }
+
+        function startQuiz() {
+            introCard.classList.add('hidden');
+            resultCard.classList.add('hidden');
+            questionCard.classList.remove('hidden');
+            renderQuestion();
+        }
+
+        function formatTextWithCode(rawText) {
+            if (!rawText.includes('```')) {
+                return rawText.replace(/`([^`]+)`/g, '<code class="bg-purple-950/80 text-purple-300 font-mono text-xs px-1.5 py-0.5 rounded border border-purple-800/50">$1</code>');
+            }
+
+            const parts = rawText.split('```');
+            let formatted = '';
+            for (let i = 0; i < parts.length; i++) {
+                if (i % 2 === 0) {
+                    formatted += parts[i].replace(/`([^`]+)`/g, '<code class="bg-purple-950/80 text-purple-300 font-mono text-xs px-1.5 py-0.5 rounded border border-purple-800/50">$1</code>');
+                } else {
+                    let codeContent = parts[i];
+                    if (codeContent.startsWith('cpp\n') || codeContent.startsWith('cpp')) {
+                        codeContent = codeContent.replace(/^cpp\n?/, '');
+                    }
+                    formatted += `<pre class="code-block">${escapeHtml(codeContent.trim())}</pre>`;
+                }
+            }
+            return formatted;
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        function renderQuestion() {
+            const t = translations[currentLang];
+            const lesson = lessonsData[currentLessonIndex];
+            const q = lesson.questions[currentQuestionIndex];
+
+            questionCounter.textContent = `${t.questionOf} ${currentQuestionIndex + 1} ${t.ofText} ${lesson.questions.length}`;
+            const pct = ((currentQuestionIndex + 1) / lesson.questions.length) * 100;
+            progressBar.style.width = `${pct}%`;
+
+            questionContainer.innerHTML = formatTextWithCode(q.text[currentLang]);
+            optionsContainer.innerHTML = '';
+
+            const selectedOpt = selectedAnswers[currentQuestionIndex];
+            const localizedOptions = q.options[currentLang];
+
+            localizedOptions.forEach((optText, idx) => {
+                const isOptCorrect = (idx === q.correct);
+                const optBtn = document.createElement('button');
+                optBtn.className = `w-full text-left p-3.5 rounded-xl border text-xs md:text-sm transition flex items-center justify-between group ${
+                    selectedOpt !== undefined
+                        ? (isOptCorrect 
+                            ? 'bg-emerald-950/40 border-emerald-500/60 text-emerald-200' 
+                            : (selectedOpt === idx ? 'bg-red-950/40 border-red-500/60 text-red-200' : 'bg-slate-800/30 border-slate-800 text-slate-400 opacity-60'))
+                        : 'bg-slate-800/50 hover:bg-slate-800 border-slate-700/60 text-slate-200 hover:border-purple-500/40'
+                }`;
+
+                optBtn.onclick = () => selectOption(idx);
+                if (selectedOpt !== undefined) optBtn.disabled = true;
+
+                let icon = `<div class="w-5 h-5 rounded-full border border-slate-600 group-hover:border-purple-400 flex items-center justify-center text-[10px] text-slate-400">${String.fromCharCode(65 + idx)}</div>`;
+                if (selectedOpt !== undefined) {
+                    if (isOptCorrect) {
+                        icon = `<i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>`;
+                    } else if (selectedOpt === idx) {
+                        icon = `<i class="fa-solid fa-circle-xmark text-red-400 text-base"></i>`;
+                    }
+                }
+
+                optBtn.innerHTML = `
+                    <span class="pr-3 leading-relaxed flex-1">${formatTextWithCode(optText)}</span>
+                    <span class="flex-shrink-0 ml-2">${icon}</span>
+                `;
+                optionsContainer.appendChild(optBtn);
+            });
+
+            if (selectedOpt !== undefined) {
+                const isSelectedCorrect = (selectedOpt === q.correct);
+                explanationBox.classList.remove('hidden');
+                explanationTitle.className = `flex items-center gap-2 font-semibold text-sm mb-1 ${isSelectedCorrect ? 'text-emerald-400' : 'text-amber-400'}`;
+                explanationTitle.innerHTML = isSelectedCorrect 
+                    ? `<i class="fa-solid fa-circle-check"></i> ${t.correctTitle}` 
+                    : `<i class="fa-solid fa-triangle-exclamation"></i> ${t.warningTitle}`;
+                explanationText.innerHTML = formatTextWithCode(q.explanation[currentLang]);
+            } else {
+                explanationBox.classList.add('hidden');
+            }
+
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.textContent = (currentQuestionIndex === lesson.questions.length - 1) ? t.finish : t.next;
+            nextText.textContent = (currentQuestionIndex === lesson.questions.length - 1) ? t.finish : t.next;
+        }
+
+        function selectOption(optionIndex) {
+            selectedAnswers[currentQuestionIndex] = optionIndex;
+            renderQuestion();
+        }
+
+        function nextQuestion() {
+            const t = translations[currentLang];
+            const lesson = lessonsData[currentLessonIndex];
+            if (selectedAnswers[currentQuestionIndex] === undefined) {
+                explanationBox.classList.remove('hidden');
+                explanationTitle.className = 'flex items-center gap-2 font-semibold text-sm mb-1 text-amber-400';
+                explanationTitle.innerHTML = `<i class="fa-solid fa-hand text-amber-400"></i> ${t.warningTitle}`;
+                explanationText.textContent = t.warningSelect;
+                return;
+            }
+
+            if (currentQuestionIndex < lesson.questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        function finishQuiz() {
+            const lesson = lessonsData[currentLessonIndex];
+            let score = 0;
+
+            lesson.questions.forEach((q, idx) => {
+                if (selectedAnswers[idx] !== undefined && selectedAnswers[idx] === q.correct) {
+                    score++;
+                }
+            });
+
+            const percentage = Math.round((score / lesson.questions.length) * 100);
+
+            userProgress[lesson.id] = {
+                completed: true,
+                score: score,
+                total: lesson.questions.length,
+                percentage: percentage
+            };
+            localStorage.setItem('picsart_cpp_progress', JSON.stringify(userProgress));
+            updateGlobalScore();
+            renderSidebarLessons();
+
+            questionCard.classList.add('hidden');
+            resultCard.classList.remove('hidden');
+
+            document.getElementById('scoreBadge').textContent = `${percentage}%`;
+            
+            const subtitleText = currentLang === 'en' 
+                ? `You answered ${score} out of ${lesson.questions.length} questions correctly.` 
+                : `Դուք ճիշտ պատասխանեցիք ${lesson.questions.length}-ից ${score} հարցին:`;
+            document.getElementById('scoreSubtitle').textContent = subtitleText;
+
+            const quotesList = motivationalQuotes[currentLang];
+            resultMotivationalQuote.textContent = quotesList[Math.floor(Math.random() * quotesList.length)];
+        }
+
+        function updateGlobalScore() {
+            const completedCount = Object.keys(userProgress).filter(id => userProgress[id].completed).length;
+            globalScore.textContent = `${completedCount} / ${lessonsData.length}`;
+        }
+
+        function setRandomSidebarQuote() {
+            const quotesList = motivationalQuotes[currentLang];
+            sidebarQuote.textContent = quotesList[Math.floor(Math.random() * quotesList.length)];
+        }
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebarBackdrop.classList.toggle('hidden');
+        }
+
+        function closeSidebar() {
+            sidebar.classList.add('-translate-x-full');
+            sidebarBackdrop.classList.add('hidden');
+        }
+
+        function setupEventListeners() {
+            startQuizBtn.addEventListener('click', startQuiz);
+            nextBtn.addEventListener('click', nextQuestion);
+            prevBtn.addEventListener('click', prevQuestion);
+            retryBtn.addEventListener('click', startQuiz);
+            langToggleBtn.addEventListener('click', toggleLanguage);
+
+            sidebarToggle.addEventListener('click', toggleSidebar);
+            sidebarBackdrop.addEventListener('click', closeSidebar);
+
+            resetProgressBtn.addEventListener('click', () => {
+                const t = translations[currentLang];
+                if (confirm(t.resetConfirm)) {
+                    localStorage.removeItem('picsart_cpp_progress');
+                    userProgress = {};
+                    updateGlobalScore();
+                    renderSidebarLessons();
+                    loadLesson(currentLessonIndex);
+                }
+            });
+        }
+
+        window.onload = initApp;
+    </script>
+</body>
+</html>
