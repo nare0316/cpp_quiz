@@ -1,0 +1,242 @@
+{
+  "id": 4,
+  "title": {
+    "en": "Lesson 4: Software Complexity & the Object Model (Booch, Ch. 1–2)",
+    "hy": "Դաս 4: Software Complexity և Object Model (Booch, Ch. 1–2)"
+  },
+  "subtitle": {
+    "en": "Fred Brooks, Miller's 7 ± 2, attributes of complex systems, canonical form, major elements of the object model",
+    "hy": "Fred Brooks, Miller-ի 7 ± 2, complex system-ների attribute-ները, canonical form, object model-ի major element-ները"
+  },
+  "questions": [
+    {
+      "text": {
+        "en": "What are the four fundamental elements that contribute to the inherent complexity of software according to Fred Brooks?",
+        "hy": "Fred Brooks-ի համաձայն՝ որո՞նք են software-ի ներհատուկ complexity-ին նպաստող չորս հիմնական տարրերը:"
+      },
+      "options": {
+        "en": [
+          "Hardware limitations, programmer inexperience, compiler bugs, and tight deadlines.",
+          "The complexity of the problem domain, difficulty of managing the development process, flexibility possible through software, and problems of characterizing the behavior of discrete systems.",
+          "Lack of design tools, database overhead, network latency, and memory leaks.",
+          "High cost of licenses, algorithmic inefficiency, non-standard syntax, and user resistance."
+        ],
+        "hy": [
+          "Hardware-ի սահմանափակումները, ծրագրավորողների անփորձությունը, compiler-ի bug-երը և սեղմ deadline-ները:",
+          "Problem domain-ի complexity-ն, development process-ի կառավարման դժվարությունը, software-ի միջոցով հնարավոր ճկունությունը և discrete system-ների behavior-ը բնութագրելու խնդիրները:",
+          "Design tool-երի բացակայությունը, database-ի overhead-ը, network latency-ն և memory leak-երը:",
+          "License-ների բարձր արժեքը, ալգորիթմական անարդյունավետությունը, ոչ ստանդարտ syntax-ը և user-ների դիմադրությունը:"
+        ]
+      },
+      "correct": 1,
+      "explanation": {
+        "en": "Brooks and Booch name four sources of software's inherent complexity: the problem domain itself, managing the development process, the flexibility software offers, and the difficulty of characterizing the behavior of discrete systems.",
+        "hy": "Brooks-ը և Booch-ը software-ի ներհատուկ complexity-ի չորս աղբյուր են նշում՝ հենց problem domain-ը, development process-ի կառավարումը, software-ի առաջարկած ճկունությունը և discrete system-ների behavior-ը բնութագրելու դժվարությունը:"
+      }
+    },
+    {
+      "text": {
+        "en": "What is the maximum number of chunks of information that an individual can simultaneously comprehend according to George Miller’s psychological experiments?",
+        "hy": "George Miller-ի հոգեբանական փորձերի համաձայն՝ տեղեկատվության առավելագույնը քանի՞ chunk կարող է անհատը միաժամանակ ընկալել:"
+      },
+      "options": ["3 ± 1", "5 ± 2", "7 ± 2", "12 ± 4"],
+      "correct": 2,
+      "explanation": {
+        "en": "Miller's experiments showed that a person can hold about 7 ± 2 chunks of information at once. This limit is why complex systems must be decomposed into smaller parts.",
+        "hy": "Miller-ի փորձերը ցույց տվեցին, որ մարդը միաժամանակ կարող է պահել տեղեկատվության մոտ 7 ± 2 chunk: Հենց այս սահմանի պատճառով complex system-ները պետք է բաժանվեն ավելի փոքր մասերի:"
+      }
+    },
+    {
+      "text": {
+        "en": "Which of the following is NOT one of the five attributes common to all complex systems?",
+        "hy": "Հետևյալներից ո՞րը ՉԷ բոլոր complex system-ներին ընդհանուր հինգ attribute-ներից մեկը:"
+      },
+      "options": [
+        "Hierarchic Structure",
+        "Separation of Concerns",
+        "Stable Intermediate Forms",
+        "Continuous State Uniformity"
+      ],
+      "correct": 3,
+      "explanation": {
+        "en": "Booch's five attributes are: hierarchic structure, relative primitives, separation of concerns, common patterns, and stable intermediate forms. \"Continuous State Uniformity\" is not one of them.",
+        "hy": "Booch-ի հինգ attribute-ներն են՝ hierarchic structure, relative primitives, separation of concerns, common patterns և stable intermediate forms: \"Continuous State Uniformity\"-ն դրանց թվում չէ:"
+      }
+    },
+    {
+      "text": {
+        "en": "In the canonical form of a complex system, what do the class structure and object structure represent, respectively?",
+        "hy": "Complex system-ի canonical form-ում ի՞նչ են ներկայացնում համապատասխանաբար class structure-ը և object structure-ը:"
+      },
+      "options": {
+        "en": [
+          "Class structure represents execution order; object structure represents memory addresses.",
+          "Class structure represents the \"is a\" hierarchy, while object structure represents the \"part of\" hierarchy.",
+          "Class structure represents dynamic runtime events; object structure represents static source files.",
+          "Class structure represents database schemas; object structure represents network protocols."
+        ],
+        "hy": [
+          "Class structure-ը ներկայացնում է execution order-ը, իսկ object structure-ը՝ memory address-ները:",
+          "Class structure-ը ներկայացնում է \"is a\" hierarchy-ն, իսկ object structure-ը՝ \"part of\" hierarchy-ն:",
+          "Class structure-ը ներկայացնում է dynamic runtime event-ները, իսկ object structure-ը՝ static source file-երը:",
+          "Class structure-ը ներկայացնում է database schema-ները, իսկ object structure-ը՝ network protocol-ները:"
+        ]
+      },
+      "correct": 1,
+      "explanation": {
+        "en": "The class structure is the \"is a\" hierarchy (generalization/specialization through inheritance), and the object structure is the \"part of\" hierarchy (objects composed of other objects).",
+        "hy": "Class structure-ը \"is a\" hierarchy-ն է (generalization/specialization inheritance-ի միջոցով), իսկ object structure-ը՝ \"part of\" hierarchy-ն (այլ object-ներից կազմված object-ներ):"
+      }
+    },
+    {
+      "text": {
+        "en": "How does an aggregation relationship (\"part of\") differ semantically from an inheritance relationship (\"is a\")?",
+        "hy": "Ինչպե՞ս է aggregation relationship-ը (\"part of\") իմաստային առումով տարբերվում inheritance relationship-ից (\"is a\"):"
+      },
+      "options": {
+        "en": [
+          "Aggregation creates dynamic state transitions, whereas inheritance strictly defines memory-mapped register locations.",
+          "Aggregation represents physical or logical containment of components within a whole, whereas inheritance represents generalization/specialization of structure and behavior.",
+          "Aggregation applies only to primitive data types, while inheritance applies only to active objects.",
+          "Aggregation is illegal in object-oriented design, whereas inheritance is mandatory for all classes."
+        ],
+        "hy": [
+          "Aggregation-ը ստեղծում է dynamic state transition-ներ, իսկ inheritance-ը խիստ սահմանում է memory-mapped register-ների դիրքերը:",
+          "Aggregation-ը ներկայացնում է whole-ի ներսում component-ների ֆիզիկական կամ տրամաբանական containment, իսկ inheritance-ը՝ structure-ի և behavior-ի generalization/specialization:",
+          "Aggregation-ը կիրառվում է միայն primitive data type-երի նկատմամբ, իսկ inheritance-ը՝ միայն active object-ների:",
+          "Aggregation-ն անթույլատրելի է object-oriented design-ում, իսկ inheritance-ը պարտադիր է բոլոր class-երի համար:"
+        ]
+      },
+      "correct": 1,
+      "explanation": {
+        "en": "Aggregation says a whole contains its parts (a car has an engine), while inheritance says one class is a specialization of another (a truck is a vehicle).",
+        "hy": "Aggregation-ն ասում է, որ whole-ը պարունակում է իր մասերը (մեքենան ունի engine), իսկ inheritance-ն ասում է, որ մի class մյուսի specialization-ն է (truck-ը vehicle է):"
+      }
+    },
+    {
+      "text": {
+        "en": "What does the property of \"persistence\" encompass within the object model?",
+        "hy": "Ի՞նչ է ընդգրկում \"persistence\" հատկությունը object model-ում:"
+      },
+      "options": {
+        "en": [
+          "The mandatory requirement that all transient variable expressions be written directly to physical disk memory.",
+          "The degree to which an object's existence transcends time (outliving its creator program) and/or space (moving across address spaces).",
+          "The ability of a program to execute without any runtime exceptions or crashes.",
+          "The continuous retention of CPU register values during process context switches."
+        ],
+        "hy": [
+          "Պարտադիր պահանջ, որ բոլոր transient variable expression-ները գրվեն անմիջապես ֆիզիկական disk memory-ում:",
+          "Այն աստիճանը, որով object-ի գոյությունը դուրս է գալիս time-ի (գերազանցում է իրեն ստեղծած program-ի կյանքը) և/կամ space-ի (տեղափոխվում է address space-երի միջև) սահմաններից:",
+          "Program-ի՝ առանց runtime exception-ների կամ crash-երի աշխատելու ունակությունը:",
+          "Process context switch-երի ժամանակ CPU register-ների արժեքների անընդհատ պահպանումը:"
+        ]
+      },
+      "correct": 1,
+      "explanation": {
+        "en": "Persistence is the property of an object through which its existence transcends time (it outlives the program that created it) and/or space (it moves from the address space where it was created).",
+        "hy": "Persistence-ը object-ի այն հատկությունն է, որի շնորհիվ նրա գոյությունը դուրս է գալիս time-ի (ապրում է իրեն ստեղծած program-ից երկար) և/կամ space-ի (տեղափոխվում է այն address space-ից, որտեղ ստեղծվել էր) սահմաններից:"
+      }
+    },
+    {
+      "text": {
+        "en": "Which collection consists strictly of the four MAJOR elements of the object model?",
+        "hy": "Հետևյալներից ո՞ր հավաքածուն է բաղկացած խիստ object model-ի չորս MAJOR element-ներից:"
+      },
+      "options": {
+        "en": [
+          "Abstraction, Typing, Concurrency, and Persistence",
+          "Abstraction, Encapsulation, Modularity, and Hierarchy",
+          "Encapsulation, Polymorphism, Inheritance, and Modularity",
+          "Hierarchy, Typing, Concurrency, and Encapsulation"
+        ],
+        "hy": [
+          "Abstraction, Typing, Concurrency և Persistence",
+          "Abstraction, Encapsulation, Modularity և Hierarchy",
+          "Encapsulation, Polymorphism, Inheritance և Modularity",
+          "Hierarchy, Typing, Concurrency և Encapsulation"
+        ]
+      },
+      "correct": 1,
+      "explanation": {
+        "en": "The four major elements are abstraction, encapsulation, modularity and hierarchy. Typing, concurrency and persistence are the three minor elements.",
+        "hy": "Չորս major element-ներն են՝ abstraction, encapsulation, modularity և hierarchy: Typing-ը, concurrency-ն և persistence-ը երեք minor element-ներն են:"
+      }
+    },
+    {
+      "text": {
+        "en": "What is the primary purpose of encapsulation (information hiding) in object-oriented design?",
+        "hy": "Ո՞րն է encapsulation-ի (information hiding) հիմնական նպատակը object-oriented design-ում:"
+      },
+      "options": {
+        "en": [
+          "To obscure source code so that competitors cannot reverse-engineer it.",
+          "To separate the contractual interface of an abstraction from its implementation, shielding clients from internal secrets.",
+          "To force all classes to inherit from a single root superclass.",
+          "To prevent objects from communicating with one another via message passing."
+        ],
+        "hy": [
+          "Source code-ը թաքցնել, որպեսզի մրցակիցները չկարողանան reverse-engineer անել:",
+          "Բաժանել abstraction-ի contractual interface-ը իր implementation-ից՝ client-ներին պաշտպանելով ներքին գաղտնիքներից:",
+          "Ստիպել բոլոր class-երին inherit անել մեկ root superclass-ից:",
+          "Կանխել object-ների՝ message passing-ի միջոցով միմյանց հետ հաղորդակցվելը:"
+        ]
+      },
+      "correct": 1,
+      "explanation": {
+        "en": "Encapsulation hides the implementation details behind a stable interface, so clients depend only on the contract and the implementation can change without breaking them.",
+        "hy": "Encapsulation-ը թաքցնում է implementation-ի մանրամասները կայուն interface-ի հետևում, ուստի client-ները կախված են միայն contract-ից, և implementation-ը կարող է փոխվել առանց նրանց կոտրելու:"
+      }
+    },
+    {
+      "text": {
+        "en": "According to Booch, what guidelines should govern intelligent modularization?",
+        "hy": "Booch-ի համաձայն՝ ի՞նչ ուղենիշներ պետք է կարգավորեն խելամիտ modularization-ը:"
+      },
+      "options": {
+        "en": [
+          "High coupling between all modules and low internal cohesion.",
+          "Creating a separate module for every single individual function or variable.",
+          "Grouping logically related abstractions into cohesive modules while keeping dependencies among modules loosely coupled.",
+          "Eliminating module boundaries completely to allow global data sharing."
+        ],
+        "hy": [
+          "Բոլոր module-ների միջև բարձր coupling և ցածր ներքին cohesion:",
+          "Յուրաքանչյուր առանձին function-ի կամ variable-ի համար առանձին module ստեղծել:",
+          "Տրամաբանորեն կապված abstraction-ները խմբավորել cohesive module-ների մեջ՝ module-ների միջև dependency-ները պահելով loosely coupled:",
+          "Ամբողջությամբ վերացնել module-ների սահմանները՝ global data sharing-ը թույլ տալու համար:"
+        ]
+      },
+      "correct": 2,
+      "explanation": {
+        "en": "Good modularization means high cohesion inside each module and low (loose) coupling between modules.",
+        "hy": "Լավ modularization-ը նշանակում է բարձր cohesion յուրաքանչյուր module-ի ներսում և ցածր (loose) coupling module-ների միջև:"
+      }
+    },
+    {
+      "text": {
+        "en": "What is polymorphism in the context of object-oriented programming?",
+        "hy": "Ի՞նչ է polymorphism-ը object-oriented programming-ի համատեքստում:"
+      },
+      "options": {
+        "en": [
+          "The technique of converting source code into multiple target machine architectures.",
+          "A concept where a single name may denote objects of many different classes related by a common superclass, responding to a common set of operations.",
+          "The ability to run multiple threads simultaneously on a single CPU core.",
+          "The process of saving object state to a relational database table."
+        ],
+        "hy": [
+          "Source code-ը մի քանի target machine architecture-ների համար փոխակերպելու տեխնիկան:",
+          "Concept, որտեղ մեկ անունը կարող է նշանակել common superclass-ով կապված տարբեր class-երի object-ներ, որոնք արձագանքում են operation-ների ընդհանուր հավաքածուի:",
+          "Մեկ CPU core-ի վրա միաժամանակ բազմաթիվ thread-եր աշխատեցնելու ունակությունը:",
+          "Object-ի state-ը relational database table-ում պահպանելու գործընթացը:"
+        ]
+      },
+      "correct": 1,
+      "explanation": {
+        "en": "With polymorphism, one name (or one call) can work with objects of different classes that share a common superclass, and each object responds in its own way.",
+        "hy": "Polymorphism-ի դեպքում մեկ անունը (կամ մեկ կանչը) կարող է աշխատել common superclass ունեցող տարբեր class-երի object-ների հետ, և յուրաքանչյուր object արձագանքում է յուրովի:"
+      }
+    }
+  ]
+}
