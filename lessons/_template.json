@@ -1,0 +1,37 @@
+{
+  "id": 3,
+  "title": {
+    "en": "Lesson 3: Title in English",
+    "hy": "Դաս 3: Վերնագիրը հայերեն"
+  },
+  "subtitle": {
+    "en": "Topic 1, Topic 2, Topic 3",
+    "hy": "Թեմա 1, Թեմա 2, Թեմա 3"
+  },
+  "questions": [
+    {
+      "text": {
+        "en": "Question text? Use `inline code` with backticks.",
+        "hy": "Հարցի տեքստը՝ `inline code`-ը backtick-ներով:"
+      },
+      "options": {
+        "en": ["Option A", "Option B", "Option C", "Option D"],
+        "hy": ["Տարբերակ A", "Տարբերակ B", "Տարբերակ C", "Տարբերակ D"]
+      },
+      "correct": 1,
+      "explanation": {
+        "en": "Why B is correct.",
+        "hy": "Ինչու է B-ն ճիշտ:"
+      }
+    },
+    {
+      "text": {
+        "en": "Question with a code block:\n\n```cpp\nint x = 10;\n```",
+        "hy": "Հարց կոդի բլոկով՝\n\n```cpp\nint x = 10;\n```"
+      },
+      "options": ["Same in both languages", "Options can be a plain array", "when text is identical", "like this"],
+      "correct": 0,
+      "explanation": "Explanation can also be a plain string if it is the same in both languages."
+    }
+  ]
+}

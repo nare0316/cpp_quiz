@@ -1,0 +1,280 @@
+{
+  "id": 1,
+  "title": {
+    "en": "Lesson 1: C++ Fundamentals & Paradigms",
+    "hy": "Դաս 1: C++ Հիմունքներ և Պարադիգմներ"
+  },
+  "subtitle": {
+    "en": "Bell Labs, Dennis Ritchie, First-Class Citizens, nullptr & ODR",
+    "hy": "Bell Labs, Դենիս Ռիչի, First-Class Citizens, nullptr և ODR"
+  },
+  "questions": [
+    {
+      "text": {
+        "en": "In which laboratory were C and C++ created?",
+        "hy": "Ո՞ր լաբորատորիայում են ստեղծվել C և C++ ծրագրավորման լեզուները:"
+      },
+      "options": [
+        "MIT CS Lab",
+        "Bell Labs (Bell Laboratories)",
+        "Xerox PARC",
+        "IBM Research"
+      ],
+      "correct": 1,
+      "explanation": {
+        "en": "Both C (Dennis Ritchie) and C++ (Bjarne Stroustrup) were created at Bell Labs.",
+        "hy": "C-ն (Դենիս Ռիչի) և C++-ը (Բյառն Ստրաուստրուպ) երկուսն էլ ստեղծվել են Bell Labs-ում:"
+      }
+    },
+    {
+      "text": {
+        "en": "Who created the C++ programming language?",
+        "hy": "Ո՞վ է ստեղծել C++ ծրագրավորման լեզուն:"
+      },
+      "options": {
+        "en": [
+          "Dennis Ritchie",
+          "Bjarne Stroustrup",
+          "Ken Thompson",
+          "Guido van Rossum"
+        ],
+        "hy": [
+          "Դենիս Ռիչի",
+          "Բյառն Ստրաուստրուպ (Bjarne Stroustrup)",
+          "Քեն Թոմսոն",
+          "Գվիդո վան Ռոսում"
+        ]
+      },
+      "correct": 1,
+      "explanation": {
+        "en": "C++ was created by Bjarne Stroustrup at Bell Labs.",
+        "hy": "C++-ը ստեղծել է Բյառն Ստրաուստրուպը Bell Labs-ում:"
+      }
+    },
+    {
+      "text": {
+        "en": "Are functions First-Class Citizens in C?",
+        "hy": "Արդյո՞ք ֆունկցիաները C-ում համարվում են First-Class Citizens:"
+      },
+      "options": {
+        "en": [
+          "Yes, functions in C can be passed and returned directly.",
+          "No, C functions cannot be passed or returned directly without pointers.",
+          "Only arrays are first-class citizens.",
+          "Only applies to SQL databases."
+        ],
+        "hy": [
+          "Այո, C-ում ֆունկցիաները կարող են ուղղակիորեն փոխանցվել և վերադարձվել։",
+          "Ոչ, C-ում ֆունկցիան առաջին կարգի քաղաքացի չէ, քանի որ չի կարող ուղղակիորեն փոխանցվել կամ վերադարձվել առանց pointers-ի։",
+          "Առաջին կարգի քաղաքացիներ են միայն զանգվածները:",
+          "Վերաբերում է միայն SQL-ին։"
+        ]
+      },
+      "correct": 1,
+      "explanation": {
+        "en": "In C, functions cannot be passed or returned directly without pointers.",
+        "hy": "C-ում ֆունկցիաներն առանց pointer-ների չեն կարող ուղղակիորեն փոխանցվել կամ վերադարձվել:"
+      }
+    },
+    {
+      "text": {
+        "en": "What is a deterministic function?",
+        "hy": "Ի՞նչ է դետերմինիստիկ ֆունկցիան (Deterministic function):"
+      },
+      "options": {
+        "en": [
+          "A function that depends on external state.",
+          "A function that always returns the same output for the same inputs and has no external state dependencies.",
+          "A function returning void.",
+          "A function using random numbers."
+        ],
+        "hy": [
+          "Ֆունկցիա, որի աշխատանքը կախված է արտաքին state-ից:",
+          "Ֆունկցիա, որը միևնույն մուտքային արժեքների դեպքում միշտ վերադարձնում է միևնույն արդյունքը և չունի կախվածություն արտաքին state-ից:",
+          "Void վերադարձնող ֆունկցիա:",
+          "Random թվերի հետ աշխատող ֆունկցիա:"
+        ]
+      },
+      "correct": 1,
+      "explanation": {
+        "en": "Deterministic functions yield predictable outputs without side effects.",
+        "hy": "Դետերմինիստիկ ֆունկցիան միևնույն մուտքային տվյալների դեպքում միշտ տալիս է նույն արդյունքը:"
+      }
+    },
+    {
+      "text": {
+        "en": "What is the C++ recommendation regarding C-style casts?",
+        "hy": "Ո՞րն է C++-ի մոտեցումը C-style cast-երի վերաբերյալ:"
+      },
+      "options": {
+        "en": [
+          "C++ encourages using C-style casts.",
+          "C-style casts bypass strict type checking, so C++ recommends using safer C++ casts.",
+          "C-style casts cause compilation errors.",
+          "C-style casts apply only to returns."
+        ],
+        "hy": [
+          "C++-ը խրախուսում է C-style cast-երը:",
+          "C-style cast-ը անտեսում է տիպերի խիստ ստուգումը, ուստի C++-ում խորհուրդ է տրվում օգտագործել ավելի անվտանգ C++ cast-եր:",
+          "C-style cast-ը կոմպիլյացիայի սխալ է առաջացնում:",
+          "Վերաբերում է միայն return-ներին:"
+        ]
+      },
+      "correct": 1,
+      "explanation": {
+        "en": "C++ cast operators provide type safety compared to C-style casting.",
+        "hy": "C++ cast-երն ավելի անվտանգ են տիպերի ստուգման տեսանկյունից:"
+      }
+    },
+    {
+      "text": {
+        "en": "How does nullptr differ from NULL in C++?",
+        "hy": "Ինչո՞վ է nullptr-ը տարբերվում NULL-ից C++-ում:"
+      },
+      "options": {
+        "en": [
+          "nullptr is a type-safe null pointer literal (std::nullptr_t), whereas NULL is often defined as 0 or (void*)0.",
+          "They are completely identical.",
+          "nullptr works only in C.",
+          "NULL is newer than nullptr."
+        ],
+        "hy": [
+          "nullptr-ը type-safe null pointer literal է (std::nullptr_t), իսկ NULL-ը հաճախ 0 է կամ (void*)0:",
+          "Դրանք բացարձակապես նույնն են:",
+          "nullptr-ն աշխատում է միայն C-ում:",
+          "NULL-ն ավելի նոր է, քան nullptr-ը:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "nullptr eliminates ambiguities in function overloading.",
+        "hy": "nullptr-ը կանխում է տիպերի անհամապատասխանությունները function overloading-ի ժամանակ:"
+      }
+    },
+    {
+      "text": {
+        "en": "What is the primary difference between class and struct in C++?",
+        "hy": "Ո՞րն է հիմնական տարբերությունը class-ի և struct-ի միջև C++-ում:"
+      },
+      "options": {
+        "en": [
+          "Structs cannot contain methods.",
+          "Structs allocate memory differently.",
+          "Default access specifier: members are public by default in struct, and private in class.",
+          "Structs are not allowed in C++."
+        ],
+        "hy": [
+          "Struct-ը չի կարող ունենալ ֆունկցիաներ:",
+          "Struct-ում հիշողությունն այլ կերպ է հատկացվում:",
+          "Default visibility modifier-ը. struct-ում public է, իսկ class-ում՝ private:",
+          "Struct-ն արգելված է C++-ում:"
+        ]
+      },
+      "correct": 2,
+      "explanation": {
+        "en": "Class and struct in C++ differ only by their default access specifier.",
+        "hy": "C++-ում class-ն ու struct-ը տարբերվում են միայն default visibility modifier-ով:"
+      }
+    },
+    {
+      "text": {
+        "en": "What are std::cin and std::cout in C++?",
+        "hy": "Ի՞նչ են std::cin-ը և std::cout-ը C++-ում:"
+      },
+      "options": {
+        "en": [
+          "Type-safe stream objects that do not require explicit format specifiers.",
+          "Slower C macros.",
+          "File-only operations.",
+          "Legacy tools."
+        ],
+        "hy": [
+          "Type-safe stream օբյեկտներ, որոնք չեն պահանջում format specifiers (%d, %s):",
+          "Դանդաղ C macro-ներ:",
+          "Միայն ֆայլերի հետ աշխատող գործիքներ:",
+          "Հնացած C++ գործիքներ:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "C++ streams manage type inference automatically.",
+        "hy": "C++ stream-երն ավտոմատ որոշում են տվյալների տիպը:"
+      }
+    },
+    {
+      "text": {
+        "en": "What is Generic Programming in C++?",
+        "hy": "Ի՞նչ է Generic Programming-ը C++-ում:"
+      },
+      "options": {
+        "en": [
+          "Writing algorithms/data structures independent of types using templates.",
+          "Using void* for all data types.",
+          "C-only technique.",
+          "SQL pattern."
+        ],
+        "hy": [
+          "Ալգորիթմների կամ տվյալների կառուցվածքների գրում տիպերից անկախ՝ template-ների միջոցով:",
+          "Void* օգտագործում բոլոր փոփոխականների համար:",
+          "Միայն C-ին հատուկ մեթոդ:",
+          "SQL հարցումների մեթոդ:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "Templates enable type-independent implementation.",
+        "hy": "Template-ները թույլ են տալիս գրել ընդհանրացված կոդ տիպերից անկախ:"
+      }
+    },
+    {
+      "text": {
+        "en": "What is the One Definition Rule (ODR)?",
+        "hy": "Ի՞նչ է One Definition Rule-ը (ODR) C++-ում:"
+      },
+      "options": {
+        "en": [
+          "An entity can only be defined once within a given scope; namespaces prevent collisions.",
+          "Functions must be 1 line.",
+          "Namespaces remove classes.",
+          "Global scope allows 10 identical variables."
+        ],
+        "hy": [
+          "Սուբյեկտը տվյալ scope-ում կարող է սահմանվել միայն մեկ անգամ. namespace-երը կանխում են անունների բախումը:",
+          "Ֆունկցիան պետք է լինի 1 տող:",
+          "Namespace-ը ջնջում է class-ները:",
+          "Գլոբալ տիրույթը թույլ է տալիս նույն անունով 10 փոփոխական:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "ODR requires single definition per entity within a translation unit.",
+        "hy": "ODR-ը պահանջում է կրկնվող սահմանումների բացառում:"
+      }
+    },
+    {
+      "text": {
+        "en": "What is a Range-based for loop in C++?",
+        "hy": "Ի՞նչ է Range-based for loop-ը C++-ում:"
+      },
+      "options": {
+        "en": [
+          "Syntax sugar for iterating over collections cleanly.",
+          "Infinite loop syntax.",
+          "Switch-case loop.",
+          "Function caller."
+        ],
+        "hy": [
+          "Syntax sugar collection-ներով հեշտությամբ պտտվելու համար:",
+          "Անվերջ loop-ի տեսակ:",
+          "Switch-case-ի մեջ աշխատող loop:",
+          "Ֆունկցիայի կանչման ձև:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "Range-based loops simplify iterator syntax.",
+        "hy": "Range-based for loop-ը հեշտացնում է տարրերով պտտվելը:"
+      }
+    }
+  ]
+}

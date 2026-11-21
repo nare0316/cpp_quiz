@@ -1,0 +1,255 @@
+{
+  "id": 2,
+  "title": {
+    "en": "Lesson 2: Function Overloading & Value Categories",
+    "hy": "Դաս 2: Function Overloading և Value Categories"
+  },
+  "subtitle": {
+    "en": "Overload Resolution Order, Name Mangling, Lvalue & Rvalue Mechanics",
+    "hy": "Overload Resolution Order, Name Mangling, Lvalue և Rvalue մեխանիզմներ"
+  },
+  "questions": [
+    {
+      "text": {
+        "en": "What is Function Overloading in C++, and can functions be overloaded ONLY by their return type?",
+        "hy": "Ի՞նչ է Function Overloading-ը C++-ում, և կարո՞ղ են ֆունկցիաները overload լինել ՄԻԱՅՆ իրենց return type-ով:"
+      },
+      "options": {
+        "en": [
+          "Having functions with the same name but different parameters; functions CANNOT be overloaded by return type alone.",
+          "Having functions with different names; return type overloading is fully supported.",
+          "Creating global macros; return types determine priority.",
+          "Renaming variables at runtime; return type must be void."
+        ],
+        "hy": [
+          "Նույն անունով, բայց տարբեր պարամետրերով ֆունկցիաների ստեղծում․ ֆունկցիաները ՉԵՆ ԿԱՐՈՂ overload լինել միայն return type-ով:",
+          "Տարբեր անուններով ֆունկցիաների ստեղծում․ return type-ով overloading-ը լիովին աջակցվում է:",
+          "Գլոբալ macro-ների ստեղծում, որտեղ return type-ը որոշում է առավելությունը:",
+          "Runtime-ում փոփոխականների վերանվանում, որտեղ return type-ը պետք է լինի void:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "Function overloading requires different parameter lists (count, types, or order). Overloading solely by return type causes a compilation error because the compiler cannot determine which function to call.",
+        "hy": "Function overloading-ը պահանջում է տարբեր parameter list-եր (քանակ, տիպեր կամ հաջորդականություն)։ Միայն return type-ով overload անելը կոմպիլյացիայի սխալ է առաջացնում, քանի որ կանչելիս կոմպիլյատորը չի կարող որոշել, թե որ ֆունկցիան պետք է ընտրի:"
+      }
+    },
+    {
+      "text": {
+        "en": "Which priority sequence does the C++ compiler use during Overload Resolution?",
+        "hy": "Ի՞նչ հաջորդականությամբ է C++ կոմպիլյատորը ստուգում համապատասխանությունը Overload Resolution-ի ժամանակ:"
+      },
+      "options": [
+        "1. Exact Match -> 2. Integral Promotion -> 3. Standard Conversion -> 4. User-Defined Conversion",
+        "1. User-Defined Conversion -> 2. Standard Conversion -> 3. Integral Promotion -> 4. Exact Match",
+        "1. Integral Promotion -> 2. User-Defined Conversion -> 3. Exact Match -> 4. Standard Conversion",
+        "1. Standard Conversion -> 2. Exact Match -> 3. Integral Promotion -> 4. User-Defined Conversion"
+      ],
+      "correct": 0,
+      "explanation": {
+        "en": "The compiler searches for exact type matches first. If unavailable, it checks for Integral Promotion (e.g., char to int), then Standard Conversions (e.g., int to double), and finally User-Defined Conversions (constructors/conversion operators).",
+        "hy": "Կոմպիլյատորը նախ փնտրում է ճշգրիտ համընկնում (Exact Match)։ Եթե այն չկա, ստուգում է Integral Promotion (օր․՝ char -> int), ապա Standard Conversions (օր․՝ int -> double), և ամենավերջում՝ User-Defined Conversions (constructor-ներ կամ conversion operator-ներ):"
+      }
+    },
+    {
+      "text": {
+        "en": "Given the following C++ functions, which overload will be executed when calling `print('A')`?\n\n```cpp\nvoid print(int x);\nvoid print(double x);\n```",
+        "hy": "Տրված C++ ֆունկցիաների դեպքում `print('A')` կանչելիս ո՞ր overload-ը կկանչվի:\n\n```cpp\nvoid print(int x);\nvoid print(double x);\n```"
+      },
+      "options": {
+        "en": [
+          "`print(int x)` because char undergoes Integral Promotion to int.",
+          "`print(double x)` because character code converts directly to floating point.",
+          "It produces a compilation ambiguity error.",
+          "Neither; char cannot be passed to numeric functions."
+        ],
+        "hy": [
+          "`print(int x)`-ը, քանի որ char-ը ենթարկվում է Integral Promotion-ի դեպի int:",
+          "`print(double x)`-ը, քանի որ char-ը միանգամից փոխակերպվում է double-ի:",
+          "Այն առաջացնում է կոմպիլյացիայի ambiguity (անորոշության) սխալ:",
+          "Ոչ մեկը, քանի որ char-ը չի կարող փոխանցվել թվային ֆունկցիային:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "Passing a `char` to `print('A')` promotes `char` to `int` via Integral Promotion, which takes precedence over Standard Conversion to `double`.",
+        "hy": "`print('A')` կանչելիս `char` տիպը Integral Promotion-ի միջոցով դառնում է `int`, իսկ Promotion-ն ունի ավելի բարձր առաջնահերթություն, քան Standard Conversion-ը դեպի `double`:"
+      }
+    },
+    {
+      "text": {
+        "en": "What is Name Mangling (Name Decoration) in C++ compilers?",
+        "hy": "Ի՞նչ է Name Mangling-ը (Name Decoration) C++ կոմպիլյատորներում:"
+      },
+      "options": {
+        "en": [
+          "A process where the compiler encodes function names with parameter type details to support function overloading at the linker level.",
+          "A syntax error handling procedure for inline functions.",
+          "A runtime technique for dynamic memory allocation.",
+          "A feature that converts C++ functions into pure C code."
+        ],
+        "hy": [
+          "Գործընթաց, որտեղ կոմպիլյատորը ֆունկցիայի անվանը ավելացնում է պարամետրերի տիպերի ինֆորմացիան՝ Linker-ի մակարդակում Function Overloading-ը ապահովելու համար:",
+          "Սինտաքսային սխալների մշակման ընթացակարգ inline ֆունկցիաների համար:",
+          "Runtime մեթոդ՝ հիշողության դինամիկ հատկացման համար:",
+          "Հնարավորություն, որը C++ ֆունկցիաները ձևափոխում է C-ական կոդի:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "Because linkers require unique symbol names, C++ compilers use Name Mangling to transform function names (e.g., `print(int)` becomes `_Z5printi`) incorporating parameter signatures.",
+        "hy": "Քանի որ Linker-ին անհրաժեշտ են ունիկալ սիմվոլներ, C++ կոմպիլյատորն օգտագործում է Name Mangling, որպեսզի ֆունկցիայի անվան մեջ կոդավորի պարամետրերի տիպերը (օր․՝ `print(int)`-ը դարձնելով `_Z5printi`):"
+      }
+    },
+    {
+      "text": {
+        "en": "What defines an Lvalue expression in C++?",
+        "hy": "Ի՞նչն է սահմանում Lvalue արտահայտությունը C++-ում:"
+      },
+      "options": {
+        "en": [
+          "An expression that identifies a persistent memory location (has an accessible memory address) and can usually appear on the left side of an assignment.",
+          "A temporary value that disappears immediately after statement evaluation.",
+          "Literal values such as 42 or 3.14.",
+          "A function return value returned by value."
+        ],
+        "hy": [
+          "Արտահայտություն, որն ունի հիշողության մեջ հստակ հասցե (identifiable memory location) և սովորաբար կարող է գտնվել վերագրման նշանի ձախ կողմում:",
+          "Ժամանակավոր արժեք, որը չնչանում է հրամանի աշխատանքից անմիջապես հետո:",
+          "Լիտերալ արժեքներ, ինչպիսիք են 42-ը կամ 3.14-ը:",
+          "Ֆունկցիայի վերադարձրած արժեք, որը վերադարձվել է by value:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "An Lvalue (locator value) represents an object that occupies an identifiable location in memory. You can take its address using the `&` operator.",
+        "hy": "Lvalue-ն (locator value) ներկայացնում է օբյեկտ, որն ունի հիշողության մեջ որոշակի հասցե։ Դուք կարող եք վերցնել նրա հասցեն `&` օպերատորով:"
+      }
+    },
+    {
+      "text": {
+        "en": "What defines an Rvalue expression in C++?",
+        "hy": "Ի՞նչն է սահմանում Rvalue արտահայտությունը C++-ում:"
+      },
+      "options": {
+        "en": [
+          "A temporary expression that does not have a persistent memory address and typically resides on the right side of an assignment.",
+          "A named variable with a long lifetime.",
+          "A global structure with a fixed memory address.",
+          "A reference returned from a function."
+        ],
+        "hy": [
+          "Ժամանակավոր արտահայտություն, որը չունի հիշողության մշտական հասցե և սովորաբար գտնվում է վերագրման նշանի աջ կողմում:",
+          "Անվանված փոփոխական՝ երկար կյանքի տևողությամբ:",
+          "Գլոբալ structure՝ հիշողության ֆիքսված հասցեով:",
+          "Ֆունկցիայից վերադարձված reference:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "Rvalues represent temporary objects or literals (e.g., `10`, `x + y`, or temporary function return values) that do not persist beyond the expression evaluation statement.",
+        "hy": "Rvalue-ն ներկայացնում է ժամանակավոր օբյեկտներ կամ լիտերալներ (օր․՝ `10`, `x + y` կամ ֆունկցիայի վերադարձրած ժամանակավոր արժեքներ), որոնք չունեն մշտական հասցե հիշողության մեջ:"
+      }
+    },
+    {
+      "text": {
+        "en": "In the code snippet below, what categories do `x` and `20` belong to?\n\n```cpp\nint x = 10;\nx = 20;\n```",
+        "hy": "Հետևյալ կոդի կտորում ո՞ր կատեգորիաներին են պատկանում `x`-ը և `20`-ը:\n\n```cpp\nint x = 10;\nx = 20;\n```"
+      },
+      "options": {
+        "en": [
+          "`x` is an Lvalue; `20` is an Rvalue.",
+          "`x` is an Rvalue; `20` is an Lvalue.",
+          "Both `x` and `20` are Lvalues.",
+          "Both `x` and `20` are Rvalues."
+        ],
+        "hy": [
+          "`x`-ը Lvalue է, իսկ `20`-ը՝ Rvalue:",
+          "`x`-ը Rvalue է, իսկ `20`-ը՝ Lvalue:",
+          "Երկուսն էլ (`x`-ն ու `20`-ը) Lvalue են:",
+          "Երկուսն էլ (`x`-ն ու `20`-ը) Rvalue են:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "`x` has a persistent memory address (Lvalue), whereas `20` is a literal constant without a persistent address (Rvalue).",
+        "hy": "`x`-ն ունի հիշողության հասցե (Lvalue է), իսկ `20`-ը լիտերալ հաստատուն է առանց հիշողության մշտական հասցեի (Rvalue է):"
+      }
+    },
+    {
+      "text": {
+        "en": "What happens during an Lvalue-to-Rvalue conversion in C++?",
+        "hy": "Ի՞նչ է տեղի ունենում Lvalue-to-Rvalue conversion-ի ժամանակ C++-ում:"
+      },
+      "options": {
+        "en": [
+          "The compiler reads the value stored at an Lvalue's memory location to use it as an Rvalue in an expression (e.g., `y = x`).",
+          "The compiler converts a temporary variable into a global object.",
+          "The memory address of an object is permanently modified.",
+          "A reference is created automatically on the heap."
+        ],
+        "hy": [
+          "Կոմպիլյատորը կարդում է Lvalue-ի հասցեում պահված արժեքը՝ այն արտահայտության մեջ որպես Rvalue օգտագործելու համար (օր․՝ `y = x`):",
+          "Կոմպիլյատորը ժամանակավոր փոփոխականը դարձնում է գլոբալ օբյեկտ:",
+          "Օբյեկտի հիշողության հասցեն մշտապես փոխվում է:",
+          "Heap-ում ավտոմատ կերպով ստեղծվում է reference:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "When evaluating `y = x;`, `x` is an Lvalue, but the expression fetches its stored value (e.g. 10), performing an Lvalue-to-Rvalue conversion to assign it to `y`.",
+        "hy": "`y = x;` արտահայտությունը կատարելիս `x`-ը Lvalue է, սակայն նրա մեջ պահված արժեքը կարդացվում է որպես Rvalue (Lvalue-to-Rvalue conversion)՝ `y`-ին վերագրելու համար:"
+      }
+    },
+    {
+      "text": {
+        "en": "Can a `const Lvalue` expression appear on the left side of an assignment operator?",
+        "hy": "Կարո՞ղ է `const Lvalue` արտահայտությունը գտնվել վերագրման օպերատորի ձախ կողմում:"
+      },
+      "options": {
+        "en": [
+          "No, because a const Lvalue is non-modifiable, resulting in a compilation error.",
+          "Yes, because all Lvalues can be modified freely.",
+          "Yes, provided it is cast implicitly to double.",
+          "Only if it is declared inside a namespace."
+        ],
+        "hy": [
+          "Ոչ, քանի որ const Lvalue-ն non-modifiable (անփոփոխելի) է, ինչը կբերի կոմպիլյացիայի սխալի:",
+          "Այո, քանի որ բոլոր Lvalue-ները կարող են ազատորեն փոխվել:",
+          "Այո, եթե այն implicit քաստվի double-ի:",
+          "Միայն այն դեպքում, եթե հայտարարված է namespace-ի ներսում:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "Although `const int c = 5;` is an Lvalue (has a memory address), it is non-modifiable. Assigning `c = 10;` is rejected by the compiler.",
+        "hy": "Չնայած `const int c = 5;`-ն ունի հիշողության հասցե (Lvalue է), այն non-modifiable է։ `c = 10;` վերագրումը կոմպիլյատորի կողմից կարգելվի:"
+      }
+    },
+    {
+      "text": {
+        "en": "Consider the code below. What does `&x` represent and why is `&10` invalid?\n\n```cpp\nint x = 10;\nint* ptr = &x; // Valid\n// int* ptr2 = &10; // Invalid\n```",
+        "hy": "Դիտարկենք հետևյալ կոդը։ Ի՞նչ է ներկայացնում `&x`-ը, և ինչո՞ւ է `&10`-ն անթույլատրելի:\n\n```cpp\nint x = 10;\nint* ptr = &x; // Valid\n// int* ptr2 = &10; // Invalid\n```"
+      },
+      "options": {
+        "en": [
+          "`&x` takes the address of an Lvalue; `&10` fails because 10 is an Rvalue literal without an addressable memory location.",
+          "`&10` fails because numeric literals are stored on the stack.",
+          "`&x` fails at runtime while `&10` works only with pointers.",
+          "Both expressions are invalid in C++11 and later."
+        ],
+        "hy": [
+          "`&x`-ը վերցնում է Lvalue-ի հասցեն, իսկ `&10`-ն սխալ է, քանի որ 10-ը Rvalue լիտերալ է և չունի հասցեավորվող հիշողություն:",
+          "`&10`-ն սխալ է, քանի որ թվային լիտերալները պահվում են stack-ում:",
+          "`&x`-ը սխալվում է runtime-ում, իսկ `&10`-ն աշխատում է միայն pointer-ների հետ:",
+          "Երկուսն էլ անթույլատրելի են C++11 և ավելի նոր ստանդարտներում:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "The address-of operator `&` requires an Lvalue operand. Taking the address of an Rvalue literal like `10` causes a compilation error.",
+        "hy": "Address-of (`&`) օպերատորը պահանջում է Lvalue օպերանդ։ Rvalue լիտերալի (ինչպիսին է `10`-ը) հասցեն վերցնելու փորձը առաջացնում է կոմպիլյացիայի սխալ:"
+      }
+    }
+  ]
+}

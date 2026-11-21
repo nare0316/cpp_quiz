@@ -2,6 +2,9 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=d2aae201-2efb-4ee6-8dc1-0afa4ff0c06a
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Picsart Academy 2.5 | C++ Course</title>
     <!-- Tailwind CSS CDN -->
@@ -265,6 +268,9 @@
         const translations = {
             en: {
                 headerSubtitle: "C++ Fundamentals & Interactive Quizzes",
+                lessonWord: "Lesson",
+                questionsWord: "Questions",
+                loadError: "Could not load lessons. Please try again later.",
                 completed: "Completed:",
                 reset: "Reset",
                 lessons: "Lessons",
@@ -287,6 +293,9 @@
             },
             hy: {
                 headerSubtitle: "C++ Ծրագրավորման Հիմունքներ և Թեստեր",
+                lessonWord: "Դաս",
+                questionsWord: "Հարց",
+                loadError: "Չհաջողվեց բեռնել դասերը։ Խնդրում ենք փորձել մի փոքր ուշ։",
                 completed: "Ավարտված՝",
                 reset: "Զրոյացնել",
                 lessons: "Դասեր",
@@ -328,560 +337,27 @@
             ]
         };
 
-        const lessonsData = [
-            {
-                id: 1,
-                title: {
-                    en: "Lesson 1: C++ Fundamentals & Paradigms",
-                    hy: "Դաս 1: C++ Հիմունքներ և Պարադիգմներ"
-                },
-                subtitle: {
-                    en: "Bell Labs, Dennis Ritchie, First-Class Citizens, nullptr & ODR",
-                    hy: "Bell Labs, Դենիս Ռիչի, First-Class Citizens, nullptr և ODR"
-                },
-                questions: [
-                    {
-                        id: 1,
-                        text: {
-                            en: "In which laboratory were C and C++ created?",
-                            hy: "Ո՞ր լաբորատորիայում են ստեղծվել C և C++ ծրագրավորման լեզուները:"
-                        },
-                        options: {
-                            en: ["MIT CS Lab", "Bell Labs (Bell Laboratories)", "Xerox PARC", "IBM Research"],
-                            hy: ["MIT CS Lab", "Bell Labs (Bell Laboratories)", "Xerox PARC", "IBM Research"]
-                        },
-                        correct: 1,
-                        explanation: {
-                            en: "Both C (Dennis Ritchie) and C++ (Bjarne Stroustrup) were created at Bell Labs.",
-                            hy: "C-ն (Դենիս Ռիչի) և C++-ը (Բյառն Ստրաուստրուպ) երկուսն էլ ստեղծվել են Bell Labs-ում:"
-                        }
-                    },
-                    {
-                        id: 2,
-                        text: {
-                            en: "Who created the C++ programming language?",
-                            hy: "Ո՞վ է ստեղծել C++ ծրագրավորման լեզուն:"
-                        },
-                        options: {
-                            en: ["Dennis Ritchie", "Bjarne Stroustrup", "Ken Thompson", "Guido van Rossum"],
-                            hy: ["Դենիս Ռիչի", "Բյառն Ստրաուստրուպ (Bjarne Stroustrup)", "Քեն Թոմսոն", "Գվիդո վան Ռոսում"]
-                        },
-                        correct: 1,
-                        explanation: {
-                            en: "C++ was created by Bjarne Stroustrup at Bell Labs.",
-                            hy: "C++-ը ստեղծել է Բյառն Ստրաուստրուպը Bell Labs-ում:"
-                        }
-                    },
-                    {
-                        id: 3,
-                        text: {
-                            en: "Are functions First-Class Citizens in C?",
-                            hy: "Արդյո՞ք ֆունկցիաները C-ում համարվում են First-Class Citizens:"
-                        },
-                        options: {
-                            en: [
-                                "Yes, functions in C can be passed and returned directly.",
-                                "No, C functions cannot be passed or returned directly without pointers.",
-                                "Only arrays are first-class citizens.",
-                                "Only applies to SQL databases."
-                            ],
-                            hy: [
-                                "Այո, C-ում ֆունկցիաները կարող են ուղղակիորեն փոխանցվել և վերադարձվել։",
-                                "Ոչ, C-ում ֆունկցիան առաջին կարգի քաղաքացի չէ, քանի որ չի կարող ուղղակիորեն փոխանցվել կամ վերադարձվել առանց pointers-ի։",
-                                "Առաջին կարգի քաղաքացիներ են միայն զանգվածները:",
-                                "Վերաբերում է միայն SQL-ին։"
-                            ]
-                        },
-                        correct: 1,
-                        explanation: {
-                            en: "In C, functions cannot be passed or returned directly without pointers.",
-                            hy: "C-ում ֆունկցիաներն առանց pointer-ների չեն կարող ուղղակիորեն փոխանցվել կամ վերադարձվել:"
-                        }
-                    },
-                    {
-                        id: 4,
-                        text: {
-                            en: "What is a deterministic function?",
-                            hy: "Ի՞նչ է դետերմինիստիկ ֆունկցիան (Deterministic function):"
-                        },
-                        options: {
-                            en: [
-                                "A function that depends on external state.",
-                                "A function that always returns the same output for the same inputs and has no external state dependencies.",
-                                "A function returning void.",
-                                "A function using random numbers."
-                            ],
-                            hy: [
-                                "Ֆունկցիա, որի աշխատանքը կախված է արտաքին state-ից:",
-                                "Ֆունկցիա, որը միևնույն մուտքային արժեքների դեպքում միշտ վերադարձնում է միևնույն արդյունքը և չունի կախվածություն արտաքին state-ից:",
-                                "Void վերադարձնող ֆունկցիա:",
-                                "Random թվերի հետ աշխատող ֆունկցիա:"
-                            ]
-                        },
-                        correct: 1,
-                        explanation: {
-                            en: "Deterministic functions yield predictable outputs without side effects.",
-                            hy: "Դետերմինիստիկ ֆունկցիան միևնույն մուտքային տվյալների դեպքում միշտ տալիս է նույն արդյունքը:"
-                        }
-                    },
-                    {
-                        id: 5,
-                        text: {
-                            en: "What is the C++ recommendation regarding C-style casts?",
-                            hy: "Ո՞րն է C++-ի մոտեցումը C-style cast-երի վերաբերյալ:"
-                        },
-                        options: {
-                            en: [
-                                "C++ encourages using C-style casts.",
-                                "C-style casts bypass strict type checking, so C++ recommends using safer C++ casts.",
-                                "C-style casts cause compilation errors.",
-                                "C-style casts apply only to returns."
-                            ],
-                            hy: [
-                                "C++-ը խրախուսում է C-style cast-երը:",
-                                "C-style cast-ը անտեսում է տիպերի խիստ ստուգումը, ուստի C++-ում խորհուրդ է տրվում օգտագործել ավելի անվտանգ C++ cast-եր:",
-                                "C-style cast-ը կոմպիլյացիայի սխալ է առաջացնում:",
-                                "Վերաբերում է միայն return-ներին:"
-                            ]
-                        },
-                        correct: 1,
-                        explanation: {
-                            en: "C++ cast operators provide type safety compared to C-style casting.",
-                            hy: "C++ cast-երն ավելի անվտանգ են տիպերի ստուգման տեսանկյունից:"
-                        }
-                    },
-                    {
-                        id: 6,
-                        text: {
-                            en: "How does nullptr differ from NULL in C++?",
-                            hy: "Ինչո՞վ է nullptr-ը տարբերվում NULL-ից C++-ում:"
-                        },
-                        options: {
-                            en: [
-                                "nullptr is a type-safe null pointer literal (std::nullptr_t), whereas NULL is often defined as 0 or (void*)0.",
-                                "They are completely identical.",
-                                "nullptr works only in C.",
-                                "NULL is newer than nullptr."
-                            ],
-                            hy: [
-                                "nullptr-ը type-safe null pointer literal է (std::nullptr_t), իսկ NULL-ը հաճախ 0 է կամ (void*)0:",
-                                "Դրանք բացարձակապես նույնն են:",
-                                "nullptr-ն աշխատում է միայն C-ում:",
-                                "NULL-ն ավելի նոր է, քան nullptr-ը:"
-                            ]
-                        },
-                        correct: 0,
-                        explanation: {
-                            en: "nullptr eliminates ambiguities in function overloading.",
-                            hy: "nullptr-ը կանխում է տիպերի անհամապատասխանությունները function overloading-ի ժամանակ:"
-                        }
-                    },
-                    {
-                        id: 7,
-                        text: {
-                            en: "What is the primary difference between class and struct in C++?",
-                            hy: "Ո՞րն է հիմնական տարբերությունը class-ի և struct-ի միջև C++-ում:"
-                        },
-                        options: {
-                            en: [
-                                "Structs cannot contain methods.",
-                                "Structs allocate memory differently.",
-                                "Default access specifier: members are public by default in struct, and private in class.",
-                                "Structs are not allowed in C++."
-                            ],
-                            hy: [
-                                "Struct-ը չի կարող ունենալ ֆունկցիաներ:",
-                                "Struct-ում հիշողությունն այլ կերպ է հատկացվում:",
-                                "Default visibility modifier-ը. struct-ում public է, իսկ class-ում՝ private:",
-                                "Struct-ն արգելված է C++-ում:"
-                            ]
-                        },
-                        correct: 2,
-                        explanation: {
-                            en: "Class and struct in C++ differ only by their default access specifier.",
-                            hy: "C++-ում class-ն ու struct-ը տարբերվում են միայն default visibility modifier-ով:"
-                        }
-                    },
-                    {
-                        id: 8,
-                        text: {
-                            en: "What are std::cin and std::cout in C++?",
-                            hy: "Ի՞նչ են std::cin-ը և std::cout-ը C++-ում:"
-                        },
-                        options: {
-                            en: [
-                                "Type-safe stream objects that do not require explicit format specifiers.",
-                                "Slower C macros.",
-                                "File-only operations.",
-                                "Legacy tools."
-                            ],
-                            hy: [
-                                "Type-safe stream օբյեկտներ, որոնք չեն պահանջում format specifiers (%d, %s):",
-                                "Դանդաղ C macro-ներ:",
-                                "Միայն ֆայլերի հետ աշխատող գործիքներ:",
-                                "Հնացած C++ գործիքներ:"
-                            ]
-                        },
-                        correct: 0,
-                        explanation: {
-                            en: "C++ streams manage type inference automatically.",
-                            hy: "C++ stream-երն ավտոմատ որոշում են տվյալների տիպը:"
-                        }
-                    },
-                    {
-                        id: 9,
-                        text: {
-                            en: "What is Generic Programming in C++?",
-                            hy: "Ի՞նչ է Generic Programming-ը C++-ում:"
-                        },
-                        options: {
-                            en: [
-                                "Writing algorithms/data structures independent of types using templates.",
-                                "Using void* for all data types.",
-                                "C-only technique.",
-                                "SQL pattern."
-                            ],
-                            hy: [
-                                "Ալգորիթմների կամ տվյալների կառուցվածքների գրում տիպերից անկախ՝ template-ների միջոցով:",
-                                "Void* օգտագործում բոլոր փոփոխականների համար:",
-                                "Միայն C-ին հատուկ մեթոդ:",
-                                "SQL հարցումների մեթոդ:"
-                            ]
-                        },
-                        correct: 0,
-                        explanation: {
-                            en: "Templates enable type-independent implementation.",
-                            hy: "Template-ները թույլ են տալիս գրել ընդհանրացված կոդ տիպերից անկախ:"
-                        }
-                    },
-                    {
-                        id: 10,
-                        text: {
-                            en: "What is the One Definition Rule (ODR)?",
-                            hy: "Ի՞նչ է One Definition Rule-ը (ODR) C++-ում:"
-                        },
-                        options: {
-                            en: [
-                                "An entity can only be defined once within a given scope; namespaces prevent collisions.",
-                                "Functions must be 1 line.",
-                                "Namespaces remove classes.",
-                                "Global scope allows 10 identical variables."
-                            ],
-                            hy: [
-                                "Սուբյեկտը տվյալ scope-ում կարող է սահմանվել միայն մեկ անգամ. namespace-երը կանխում են անունների բախումը:",
-                                "Ֆունկցիան պետք է լինի 1 տող:",
-                                "Namespace-ը ջնջում է class-ները:",
-                                "Գլոբալ տիրույթը թույլ է տալիս նույն անունով 10 փոփոխական:"
-                            ]
-                        },
-                        correct: 0,
-                        explanation: {
-                            en: "ODR requires single definition per entity within a translation unit.",
-                            hy: "ODR-ը պահանջում է կրկնվող սահմանումների բացառում:"
-                        }
-                    },
-                    {
-                        id: 11,
-                        text: {
-                            en: "What is a Range-based for loop in C++?",
-                            hy: "Ի՞նչ է Range-based for loop-ը C++-ում:"
-                        },
-                        options: {
-                            en: [
-                                "Syntax sugar for iterating over collections cleanly.",
-                                "Infinite loop syntax.",
-                                "Switch-case loop.",
-                                "Function caller."
-                            ],
-                            hy: [
-                                "Syntax sugar collection-ներով հեշտությամբ պտտվելու համար:",
-                                "Անվերջ loop-ի տեսակ:",
-                                "Switch-case-ի մեջ աշխատող loop:",
-                                "Ֆունկցիայի կանչման ձև:"
-                            ]
-                        },
-                        correct: 0,
-                        explanation: {
-                            en: "Range-based loops simplify iterator syntax.",
-                            hy: "Range-based for loop-ը հեշտացնում է տարրերով պտտվելը:"
-                        }
-                    }
-                ]
-            },
-            {
-                id: 2,
-                title: {
-                    en: "Lesson 2: Function Overloading & Value Categories",
-                    hy: "Դաս 2: Function Overloading և Value Categories"
-                },
-                subtitle: {
-                    en: "Overload Resolution Order, Name Mangling, Lvalue & Rvalue Mechanics",
-                    hy: "Overload Resolution Order, Name Mangling, Lvalue և Rvalue մեխանիզմներ"
-                },
-                questions: [
-                    {
-                        id: 1,
-                        text: {
-                            en: "What is Function Overloading in C++, and can functions be overloaded ONLY by their return type?",
-                            hy: "Ի՞նչ է Function Overloading-ը C++-ում, և կարո՞ղ են ֆունկցիաները overload լինել ՄԻԱՅՆ իրենց return type-ով:"
-                        },
-                        options: {
-                            en: [
-                                "Having functions with the same name but different parameters; functions CANNOT be overloaded by return type alone.",
-                                "Having functions with different names; return type overloading is fully supported.",
-                                "Creating global macros; return types determine priority.",
-                                "Renaming variables at runtime; return type must be void."
-                            ],
-                            hy: [
-                                "Նույն անունով, բայց տարբեր պարամետրերով ֆունկցիաների ստեղծում․ ֆունկցիաները ՉԵՆ ԿԱՐՈՂ overload լինել միայն return type-ով:",
-                                "Տարբեր անուններով ֆունկցիաների ստեղծում․ return type-ով overloading-ը լիովին աջակցվում է:",
-                                "Գլոբալ macro-ների ստեղծում, որտեղ return type-ը որոշում է առավելությունը:",
-                                "Runtime-ում փոփոխականների վերանվանում, որտեղ return type-ը պետք է լինի void:"
-                            ]
-                        },
-                        correct: 0,
-                        explanation: {
-                            en: "Function overloading requires different parameter lists (count, types, or order). Overloading solely by return type causes a compilation error because the compiler cannot determine which function to call.",
-                            hy: "Function overloading-ը պահանջում է տարբեր parameter list-եր (քանակ, տիպեր կամ հաջորդականություն)։ Միայն return type-ով overload անելը կոմպիլյացիայի սխալ է առաջացնում, քանի որ կանչելիս կոմպիլյատորը չի կարող որոշել, թե որ ֆունկցիան պետք է ընտրի:"
-                        }
-                    },
-                    {
-                        id: 2,
-                        text: {
-                            en: "Which priority sequence does the C++ compiler use during Overload Resolution?",
-                            hy: "Ի՞նչ հաջորդականությամբ է C++ կոմպիլյատորը ստուգում համապատասխանությունը Overload Resolution-ի ժամանակ:"
-                        },
-                        options: {
-                            en: [
-                                "1. Exact Match -> 2. Integral Promotion -> 3. Standard Conversion -> 4. User-Defined Conversion",
-                                "1. User-Defined Conversion -> 2. Standard Conversion -> 3. Integral Promotion -> 4. Exact Match",
-                                "1. Integral Promotion -> 2. User-Defined Conversion -> 3. Exact Match -> 4. Standard Conversion",
-                                "1. Standard Conversion -> 2. Exact Match -> 3. Integral Promotion -> 4. User-Defined Conversion"
-                            ],
-                            hy: [
-                                "1. Exact Match -> 2. Integral Promotion -> 3. Standard Conversion -> 4. User-Defined Conversion",
-                                "1. User-Defined Conversion -> 2. Standard Conversion -> 3. Integral Promotion -> 4. Exact Match",
-                                "1. Integral Promotion -> 2. User-Defined Conversion -> 3. Exact Match -> 4. Standard Conversion",
-                                "1. Standard Conversion -> 2. Exact Match -> 3. Integral Promotion -> 4. User-Defined Conversion"
-                            ]
-                        },
-                        correct: 0,
-                        explanation: {
-                            en: "The compiler searches for exact type matches first. If unavailable, it checks for Integral Promotion (e.g., char to int), then Standard Conversions (e.g., int to double), and finally User-Defined Conversions (constructors/conversion operators).",
-                            hy: "Կոմպիլյատորը նախ փնտրում է ճշգրիտ համընկնում (Exact Match)։ Եթե այն չկա, ստուգում է Integral Promotion (օր․՝ char -> int), ապա Standard Conversions (օր․՝ int -> double), և ամենավերջում՝ User-Defined Conversions (constructor-ներ կամ conversion operator-ներ):"
-                        }
-                    },
-                    {
-                        id: 3,
-                        text: {
-                            en: "Given the following C++ functions, which overload will be executed when calling `print('A')`?\n\n```cpp\nvoid print(int x);\nvoid print(double x);\n```",
-                            hy: "Տրված C++ ֆունկցիաների դեպքում `print('A')` կանչելիս ո՞ր overload-ը կկանչվի:\n\n```cpp\nvoid print(int x);\nvoid print(double x);\n```"
-                        },
-                        options: {
-                            en: [
-                                "`print(int x)` because char undergoes Integral Promotion to int.",
-                                "`print(double x)` because character code converts directly to floating point.",
-                                "It produces a compilation ambiguity error.",
-                                "Neither; char cannot be passed to numeric functions."
-                            ],
-                            hy: [
-                                "`print(int x)`-ը, քանի որ char-ը ենթարկվում է Integral Promotion-ի դեպի int:",
-                                "`print(double x)`-ը, քանի որ char-ը միանգամից փոխակերպվում է double-ի:",
-                                "Այն առաջացնում է կոմպիլյացիայի ambiguity (անորոշության) սխալ:",
-                                "Ոչ մեկը, քանի որ char-ը չի կարող փոխանցվել թվային ֆունկցիային:"
-                            ]
-                        },
-                        correct: 0,
-                        explanation: {
-                            en: "Passing a `char` to `print('A')` promotes `char` to `int` via Integral Promotion, which takes precedence over Standard Conversion to `double`.",
-                            hy: "`print('A')` կանչելիս `char` տիպը Integral Promotion-ի միջոցով դառնում է `int`, իսկ Promotion-ն ունի ավելի բարձր առաջնահերթություն, քան Standard Conversion-ը դեպի `double`:"
-                        }
-                    },
-                    {
-                        id: 4,
-                        text: {
-                            en: "What is Name Mangling (Name Decoration) in C++ compilers?",
-                            hy: "Ի՞նչ է Name Mangling-ը (Name Decoration) C++ կոմպիլյատորներում:"
-                        },
-                        options: {
-                            en: [
-                                "A process where the compiler encodes function names with parameter type details to support function overloading at the linker level.",
-                                "A syntax error handling procedure for inline functions.",
-                                "A runtime technique for dynamic memory allocation.",
-                                "A feature that converts C++ functions into pure C code."
-                            ],
-                            hy: [
-                                "Գործընթաց, որտեղ կոմպիլյատորը ֆունկցիայի անվանը ավելացնում է պարամետրերի տիպերի ինֆորմացիան՝ Linker-ի մակարդակում Function Overloading-ը ապահովելու համար:",
-                                "Սինտաքսային սխալների մշակման ընթացակարգ inline ֆունկցիաների համար:",
-                                "Runtime մեթոդ՝ հիշողության դինամիկ հատկացման համար:",
-                                "Հնարավորություն, որը C++ ֆունկցիաները ձևափոխում է C-ական կոդի:"
-                            ]
-                        },
-                        correct: 0,
-                        explanation: {
-                            en: "Because linkers require unique symbol names, C++ compilers use Name Mangling to transform function names (e.g., `print(int)` becomes `_Z5printi`) incorporating parameter signatures.",
-                            hy: "Քանի որ Linker-ին անհրաժեշտ են ունիկալ սիմվոլներ, C++ կոմպիլյատորն օգտագործում է Name Mangling, որպեսզի ֆունկցիայի անվան մեջ կոդավորի պարամետրերի տիպերը (օր․՝ `print(int)`-ը դարձնելով `_Z5printi`):"
-                        }
-                    },
-                    {
-                        id: 5,
-                        text: {
-                            en: "What defines an Lvalue expression in C++?",
-                            hy: "Ի՞նչն է սահմանում Lvalue արտահայտությունը C++-ում:"
-                        },
-                        options: {
-                            en: [
-                                "An expression that identifies a persistent memory location (has an accessible memory address) and can usually appear on the left side of an assignment.",
-                                "A temporary value that disappears immediately after statement evaluation.",
-                                "Literal values such as 42 or 3.14.",
-                                "A function return value returned by value."
-                            ],
-                            hy: [
-                                "Արտահայտություն, որն ունի հիշողության մեջ հստակ հասցե (identifiable memory location) և սովորաբար կարող է գտնվել վերագրման նշանի ձախ կողմում:",
-                                "Ժամանակավոր արժեք, որը չնչանում է հրամանի աշխատանքից անմիջապես հետո:",
-                                "Լիտերալ արժեքներ, ինչպիսիք են 42-ը կամ 3.14-ը:",
-                                "Ֆունկցիայի վերադարձրած արժեք, որը վերադարձվել է by value:"
-                            ]
-                        },
-                        correct: 0,
-                        explanation: {
-                            en: "An Lvalue (locator value) represents an object that occupies an identifiable location in memory. You can take its address using the `&` operator.",
-                            hy: "Lvalue-ն (locator value) ներկայացնում է օբյեկտ, որն ունի հիշողության մեջ որոշակի հասցե։ Դուք կարող եք վերցնել նրա հասցեն `&` օպերատորով:"
-                        }
-                    },
-                    {
-                        id: 6,
-                        text: {
-                            en: "What defines an Rvalue expression in C++?",
-                            hy: "Ի՞նչն է սահմանում Rvalue արտահայտությունը C++-ում:"
-                        },
-                        options: {
-                            en: [
-                                "A temporary expression that does not have a persistent memory address and typically resides on the right side of an assignment.",
-                                "A named variable with a long lifetime.",
-                                "A global structure with a fixed memory address.",
-                                "A reference returned from a function."
-                            ],
-                            hy: [
-                                "Ժամանակավոր արտահայտություն, որը չունի հիշողության մշտական հասցե և սովորաբար գտնվում է վերագրման նշանի աջ կողմում:",
-                                "Անվանված փոփոխական՝ երկար կյանքի տևողությամբ:",
-                                "Գլոբալ structure՝ հիշողության ֆիքսված հասցեով:",
-                                "Ֆունկցիայից վերադարձված reference:"
-                            ]
-                        },
-                        correct: 0,
-                        explanation: {
-                            en: "Rvalues represent temporary objects or literals (e.g., `10`, `x + y`, or temporary function return values) that do not persist beyond the expression evaluation statement.",
-                            hy: "Rvalue-ն ներկայացնում է ժամանակավոր օբյեկտներ կամ լիտերալներ (օր․՝ `10`, `x + y` կամ ֆունկցիայի վերադարձրած ժամանակավոր արժեքներ), որոնք չունեն մշտական հասցե հիշողության մեջ:"
-                        }
-                    },
-                    {
-                        id: 7,
-                        text: {
-                            en: "In the code snippet below, what categories do `x` and `20` belong to?\n\n```cpp\nint x = 10;\nx = 20;\n```",
-                            hy: "Հետևյալ կոդի կտորում ո՞ր կատեգորիաներին են պատկանում `x`-ը և `20`-ը:\n\n```cpp\nint x = 10;\nx = 20;\n```"
-                        },
-                        options: {
-                            en: [
-                                "`x` is an Lvalue; `20` is an Rvalue.",
-                                "`x` is an Rvalue; `20` is an Lvalue.",
-                                "Both `x` and `20` are Lvalues.",
-                                "Both `x` and `20` are Rvalues."
-                            ],
-                            hy: [
-                                "`x`-ը Lvalue է, իսկ `20`-ը՝ Rvalue:",
-                                "`x`-ը Rvalue է, իսկ `20`-ը՝ Lvalue:",
-                                "Երկուսն էլ (`x`-ն ու `20`-ը) Lvalue են:",
-                                "Երկուսն էլ (`x`-ն ու `20`-ը) Rvalue են:"
-                            ]
-                        },
-                        correct: 0,
-                        explanation: {
-                            en: "`x` has a persistent memory address (Lvalue), whereas `20` is a literal constant without a persistent address (Rvalue).",
-                            hy: "`x`-ն ունի հիշողության հասցե (Lvalue է), իսկ `20`-ը լիտերալ հաստատուն է առանց հիշողության մշտական հասցեի (Rvalue է):"
-                        }
-                    },
-                    {
-                        id: 8,
-                        text: {
-                            en: "What happens during an Lvalue-to-Rvalue conversion in C++?",
-                            hy: "Ի՞նչ է տեղի ունենում Lvalue-to-Rvalue conversion-ի ժամանակ C++-ում:"
-                        },
-                        options: {
-                            en: [
-                                "The compiler reads the value stored at an Lvalue's memory location to use it as an Rvalue in an expression (e.g., `y = x`).",
-                                "The compiler converts a temporary variable into a global object.",
-                                "The memory address of an object is permanently modified.",
-                                "A reference is created automatically on the heap."
-                            ],
-                            hy: [
-                                "Կոմպիլյատորը կարդում է Lvalue-ի հասցեում պահված արժեքը՝ այն արտահայտության մեջ որպես Rvalue օգտագործելու համար (օր․՝ `y = x`):",
-                                "Կոմպիլյատորը ժամանակավոր փոփոխականը դարձնում է գլոբալ օբյեկտ:",
-                                "Օբյեկտի հիշողության հասցեն մշտապես փոխվում է:",
-                                "Heap-ում ավտոմատ կերպով ստեղծվում է reference:"
-                            ]
-                        },
-                        correct: 0,
-                        explanation: {
-                            en: "When evaluating `y = x;`, `x` is an Lvalue, but the expression fetches its stored value (e.g. 10), performing an Lvalue-to-Rvalue conversion to assign it to `y`.",
-                            hy: "`y = x;` արտահայտությունը կատարելիս `x`-ը Lvalue է, սակայն նրա մեջ պահված արժեքը կարդացվում է որպես Rvalue (Lvalue-to-Rvalue conversion)՝ `y`-ին վերագրելու համար:"
-                        }
-                    },
-                    {
-                        id: 9,
-                        text: {
-                            en: "Can a `const Lvalue` expression appear on the left side of an assignment operator?",
-                            hy: "Կարո՞ղ է `const Lvalue` արտահայտությունը գտնվել վերագրման օպերատորի ձախ կողմում:"
-                        },
-                        options: {
-                            en: [
-                                "No, because a const Lvalue is non-modifiable, resulting in a compilation error.",
-                                "Yes, because all Lvalues can be modified freely.",
-                                "Yes, provided it is cast implicitly to double.",
-                                "Only if it is declared inside a namespace."
-                            ],
-                            hy: [
-                                "Ոչ, քանի որ const Lvalue-ն non-modifiable (անփոփոխելի) է, ինչը կբերի կոմպիլյացիայի սխալի:",
-                                "Այո, քանի որ բոլոր Lvalue-ները կարող են ազատորեն փոխվել:",
-                                "Այո, եթե այն implicit քաստվի double-ի:",
-                                "Միայն այն դեպքում, եթե հայտարարված է namespace-ի ներսում:"
-                            ]
-                        },
-                        correct: 0,
-                        explanation: {
-                            en: "Although `const int c = 5;` is an Lvalue (has a memory address), it is non-modifiable. Assigning `c = 10;` is rejected by the compiler.",
-                            hy: "Չնայած `const int c = 5;`-ն ունի հիշողության հասցե (Lvalue է), այն non-modifiable է։ `c = 10;` վերագրումը կոմպիլյատորի կողմից կարգելվի:"
-                        }
-                    },
-                    {
-                        id: 10,
-                        text: {
-                            en: "Consider the code below. What does `&x` represent and why is `&10` invalid?\n\n```cpp\nint x = 10;\nint* ptr = &x; // Valid\n// int* ptr2 = &10; // Invalid\n```",
-                            hy: "Դիտարկենք հետևյալ կոդը։ Ի՞նչ է ներկայացնում `&x`-ը, և ինչո՞ւ է `&10`-ն անթույլատրելի:\n\n```cpp\nint x = 10;\nint* ptr = &x; // Valid\n// int* ptr2 = &10; // Invalid\n```"
-                        },
-                        options: {
-                            en: [
-                                "`&x` takes the address of an Lvalue; `&10` fails because 10 is an Rvalue literal without an addressable memory location.",
-                                "`&10` fails because numeric literals are stored on the stack.",
-                                "`&x` fails at runtime while `&10` works only with pointers.",
-                                "Both expressions are invalid in C++11 and later."
-                            ],
-                            hy: [
-                                "`&x`-ը վերցնում է Lvalue-ի հասցեն, իսկ `&10`-ն սխալ է, քանի որ 10-ը Rvalue լիտերալ է և չունի հասցեավորվող հիշողություն:",
-                                "`&10`-ն սխալ է, քանի որ թվային լիտերալները պահվում են stack-ում:",
-                                "`&x`-ը սխալվում է runtime-ում, իսկ `&10`-ն աշխատում է միայն pointer-ների հետ:",
-                                "Երկուսն էլ անթույլատրելի են C++11 և ավելի նոր ստանդարտներում:"
-                            ]
-                        },
-                        correct: 0,
-                        explanation: {
-                            en: "The address-of operator `&` requires an Lvalue operand. Taking the address of an Rvalue literal like `10` causes a compilation error.",
-                            hy: "Address-of (`&`) օպերատորը պահանջում է Lvalue օպերանդ։ Rvalue լիտերալի (ինչպիսին է `10`-ը) հասցեն վերցնելու փորձը առաջացնում է կոմպիլյացիայի սխալ:"
-                        }
-                    }
-                ]
-            }
-        ];
+        // ===== Lessons are loaded from /lessons/*.json (see lessons/manifest.json) =====
+        let lessonsData = [];
+
+        // Accepts either a plain string/array (same for all languages) or an {en, hy} object
+        const tr = (v, lang) => (v !== null && typeof v === 'object' && !Array.isArray(v)) ? (v[lang] ?? v.en) : v;
+        const getOptions = (q, lang) => Array.isArray(q.options) ? q.options : (q.options[lang] ?? q.options.en);
+
+        async function loadLessons() {
+            const manifest = await (await fetch('lessons/manifest.json', {cache: 'no-cache'})).json();
+            const results = await Promise.allSettled(
+                manifest.map(f => fetch('lessons/' + f, {cache: 'no-cache'}).then(r => {
+                    if (!r.ok) throw new Error(f + ': HTTP ' + r.status);
+                    return r.json();
+                }))
+            );
+            lessonsData = [];
+            results.forEach((res, i) => {
+                if (res.status === 'fulfilled') lessonsData.push(res.value);
+                else console.error('Failed to load lesson file "' + manifest[i] + '":', res.reason);
+            });
+        }
 
         // State Management
         let currentLang = localStorage.getItem('picsart_cpp_lang') || 'en';
@@ -944,6 +420,12 @@
             updateGlobalScore();
             setRandomSidebarQuote();
             setupEventListeners();
+            if (lessonsData.length === 0) {
+                introTitle.textContent = translations[currentLang].loadError;
+                introDesc.textContent = '';
+                startQuizBtn.classList.add('hidden');
+                return;
+            }
             loadLesson(0);
         }
 
@@ -952,7 +434,7 @@
             localStorage.setItem('picsart_cpp_lang', currentLang);
             updateLanguageUI();
             renderSidebarLessons();
-            loadLesson(currentLessonIndex);
+            if (lessonsData.length) loadLesson(currentLessonIndex);
             if (!questionCard.classList.contains('hidden')) {
                 renderQuestion();
             }
@@ -1002,8 +484,8 @@
                     closeSidebar();
                 };
 
-                const titleText = lesson.title[currentLang];
-                const questionsCountText = currentLang === 'en' ? `${lesson.questions.length} Questions` : `${lesson.questions.length} Հարց`;
+                const titleText = tr(lesson.title, currentLang);
+                const questionsCountText = `${lesson.questions.length} ${translations[currentLang].questionsWord}`;
 
                 btn.innerHTML = `
                     <div class="mt-0.5 w-6 h-6 rounded-lg ${isCompleted ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-700/50 text-slate-400'} flex items-center justify-center text-xs flex-shrink-0">
@@ -1028,9 +510,9 @@
             selectedAnswers = {};
 
             const lesson = lessonsData[index];
-            lessonBadge.textContent = `Lesson ${lesson.id}`;
-            lessonTopic.textContent = lesson.subtitle[currentLang];
-            lessonTitle.textContent = lesson.title[currentLang];
+            lessonBadge.textContent = `${translations[currentLang].lessonWord} ${lesson.id}`;
+            lessonTopic.textContent = tr(lesson.subtitle, currentLang);
+            lessonTitle.textContent = tr(lesson.title, currentLang);
 
             introCard.classList.remove('hidden');
             questionCard.classList.add('hidden');
@@ -1078,11 +560,11 @@
             const pct = ((currentQuestionIndex + 1) / lesson.questions.length) * 100;
             progressBar.style.width = `${pct}%`;
 
-            questionContainer.innerHTML = formatTextWithCode(q.text[currentLang]);
+            questionContainer.innerHTML = formatTextWithCode(tr(q.text, currentLang));
             optionsContainer.innerHTML = '';
 
             const selectedOpt = selectedAnswers[currentQuestionIndex];
-            const localizedOptions = q.options[currentLang];
+            const localizedOptions = getOptions(q, currentLang);
 
             localizedOptions.forEach((optText, idx) => {
                 const isOptCorrect = (idx === q.correct);
@@ -1121,7 +603,7 @@
                 explanationTitle.innerHTML = isSelectedCorrect 
                     ? `<i class="fa-solid fa-circle-check"></i> ${t.correctTitle}` 
                     : `<i class="fa-solid fa-triangle-exclamation"></i> ${t.warningTitle}`;
-                explanationText.innerHTML = formatTextWithCode(q.explanation[currentLang]);
+                explanationText.innerHTML = formatTextWithCode(tr(q.explanation, currentLang));
             } else {
                 explanationBox.classList.add('hidden');
             }
@@ -1240,7 +722,10 @@
             });
         }
 
-        window.onload = initApp;
+        window.onload = async () => {
+            try { await loadLessons(); } catch (e) { console.error(e); }
+            initApp();
+        };
     </script>
 </body>
-</html>
+</html><script async src="/.netlify/scripts/hud?variant=public" data-nf-variant="public" data-netlify-site-id="d2aae201-2efb-4ee6-8dc1-0afa4ff0c06a" data-app-host="app.netlify.com" data-account-tier="free"></script>
