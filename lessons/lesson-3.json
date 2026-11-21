@@ -1,0 +1,370 @@
+{
+  "id": 3,
+  "title": {
+    "en": "Lesson 3: Introduction to C++ && Value Categories",
+    "hy": "Դաս 3: Introduction to C++ && Value Categories"
+  },
+  "subtitle": {
+    "en": "Stream I/O, enum class, std::array vs std::vector, const pointers, consteval, Value Categories & Reference Binding",
+    "hy": "Stream I/O, enum class, std::array և std::vector, const pointer-ներ, consteval, Value Categories և Reference Binding"
+  },
+  "questions": [
+    {
+      "text": {
+        "en": "In C++ stream I/O, what is the primary operational distinction between inserting `std::endl` into an output stream versus inserting the character string `\"\\n\"`?",
+        "hy": "C++-ի stream I/O-ում ո՞րն է հիմնական գործառնական տարբերությունը output stream-ում `std::endl`-ի և `\"\\n\"` տողի ներդրման միջև:"
+      },
+      "options": {
+        "en": [
+          "`std::endl` inserts a newline character and forces a stream buffer flush, whereas `\"\\n\"` inserts a newline character without forcing a flush.",
+          "`\"\\n\"` flushes the stream buffer, whereas `std::endl` does not.",
+          "`std::endl` works only with `std::cerr`, while `\"\\n\"` works only with `std::cout`.",
+          "There is no operational difference between them in C++."
+        ],
+        "hy": [
+          "`std::endl`-ը ավելացնում է newline նիշ և ստիպում է stream buffer-ի flush, իսկ `\"\\n\"`-ը ավելացնում է newline նիշ առանց flush ստիպելու:",
+          "`\"\\n\"`-ը flush է անում stream buffer-ը, իսկ `std::endl`-ը՝ ոչ:",
+          "`std::endl`-ն աշխատում է միայն `std::cerr`-ի հետ, իսկ `\"\\n\"`-ը՝ միայն `std::cout`-ի հետ:",
+          "C++-ում դրանց միջև գործառնական տարբերություն չկա:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "`std::endl` writes a newline and then flushes the buffer, which can be slow inside loops. `\"\\n\"` only inserts the newline character.",
+        "hy": "`std::endl`-ը գրում է newline և հետո flush է անում buffer-ը, ինչը loop-երում կարող է դանդաղեցնել աշխատանքը: `\"\\n\"`-ը միայն ավելացնում է newline նիշը:"
+      }
+    },
+    {
+      "text": {
+        "en": "Which behavior distinguishes a strongly typed `enum class` from an old-style `enum` in C++?",
+        "hy": "Ո՞ր վարքագիծն է տարբերում խիստ տիպավորված `enum class`-ը հին ոճի `enum`-ից C++-ում:"
+      },
+      "options": {
+        "en": [
+          "`enum class` enumerators do not implicitly convert to integers and do not leak names into the enclosing scope.",
+          "`enum class` cannot specify an underlying integer type.",
+          "`enum class` automatically exports all enumerators into the global namespace.",
+          "`enum class` allows comparing values from unrelated enums with `==` without explicit casting."
+        ],
+        "hy": [
+          "`enum class`-ի enumerator-ները implicit կերպով չեն փոխարկվում integer-ի և չեն «արտահոսում» շրջապատող scope:",
+          "`enum class`-ը չի կարող նշել underlying integer տիպ:",
+          "`enum class`-ը բոլոր enumerator-ներն ավտոմատ կերպով արտահանում է global namespace:",
+          "`enum class`-ը թույլ է տալիս համեմատել անկապ enum-ների արժեքները `==`-ով առանց explicit cast-ի:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "`enum class` is scoped (`Color::Red`) and its enumerators do not implicitly convert to `int`. A plain `enum` leaks its names into the enclosing scope. Both kinds can specify an underlying type.",
+        "hy": "`enum class`-ը scoped է (`Color::Red`), և նրա enumerator-ները implicit կերպով չեն փոխարկվում `int`-ի: Սովորական `enum`-ը իր անունները «թողնում» է շրջապատող scope-ում: Underlying տիպ կարելի է նշել երկուսի համար էլ:"
+      }
+    },
+    {
+      "text": {
+        "en": "What is a primary distinction between `std::array` and `std::vector` in C++?",
+        "hy": "Ո՞րն է հիմնական տարբերությունը `std::array`-ի և `std::vector`-ի միջև C++-ում:"
+      },
+      "options": {
+        "en": [
+          "`std::array` has a fixed size known at compile time, while `std::vector` dynamically resizes at runtime.",
+          "`std::vector` has a fixed size, while `std::array` can grow dynamically with `push_back()`.",
+          "`std::array` cannot be used with range-based for loops.",
+          "`std::vector` requires manual `delete[]` calls to free its elements."
+        ],
+        "hy": [
+          "`std::array`-ի չափը ֆիքսված է և հայտնի է compile time-ում, իսկ `std::vector`-ը runtime-ում դինամիկ փոխում է իր չափը:",
+          "`std::vector`-ի չափը ֆիքսված է, իսկ `std::array`-ը կարող է դինամիկ աճել `push_back()`-ով:",
+          "`std::array`-ը չի կարող օգտագործվել range-based for loop-երի հետ:",
+          "`std::vector`-ը պահանջում է `delete[]`-ի ձեռքով կանչ՝ իր տարրերն ազատելու համար:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "`std::array<T, N>` has a compile-time fixed size `N`. `std::vector<T>` manages a dynamic buffer, can grow with `push_back()` and frees its memory automatically.",
+        "hy": "`std::array<T, N>`-ի չափը `N` է և ֆիքսված է compile time-ում: `std::vector<T>`-ը կառավարում է դինամիկ buffer, կարող է աճել `push_back()`-ով և իր հիշողությունն ազատում է ավտոմատ:"
+      }
+    },
+    {
+      "text": {
+        "en": "How is the variable declaration `const int* const ptr { nullptr };` correctly interpreted?",
+        "hy": "Ինչպե՞ս է ճիշտ մեկնաբանվում `const int* const ptr { nullptr };` փոփոխականի հայտարարությունը:"
+      },
+      "options": {
+        "en": [
+          "A constant pointer to a constant integer value.",
+          "A non-constant pointer to a constant integer value.",
+          "A constant pointer to a non-constant integer value.",
+          "A pointer to a constant pointer to an integer."
+        ],
+        "hy": [
+          "Հաստատուն pointer դեպի հաստատուն integer արժեք:",
+          "Ոչ հաստատուն pointer դեպի հաստատուն integer արժեք:",
+          "Հաստատուն pointer դեպի ոչ հաստատուն integer արժեք:",
+          "Pointer դեպի հաստատուն pointer, որը ցույց է տալիս integer-ի:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "Read the declaration from right to left: `ptr` is a const pointer (`* const`) to a `const int`. Neither the pointer itself nor the pointed-to value can be changed through it.",
+        "hy": "Կարդա հայտարարությունը աջից ձախ. `ptr`-ը const pointer է (`* const`) դեպի `const int`: Ոչ pointer-ը, ոչ էլ նրա ցույց տված արժեքը չի կարելի փոխել դրա միջոցով:"
+      }
+    },
+    {
+      "text": {
+        "en": "What guarantee does the C++20 `consteval` keyword provide that `constexpr` does not?",
+        "hy": "Ի՞նչ երաշխիք է տալիս C++20-ի `consteval` keyword-ը, որը `constexpr`-ը չի տալիս:"
+      },
+      "options": {
+        "en": [
+          "It guarantees that every call to the function is evaluated at compile time (an immediate function).",
+          "It guarantees that the function can mutate global variables at runtime.",
+          "It automatically turns a function into a virtual method.",
+          "It disables type checking on function arguments."
+        ],
+        "hy": [
+          "Այն երաշխավորում է, որ ֆունկցիայի ամեն կանչ հաշվարկվում է compile time-ում (immediate function):",
+          "Այն երաշխավորում է, որ ֆունկցիան runtime-ում կարող է փոփոխել global փոփոխականները:",
+          "Այն ֆունկցիան ավտոմատ կերպով դարձնում է virtual մեթոդ:",
+          "Այն անջատում է ֆունկցիայի արգումենտների տիպերի ստուգումը:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "A `constexpr` function may be evaluated at compile time but can also run at runtime. A `consteval` function is an immediate function: every call must produce a compile-time constant.",
+        "hy": "`constexpr` ֆունկցիան կարող է հաշվարկվել compile time-ում, բայց կարող է նաև աշխատել runtime-ում: `consteval` ֆունկցիան immediate function է. նրա ամեն կանչ պետք է տա compile-time հաստատուն:"
+      }
+    },
+    {
+      "text": {
+        "en": "What is the result of an lvalue-to-rvalue conversion applied to an `int` lvalue in C++?",
+        "hy": "Ի՞նչ արդյունք է տալիս lvalue-to-rvalue conversion-ը `int` lvalue-ի վրա C++-ում:"
+      },
+      "options": {
+        "en": [
+          "It permanently changes the value category of any expression naming that variable to an xvalue.",
+          "It obtains the value stored in the designated object as a prvalue.",
+          "It creates a new heap-allocated object.",
+          "It turns the original variable into an unmodifiable reference."
+        ],
+        "hy": [
+          "Այն մշտապես փոխում է այդ փոփոխականը անվանող ցանկացած արտահայտության value category-ն դեպի xvalue:",
+          "Այն ստանում է նշված օբյեկտում պահված արժեքը՝ որպես prvalue:",
+          "Այն ստեղծում է նոր heap-ում հատկացված օբյեկտ:",
+          "Այն սկզբնական փոփոխականը դարձնում է անփոփոխելի reference:"
+        ]
+      },
+      "correct": 1,
+      "explanation": {
+        "en": "Lvalue-to-rvalue conversion reads the value stored in the object and yields it as a prvalue (for example when `y = x;` reads `x`). The variable itself is not changed.",
+        "hy": "Lvalue-to-rvalue conversion-ը կարդում է օբյեկտում պահված արժեքը և տալիս այն որպես prvalue (օրինակ՝ `y = x;`-ում `x`-ը կարդալիս): Փոփոխականն ինքը չի փոխվում:"
+      }
+    },
+    {
+      "text": {
+        "en": "Which of the following reference initialization statements are valid in C++ when using an `int` prvalue expression such as `42`?",
+        "hy": "Հետևյալ reference initialization հայտարարություններից ո՞րն է վավեր C++-ում, երբ օգտագործվում է `int` prvalue արտահայտություն, օրինակ՝ `42`:"
+      },
+      "options": [
+        "`int& a = 42;` only",
+        "`const int& a = 42;`, `int&& b = 42;`, `const int&& d = 42;`",
+        "`int&& b = 42;` only",
+        "`int& a = 42;` and `const int& b = 42;`"
+      ],
+      "correct": 1,
+      "explanation": {
+        "en": "A prvalue like `42` cannot bind to a non-const lvalue reference. It can bind to `const int&`, `int&&` and `const int&&`, materializing a temporary object.",
+        "hy": "`42`-ի նման prvalue-ն չի կարող կապվել non-const lvalue reference-ի հետ: Այն կարող է կապվել `const int&`, `int&&` և `const int&&`-ի հետ՝ materialize անելով ժամանակավոր օբյեկտ:"
+      }
+    },
+    {
+      "text": {
+        "en": "Given the following overloaded functions:\n\n```cpp\nint choose(int&);       // Overload 1\nint choose(const int&); // Overload 2\nint choose(int&&);      // Overload 3\n```\n\nAnd the variable declaration `int&& r = 30;`, which overload is selected by the function call `choose(r)`?",
+        "hy": "Տրված են հետևյալ overload-ված ֆունկցիաները՝\n\n```cpp\nint choose(int&);       // Overload 1\nint choose(const int&); // Overload 2\nint choose(int&&);      // Overload 3\n```\n\nԵվ `int&& r = 30;` հայտարարությունը: Ո՞ր overload-ը կընտրվի `choose(r)` կանչի դեպքում:"
+      },
+      "options": {
+        "en": [
+          "Overload 1 (`int&`)",
+          "Overload 2 (`const int&`)",
+          "Overload 3 (`int&&`)",
+          "Compilation error (ambiguous call)"
+        ],
+        "hy": [
+          "Overload 1 (`int&`)",
+          "Overload 2 (`const int&`)",
+          "Overload 3 (`int&&`)",
+          "Կոմպիլյացիայի սխալ (երկիմաստ կանչ)"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "A named rvalue reference is itself an lvalue expression, so `r` is an lvalue of type `int`. `int&` binds to it and is a better match than `const int&`; `int&&` cannot bind to an lvalue.",
+        "hy": "Անվանված rvalue reference-ը ինքնին lvalue արտահայտություն է, ուստի `r`-ը `int` տիպի lvalue է: `int&`-ը կապվում է դրա հետ և ավելի լավ համընկնում է, քան `const int&`-ը, իսկ `int&&`-ը lvalue-ի հետ կապվել չի կարող:"
+      }
+    },
+    {
+      "text": {
+        "en": "Match the function return types to the primary value category of their call expressions (for `int by_value();`, `int& by_lvalue();`, `int&& by_xvalue();`):",
+        "hy": "Համապատասխանեցրու ֆունկցիաների return տիպերը իրենց կանչի արտահայտությունների հիմնական value category-ին (`int by_value();`, `int& by_lvalue();`, `int&& by_xvalue();` ֆունկցիաների համար):"
+      },
+      "options": {
+        "en": [
+          "`by_value()` is prvalue; `by_lvalue()` is lvalue; `by_xvalue()` is xvalue.",
+          "`by_value()` is lvalue; `by_lvalue()` is xvalue; `by_xvalue()` is prvalue.",
+          "All three call expressions are lvalues.",
+          "All three call expressions are prvalues."
+        ],
+        "hy": [
+          "`by_value()`-ը prvalue է, `by_lvalue()`-ը՝ lvalue, `by_xvalue()`-ը՝ xvalue:",
+          "`by_value()`-ը lvalue է, `by_lvalue()`-ը՝ xvalue, `by_xvalue()`-ը՝ prvalue:",
+          "Երեք կանչի արտահայտություններն էլ lvalue են:",
+          "Երեք կանչի արտահայտություններն էլ prvalue են:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "A call returning by value is a prvalue, a call returning an lvalue reference is an lvalue, and a call returning an rvalue reference is an xvalue.",
+        "hy": "By value վերադարձնող կանչը prvalue է, lvalue reference վերադարձնող կանչը՝ lvalue, իսկ rvalue reference վերադարձնող կանչը՝ xvalue:"
+      }
+    },
+    {
+      "text": {
+        "en": "What is the primary value category of the expression `static_cast<int&&>(x)` when `x` is an `int` lvalue?",
+        "hy": "Ո՞րն է `static_cast<int&&>(x)` արտահայտության հիմնական value category-ն, երբ `x`-ը `int` lvalue է:"
+      },
+      "options": {
+        "en": ["lvalue", "prvalue", "xvalue", "None (unevaluated)"],
+        "hy": ["lvalue", "prvalue", "xvalue", "Ոչ մեկը (unevaluated)"]
+      },
+      "correct": 2,
+      "explanation": {
+        "en": "`static_cast<int&&>(x)` yields an xvalue: the object `x` is treated as expiring, so its resources may be moved from. This is exactly what `std::move` does.",
+        "hy": "`static_cast<int&&>(x)`-ը տալիս է xvalue. `x` օբյեկտը դիտարկվում է որպես «ավարտվող», և նրա ռեսուրսները կարելի է move անել: Հենց դա է անում `std::move`-ը:"
+      }
+    },
+    {
+      "text": {
+        "en": "What are the primary value categories of the built-in expressions `++x` and `x++` for an `int x`?",
+        "hy": "Որո՞նք են `++x` և `x++` built-in արտահայտությունների հիմնական value category-ները `int x`-ի համար:"
+      },
+      "options": {
+        "en": [
+          "`++x` is prvalue, `x++` is lvalue",
+          "`++x` is lvalue, `x++` is prvalue",
+          "Both are lvalues",
+          "Both are prvalues"
+        ],
+        "hy": [
+          "`++x`-ը prvalue է, `x++`-ը՝ lvalue",
+          "`++x`-ը lvalue է, `x++`-ը՝ prvalue",
+          "Երկուսն էլ lvalue են",
+          "Երկուսն էլ prvalue են"
+        ]
+      },
+      "correct": 1,
+      "explanation": {
+        "en": "Pre-increment `++x` modifies `x` and returns `x` itself as an lvalue. Post-increment `x++` returns a copy of the old value as a prvalue.",
+        "hy": "Pre-increment `++x`-ը փոփոխում է `x`-ը և վերադարձնում հենց `x`-ը՝ որպես lvalue: Post-increment `x++`-ը վերադարձնում է հին արժեքի պատճենը՝ որպես prvalue:"
+      }
+    },
+    {
+      "text": {
+        "en": "What is the primary value category and result of the built-in assignment expression `(x = 9)` where `x` is an `int`?",
+        "hy": "Ո՞րն է `(x = 9)` built-in վերագրման արտահայտության հիմնական value category-ն և արդյունքը, երբ `x`-ը `int` է:"
+      },
+      "options": {
+        "en": [
+          "It is an lvalue designating the left operand `x`.",
+          "It is a prvalue representing the value `9`.",
+          "It is an xvalue representing an expiring object.",
+          "It is `void`."
+        ],
+        "hy": [
+          "Այն lvalue է, որը նշում է ձախ օպերանդ `x`-ը:",
+          "Այն prvalue է, որը ներկայացնում է `9` արժեքը:",
+          "Այն xvalue է, որը ներկայացնում է «ավարտվող» օբյեկտ:",
+          "Այն `void` է:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "The built-in assignment expression `x = 9` yields an lvalue referring to the left operand `x`. That is why `(x = 9) = 5;` is valid for built-in types.",
+        "hy": "Built-in վերագրման `x = 9` արտահայտությունը տալիս է lvalue, որը վերաբերում է ձախ օպերանդ `x`-ին: Դրա համար է, որ built-in տիպերի համար `(x = 9) = 5;`-ը վավեր է:"
+      }
+    },
+    {
+      "text": {
+        "en": "What happens to the lifetime of a temporary materialized object when directly bound to a local non-volatile const lvalue reference (`const int& ref = 42;`)?",
+        "hy": "Ի՞նչ է լինում ժամանակավոր materialized օբյեկտի կյանքի տևողության հետ, երբ այն ուղղակիորեն կապվում է լոկալ non-volatile const lvalue reference-ի հետ (`const int& ref = 42;`):"
+      },
+      "options": {
+        "en": [
+          "The temporary is destroyed immediately at the end of the expression statement.",
+          "The temporary lifetime is extended to match the lifetime of the reference `ref`.",
+          "The temporary lifetime is extended until the end of the program execution.",
+          "The temporary object is converted into a global static variable."
+        ],
+        "hy": [
+          "Ժամանակավոր օբյեկտը ոչնչացվում է անմիջապես արտահայտության ավարտին:",
+          "Ժամանակավոր օբյեկտի կյանքի տևողությունը երկարացվում է մինչև `ref` reference-ի կյանքի տևողությանը հավասարվելը:",
+          "Ժամանակավոր օբյեկտի կյանքի տևողությունը երկարացվում է մինչև ծրագրի կատարման ավարտը:",
+          "Ժամանակավոր օբյեկտը վերածվում է global static փոփոխականի:"
+        ]
+      },
+      "correct": 1,
+      "explanation": {
+        "en": "Binding a temporary to a const lvalue reference extends the temporary's lifetime to that of the reference (lifetime extension), so `ref` stays valid until it goes out of scope.",
+        "hy": "Ժամանակավոր օբյեկտը const lvalue reference-ի հետ կապելիս նրա կյանքի տևողությունը երկարացվում է reference-ի կյանքի չափով (lifetime extension), ուստի `ref`-ը վավեր է մնում մինչև scope-ից դուրս գալը:"
+      }
+    },
+    {
+      "text": {
+        "en": "To which broader value category groups does an xvalue belong in the C++ taxonomy?",
+        "hy": "Ո՞ր ավելի լայն value category խմբերին է պատկանում xvalue-ն C++-ի դասակարգման մեջ:"
+      },
+      "options": {
+        "en": [
+          "Only glvalue",
+          "Only rvalue",
+          "Both glvalue and rvalue",
+          "Neither glvalue nor rvalue"
+        ],
+        "hy": [
+          "Միայն glvalue",
+          "Միայն rvalue",
+          "Թե՛ glvalue, թե՛ rvalue",
+          "Ո՛չ glvalue, ո՛չ rvalue"
+        ]
+      },
+      "correct": 2,
+      "explanation": {
+        "en": "An xvalue (expiring value) is both a glvalue (it has identity) and an rvalue (it can be moved from). An lvalue is only a glvalue, and a prvalue is only an rvalue.",
+        "hy": "xvalue-ն (expiring value) և՛ glvalue է (ունի identity), և՛ rvalue (կարելի է move անել): lvalue-ն միայն glvalue է, իսկ prvalue-ն՝ միայն rvalue:"
+      }
+    },
+    {
+      "text": {
+        "en": "Given `int n = 7;`, what happens when initializing `const double& converted = n;`?",
+        "hy": "Տրված է `int n = 7;`: Ի՞նչ է տեղի ունենում `const double& converted = n;` սկզբնավորման ժամանակ:"
+      },
+      "options": {
+        "en": [
+          "`converted` binds directly to `n` without creating any new temporary object.",
+          "`n` is implicitly converted to a `double` prvalue, materializing a separate `double` temporary to which `converted` binds.",
+          "It results in a compilation error because `double` and `int` are different types.",
+          "`n` permanently changes its type from `int` to `double`."
+        ],
+        "hy": [
+          "`converted`-ը ուղղակիորեն կապվում է `n`-ի հետ՝ առանց նոր ժամանակավոր օբյեկտ ստեղծելու:",
+          "`n`-ը implicit կերպով փոխարկվում է `double` prvalue-ի, materialize է արվում առանձին `double` ժամանակավոր օբյեկտ, որի հետ կապվում է `converted`-ը:",
+          "Դա կոմպիլյացիայի սխալ է առաջացնում, քանի որ `double`-ը և `int`-ը տարբեր տիպեր են:",
+          "`n`-ը մշտապես փոխում է իր տիպը `int`-ից `double`:"
+        ]
+      },
+      "correct": 1,
+      "explanation": {
+        "en": "`int` and `double` are different types, so `n` is converted to a `double` prvalue. A temporary is materialized and the const reference binds to that temporary, not to `n`.",
+        "hy": "`int`-ը և `double`-ը տարբեր տիպեր են, ուստի `n`-ը փոխարկվում է `double` prvalue-ի: Materialize է արվում ժամանակավոր օբյեկտ, և const reference-ը կապվում է հենց դրա հետ, ոչ թե `n`-ի:"
+      }
+    }
+  ]
+}

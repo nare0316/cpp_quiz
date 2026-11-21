@@ -528,14 +528,14 @@
 
         function formatTextWithCode(rawText) {
             if (!rawText.includes('```')) {
-                return rawText.replace(/`([^`]+)`/g, '<code class="bg-purple-950/80 text-purple-300 font-mono text-xs px-1.5 py-0.5 rounded border border-purple-800/50">$1</code>');
+                return escapeHtml(rawText).replace(/`([^`]+)`/g, '<code class="bg-purple-950/80 text-purple-300 font-mono text-xs px-1.5 py-0.5 rounded border border-purple-800/50">$1</code>');
             }
 
             const parts = rawText.split('```');
             let formatted = '';
             for (let i = 0; i < parts.length; i++) {
                 if (i % 2 === 0) {
-                    formatted += parts[i].replace(/`([^`]+)`/g, '<code class="bg-purple-950/80 text-purple-300 font-mono text-xs px-1.5 py-0.5 rounded border border-purple-800/50">$1</code>');
+                    formatted += escapeHtml(parts[i]).replace(/`([^`]+)`/g, '<code class="bg-purple-950/80 text-purple-300 font-mono text-xs px-1.5 py-0.5 rounded border border-purple-800/50">$1</code>');
                 } else {
                     let codeContent = parts[i];
                     if (codeContent.startsWith('cpp\n') || codeContent.startsWith('cpp')) {
