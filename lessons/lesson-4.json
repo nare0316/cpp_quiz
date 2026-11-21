@@ -48,23 +48,6 @@
     },
     {
       "text": {
-        "en": "Which of the following is NOT one of the five attributes common to all complex systems?",
-        "hy": "Հետևյալներից ո՞րը ՉԷ բոլոր complex system-ներին ընդհանուր հինգ attribute-ներից մեկը:"
-      },
-      "options": [
-        "Hierarchic Structure",
-        "Separation of Concerns",
-        "Stable Intermediate Forms",
-        "Continuous State Uniformity"
-      ],
-      "correct": 3,
-      "explanation": {
-        "en": "Booch's five attributes are: hierarchic structure, relative primitives, separation of concerns, common patterns, and stable intermediate forms. \"Continuous State Uniformity\" is not one of them.",
-        "hy": "Booch-ի հինգ attribute-ներն են՝ hierarchic structure, relative primitives, separation of concerns, common patterns և stable intermediate forms: \"Continuous State Uniformity\"-ն դրանց թվում չէ:"
-      }
-    },
-    {
-      "text": {
         "en": "In the canonical form of a complex system, what do the class structure and object structure represent, respectively?",
         "hy": "Complex system-ի canonical form-ում ի՞նչ են ներկայացնում համապատասխանաբար class structure-ը և object structure-ը:"
       },
