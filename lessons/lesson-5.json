@@ -2,7 +2,7 @@
     "id": 5,
     "title": {
       "en": "Lesson 5: Classes and Objects in C++",
-      "hy": "Դաս 3: C++ Դասեր և Օբյեկտներ"
+      "hy": "Դաս 5: C++ Դասեր և Օբյեկտներ"
     },
     "subtitle": {
       "en": "Class Definition, Access Control, Constructors, Destructors, and Object Lifecycle",
