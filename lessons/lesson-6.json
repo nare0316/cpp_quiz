@@ -1,0 +1,189 @@
+
+{
+  "id": 6,
+  "title": {
+    "en": "Lesson 6: Overloading C++ Operators",
+    "hy": "Դաս 6: C++ Օպերատորների Գերբեռնում"
+  },
+  "subtitle": {
+    "en": "Overloadable Operators, Rules and Limitations, Member vs Global Functions, Stream Operators",
+    "hy": "Գերբեռնվող օպերատորներ, Կանոններ և սահմանափակումներ, Անդամ և Գլոբալ ֆունկցիաներ, Սթրիմ օպերատորներ"
+  },
+  "questions": [
+    {
+      "text": {
+        "en": "Which of the following operators CANNOT be overloaded in C++?",
+        "hy": "Հետևյալ օպերատորներից որո՞նք ՉԵՆ ԿԱՐՈՂ գերբեռնվել C++-ում:"
+      },
+      "options": {
+        "en": [
+          "Member access `.`, pointer-to-member access `.*`, scope resolution `::`, and conditional operator `?:`",
+          "Arithmetic operators `+`, `-`, `*`, `/`",
+          "Subscripting `[]`, function call `()`, pointer dereference `->`, and assignment `=`",
+          "Stream operators `<<`, `>>`, equality `==`, and inequality `!=`"
+        ],
+        "hy": [
+          "Անդամի մուտքի `.`, ցուցիչով անդամի մուտքի `.*`, տեսանելիության տիրույթի `::` և պայմանական `?:` օպերատորները:",
+          "Թվաբանական օպերատորները՝ `+`, `-`, `*`, `/`:",
+          "Ինդեքսավորման `[]`, ֆունկցիայի կանչի `()`, ցուցիչով դիմելու `->` և վերագրման `=` օպերատորները:",
+          "Սթրիմային `<<`, `>>`, հավասարության `==` և անհավասարության `!=` օպերատորները:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "C++ strictly forbids overloading member access (`.`), pointer-to-member (`.*`), scope resolution (`::`), and ternary conditional (`?:`) operators.",
+        "hy": "C++-ը խստորեն արգելում է անդամի մուտքի (`.`), ցուցիչով անդամի մուտքի (`.*`), տեսանելիության տիրույթի (`::`) և երրորդական պայմանական (`?:`) օպերատորների գերբեռնումը:"
+      }
+    },
+    {
+      "text": {
+        "en": "Which set of operators MUST be defined as member functions (methods) of a class in C++?",
+        "hy": "Օպերատորների ո՞ր խումբը ՊԵՏՔ Է պարտադիր սահմանվի որպես դասի անդամ-ֆունկցիա (method) C++-ում:"
+      },
+      "options": {
+        "en": [
+          "`operator=`, `operator[]`, `operator()`, and `operator->`",
+          "`operator+`, `operator-`, `operator*`, and `operator/`",
+          "`operator<<` and `operator>>`",
+          "`operator==`, `operator!=`, and `operator<`"
+        ],
+        "hy": [
+          "`operator=`, `operator[]`, `operator()`, և `operator->`",
+          "`operator+`, `operator-`, `operator*`, և `operator/`",
+          "`operator<<` և `operator>>`",
+          "`operator==`, `operator!=`, և `operator<`"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "C++ language rules mandate that assignment (`=`), subscripting (`[]`), function call (`()`), and member selection (`->`) must be declared as member methods.",
+        "hy": "C++-ի կանոնների համաձայն՝ վերագրման (`=`), ինդեքսավորման (`[]`), ֆունկցիայի կանչի (`()`) և անդամի ընտրության (`->`) օպերատորները պետք է հանդիսանան դասի մեթոդներ:"
+      }
+    },
+    {
+      "text": {
+        "en": "Why must stream insertion (`operator<<`) and extraction (`operator>>`) operators be defined as global functions instead of member methods?",
+        "hy": "Ինչո՞ւ պետք է սթրիմային `operator<<` և `operator>>` օպերատորները սահմանվեն որպես գլոբալ ֆունկցիաներ, այլ ոչ թե դասի մեթոդներ:"
+      },
+      "options": {
+        "en": [
+          "Because the left-hand operand is a stream object (like `std::ostream` or `std::istream`), not an instance of your class.",
+          "Because C++ strictly forbids stream operations inside class method bodies.",
+          "Because stream operators are required to return `void`.",
+          "Because global functions execute significantly faster than class methods."
+        ],
+        "hy": [
+          "Որովհետև ձախ կողմի օպերանդը սթրիմային օբյեկտ է (`std::ostream` կամ `std::istream`), այլ ոչ թե ձեր դասի օբյեկտ:",
+          "Որովհետև C++-ը խստորեն արգելում է սթրիմային գործողությունները դասի մեթոդների ներսում:",
+          "Որովհետև սթրիմային օպերատորները պարտավոր են վերադարձնել `void`:",
+          "Որովհետև գլոբալ ֆունկցիաները կատարվում են շատ ավելի արագ, քան դասի մեթոդները:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "In expressions like `std::cout << cell`, the left operand is `std::ostream`. Since you cannot modify the standard `std::ostream` class to add a member method for your custom type, the operator must be overloaded as a global function.",
+        "hy": "`std::cout << cell` արտահայտությունում ձախ օպերանդը `std::ostream`-ն է: Քանի որ հնարավոր չէ փոխել `std::ostream` դասը՝ դրան նոր մեթոդ ավելացնելու համար, օպերատորը սահմանվում է որպես գլոբալ ֆունկցիա:"
+      }
+    },
+    {
+      "text": {
+        "en": "Why is it generally recommended NOT to overload binary logical operators `operator&&` and `operator||`?",
+        "hy": "Ինչո՞ւ ընդհանրապես խորհուրդ ՉԻ տրվում գերբեռնել `operator&&` և `operator||` երկուական տրամաբանական օպերատորները:"
+      },
+      "options": {
+        "en": [
+          "Overloading them disables C++ short-circuit evaluation semantics.",
+          "They cannot be implemented as global functions.",
+          "The compiler automatically deletes user-defined logical operators.",
+          "Overloaded logical operators are required to accept three parameters."
+        ],
+        "hy": [
+          "Դրանց գերբեռնման դեպքում կորչում է C++-ի կարճ միացման (short-circuit evaluation) կանոնը:",
+          "Դրանք չեն կարող իրականացվել որպես գլոբալ ֆունկցիաներ:",
+          "Կոմպիլյատորը ավտոմատ ջնջում է օգտագործողի սահմանած տրամաբանական օպերատորները:",
+          "Գերբեռնված տրամաբանական օպերատորները պարտավոր են ընդունել 3 պարամետր:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "When `&&` or `||` are overloaded, C++ treats them as standard function calls requiring both arguments to be evaluated before entry, losing short-circuit evaluation.",
+        "hy": "`&&` կամ `||` օպերատորները գերբեռնելիս C++-ը դրանց վերաբերվում է որպես սովորական ֆունկցիայի կանչի՝ հաշվարկելով երկու արգումենտներն էլ, ինչի հետևանքով short-circuit հաշվարկման կանոնը դադարում է գործել:"
+      }
+    },
+    {
+      "text": {
+        "en": "How does C++ distinguish between prefix `++obj` and postfix `obj++` when overloading `operator++`?",
+        "hy": "Ինչպե՞ս է C++-ը տարբերակում նախամածանցային `++obj` և հետմածանցային `obj++` գրելաձևերը `operator++`-ը գերբեռնելիս:"
+      },
+      "options": {
+        "en": [
+          "Prefix `operator++()` takes no parameters and returns a reference; postfix `operator++(int)` takes an unused `int` parameter and returns by value.",
+          "Postfix takes no parameters, while prefix takes a dummy `int` parameter.",
+          "Both versions must return a reference to `*this`.",
+          "Postfix `operator++` cannot be declared as a member function."
+        ],
+        "hy": [
+          "Նախամածանցային `operator++()`-ը արգումենտներ չի ընդունում և վերադարձնում է հղում, իսկ հետմածանցային `operator++(int)`-ը ընդունում է չօգտագործվող `int` պարամետր և վերադարձնում է արժեքով (by value):",
+          "Հետմածանցայինը պարամետր չի ընդունում, իսկ նախամածանցայինն ընդունում է `int` պարամետր:",
+          "Երկու տարբերակներն էլ պետք է վերադարձնեն հղում `*this`-ին:",
+          "Հետմածանցային `operator++`-ը չի կարող հայտարարվել որպես դասի մեթոդ:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "C++ uses a dummy `int` argument in `operator++(int)` solely to designate the postfix increment operator overload.",
+        "hy": "C++-ում `operator++(int)`-ի մեջ լրացուցիչ չօգտագործվող `int` պարամետրը կիրառվում է բացառապես հետմածանցային ինկրեմենտը տարբերակելու համար:"
+      }
+    },
+    {
+      "text": {
+        "en": "What is the syntax to declare an explicit conversion operator to `double` in C++?",
+        "hy": "Ո՞րն է C++-ում դեպի `double` ակնհայտ (explicit) փոխարկման օպերատորի (conversion operator) հայտարարման սինտաքսը:"
+      },
+      "options": {
+        "en": [
+          "`explicit operator double() const;`",
+          "`explicit double operator()();`",
+          "`double explicit_cast() const;`",
+          "`operator double(explicit);`"
+        ],
+        "hy": [
+          "`explicit operator double() const;`",
+          "`explicit double operator()();`",
+          "`double explicit_cast() const;`",
+          "`operator double(explicit);`"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "`explicit operator double() const;` defines a conversion operator that requires explicit casting or static cast, preventing implicit unwanted type conversions.",
+        "hy": "`explicit operator double() const;` հայտարարությունը սահմանում է փոխարկման օպերատոր, որը պահանջում է ակնհայտ (explicit) static_cast՝ կանխելով տիպերի ոչ ակնհայտ անցումները:"
+      }
+    },
+    {
+      "text": {
+        "en": "What best-practice rule applies when overloading pointer dereferencing operators `operator*` and `operator->` for custom smart pointers?",
+        "hy": "Ի՞նչ լավագույն փորձի (best-practice) կանոն է գործում custom smart pointer-ների համար `operator*` և `operator->` օպերատորները գերբեռնելիս:"
+      },
+      "options": {
+        "en": [
+          "They should almost always be implemented together as a pair to provide expected pointer semantics.",
+          "`operator->` must return a reference to `*this`.",
+          "`operator*` must be a global function while `operator->` must be a static member function.",
+          "`operator->` requires an extra `int` parameter."
+        ],
+        "hy": [
+          "Դրանք գրեթե միշտ պետք է իրականացվեն զույգով՝ ցուցիչի սպասելի վարքագիծն ապահովելու համար:",
+          "`operator->`-ը պետք է վերադարձնի հղում `*this`-ին:",
+          "`operator*`-ը պետք է լինի գլոբալ ֆունկցիա, իսկ `operator->`-ը՝ static մեթոդ:",
+          "`operator->`-ը պահանջում է լրացուցիչ `int` պարամետր:"
+        ]
+      },
+      "correct": 0,
+      "explanation": {
+        "en": "`operator*` and `operator->` should always be implemented together so callers can consistently dereference the object or invoke member methods.",
+        "hy": "`operator*` և `operator->` օպերատորները պետք է իրականացվեն միասին, որպեսզի օգտագործողները կարողանան համաչափորեն դիմել օբյեկտին կամ կանչել դրա մեթոդները:"
+      }
+    }
+  ]
+}
