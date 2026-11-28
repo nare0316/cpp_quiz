@@ -186,31 +186,6 @@
       },
       {
         "text": {
-          "en": "Why should a custom copy assignment operator (`operator=`) check for self-assignment (e.g. `if (this == &rhs)`)?",
-          "hy": "Ինչո՞ւ պետք է վերագրման օպերատորը (`operator=`) ստուգի ինքնավերագրումը (self-assignment, օրինակ՝ `if (this == &rhs)`):"
-        },
-        "options": {
-          "en": [
-            "To prevent releasing resources (like dynamically allocated memory) before copying them from the same object.",
-            "To comply with C++ syntax requirements that forbid self-assignment.",
-            "To transform the assignment operation into a move operation automatically.",
-            "To prevent compilation errors when assigning constant references."
-          ],
-          "hy": [
-            "Որպեսզի կանխվի ռեսուրսների (օրինակ՝ դինամիկ հիշողության) ազատումը նախքան նույն օբյեկտից դրանք պատճենելը:",
-            "C++ սինտաքսի պահանջներին համապատասխանելու համար, որոնք արգելում են ինքնավերագրումը:",
-            "Վերագրման գործողությունը ավտոմատ move գործողության փոխարկելու համար:",
-            "Const հղումներ վերագրելիս կոմպիլյացիայի սխալները կանխելու համար:"
-          ]
-        },
-        "correct": 0,
-        "explanation": {
-          "en": "Checking `if (this == &rhs)` prevents self-assignment issues where deallocating current resources would destroy the source data being copied.",
-          "hy": "`if (this == &rhs)` ստուգումը կանխում է ինքնավերագրման խնդիրները, երբ ընթացիկ ռեսուրսների ազատումը կոչնչացներ պատճենվող աղբյուրի տվյալները:"
-        }
-      },
-      {
-        "text": {
           "en": "Consider the delegating constructor syntax:\n\n```cpp\nSpreadsheetCell::SpreadsheetCell(std::string_view initialValue)\n    : SpreadsheetCell { stringToDouble(initialValue) } {}\n```\nWhere must the target constructor call be located?",
           "hy": "Դիտարկենք պատվիրակող կոնստրուկտորի (delegating constructor) սինտաքսը՝\n\n```cpp\nSpreadsheetCell::SpreadsheetCell(std::string_view initialValue)\n    : SpreadsheetCell { stringToDouble(initialValue) } {}\n```\nՈրտե՞ղ պետք է գտնվի թիրախային կոնստրուկտորի կանչը:"
         },
