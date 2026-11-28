@@ -5,8 +5,8 @@
       "hy": "Դաս 3: C++ Դասեր և Օբյեկտներ"
     },
     "subtitle": {
-      "en": "Class Definition, Access Control, Constructors and Destructors",
-      "hy": "Դասի սահմանում, Հասանելիության վերահսկում, Կոնստրուկտորներ և Դեստրուկտորներ"
+      "en": "Class Definition, Access Control, Constructors, Destructors, and Object Lifecycle",
+      "hy": "Դասի սահմանում, Հասանելիության վերահսկում, Կոնստրուկտորներ, Դեստրուկտորներ և Օբյեկտի կյանքի ցիկլ"
     },
     "questions": [
       {
@@ -30,33 +30,33 @@
         },
         "correct": 0,
         "explanation": {
-          "en": "In C++, the only fundamental difference between a class and a struct is that class members are private by default, whereas struct members are public by default [1].",
-          "hy": "C++-ում class-ի և struct-ի միակ հիմնական տարբերությունն այն է, որ class-ի անդամները լռելյայն private են, իսկ struct-ինը՝ public [1]:"
+          "en": "In C++, the primary difference between a class and a struct is that class members are private by default, whereas struct members are public by default.",
+          "hy": "C++-ում class-ի և struct-ի հիմնական տարբերությունն այն է, որ class-ի անդամները լռելյայն private են, իսկ struct-ինը՝ public:"
         }
       },
       {
         "text": {
-          "en": "What happens when you write `SpreadsheetCell myCell();` on the stack inside a function?",
-          "hy": "Ի՞նչ է տեղի ունենում, երբ ֆունկցիայի ներսում stack-ի վրա գրում եք `SpreadsheetCell myCell();`:"
+          "en": "What happens when you attempt to create a stack object using `SpreadsheetCell myCell();` inside a function?",
+          "hy": "Ի՞նչ է տեղի ունենում, երբ ֆունկցիայի ներսում stack-ի վրա փորձում եք ստեղծել օբյեկտ `SpreadsheetCell myCell();` գրելաձևով:"
         },
         "options": {
           "en": [
             "It creates an object named `myCell` using the default constructor.",
-            "It is interpreted by the compiler as a function declaration returning a `SpreadsheetCell` (the 'most vexing parse').",
-            "It causes a compilation error because default constructors cannot be called.",
-            "It allocates memory on the free store dynamically."
+            "It is parsed by the compiler as a function declaration returning a `SpreadsheetCell` (the 'most vexing parse').",
+            "It causes a compilation error because empty parentheses are never allowed.",
+            "It dynamically allocates a `SpreadsheetCell` object on the free store."
           ],
           "hy": [
             "Ստեղծվում է `myCell` անունով օբյեկտ՝ օգտագործելով լռելյայն կոնստրուկտորը:",
             "Կոմպիլյատորն այն ընկալում է որպես `SpreadsheetCell` վերադարձնող ֆունկցիայի հայտարարություն («most vexing parse»):",
-            "Առաջացնում է կոմպիլյացիայի սխալ, քանի որ լռելյայն կոնստրուկտորը չի կարող կանչվել:",
-            "Հիշողություն է հատկացնում free store-ում dynamic կերպով:"
+            "Առաջացնում է կոմպիլյացիայի սխալ, քանի որ դատարկ փակագծերը երբեք թույլատրելի չեն:",
+            "Free store-ում դինամիկորեն հատկացնում է `SpreadsheetCell` օբյեկտ:"
           ]
         },
         "correct": 1,
         "explanation": {
-          "en": "This syntax is known as the 'most vexing parse', where the compiler treats the statement as a function declaration taking zero arguments and returning a `SpreadsheetCell` object, rather than creating an object [2].",
-          "hy": "Այս սինտաքսը հայտնի է որպես «most vexing parse», որտեղ կոմպիլյատորը տողը ընկալում է որպես 0 արգումենտ ընդունող և `SpreadsheetCell` վերադարձնող ֆունկցիայի հայտարարություն, այլ ոչ թե օբյեկտի ստեղծում [2]:"
+          "en": "Known as the 'most vexing parse', C++ interprets `SpreadsheetCell myCell();` as a declaration of a function named `myCell` that takes no arguments and returns a `SpreadsheetCell`, rather than calling the default constructor.",
+          "hy": "Այս երևույթը հայտնի է որպես «most vexing parse». C++-ը `SpreadsheetCell myCell();`-ը մեկնաբանում է որպես 0 արգումենտ ընդունող և `SpreadsheetCell` վերադարձնող `myCell` ֆունկցիայի հայտարարություն:"
         }
       },
       {
@@ -66,10 +66,10 @@
         },
         "options": {
           "en": [
-            "In the order they are listed in the ctor-initializer list.",
+            "In the order they appear in the ctor-initializer list.",
             "In the order they are declared in the class definition.",
             "In alphabetical order of member names.",
-            "Primitives first, followed by object members."
+            "Primitive types first, followed by object data members."
           ],
           "hy": [
             "Այն հերթականությամբ, ինչ գրված են ctor-initializer ցուցակում:",
@@ -80,58 +80,208 @@
         },
         "correct": 1,
         "explanation": {
-          "en": "Constructor initializers initialize data members in the order that they appear in the class definition, not their order in the ctor-initializer list [3].",
-          "hy": "Կոնստրուկտորի ինիցիալիզատորները տվյալների անդամները ինիցիալիզացնում են դասի սահմանման մեջ դրանց հայտարարման հերթականությամբ, այլ ոչ թե ctor-initializer ցուցակի հերթականությամբ [3]:"
+          "en": "Constructor initializer lists always initialize data members in the order of their declaration within the class definition, regardless of their order in the initializer list.",
+          "hy": "Կոնստրուկտորի ինիցիալիզացիոն ցուցակը տվյալների անդամները ինիցիալիզացնում է դասի սահմանման մեջ դրանց հայտարարման հերթականությամբ, անկախ ցուցակում գրված հերթականությունից:"
         }
       },
       {
         "text": {
-          "en": "Consider the following constructor declaration:\n\n```cpp\nexplicit SpreadsheetCell(std::string_view initialValue);\n```\nWhat is the purpose of the `explicit` keyword here?",
-          "hy": "Դիտարկենք հետևյալ կոնստրուկտորի հայտարարությունը՝\n\n```cpp\nexplicit SpreadsheetCell(std::string_view initialValue);\n```\nՈ՞րն է `explicit` բանալի բառի նպատակը այստեղ:"
+          "en": "Consider the constructor declaration:\n\n```cpp\nexplicit SpreadsheetCell(std::string_view initialValue);\n```\nWhat is the main purpose of the `explicit` keyword here?",
+          "hy": "Դիտարկենք կոնստրուկտորի հետևյալ հայտարարությունը՝\n\n```cpp\nexplicit SpreadsheetCell(std::string_view initialValue);\n```\nՈ՞րն է `explicit` բանալի բառի հիմնական նպատակը այստեղ:"
         },
         "options": {
           "en": [
-            "It prevents the compiler from performing implicit conversions using this constructor.",
-            "It deletes the constructor so it cannot be called.",
-            "It forces the constructor to be executed at compile time.",
-            "It allows the constructor to be called without any arguments."
+            "It prevents the compiler from performing implicit type conversions using this constructor.",
+            "It deletes the constructor so it cannot be invoked by clients.",
+            "It ensures the constructor is evaluated entirely at compile time.",
+            "It allows the constructor to be called without passing any parameters."
           ],
           "hy": [
             "Այն արգելում է կոմպիլյատորին կատարել ոչ ակնհայտ (implicit) փոխարկումներ այս կոնստրուկտորի միջոցով:",
             "Այն ջնջում է կոնստրուկտորը, որպեսզի այն չկարողանա կանչվել:",
-            "Այն ստիպում է, որ կոնստրուկտորը կատարվի կոմպիլյացիայի փուլում (compile time):",
-            "Այն թույլ է տալիս կոնստրուկտորը կանչել առանց արգումենտների:"
+            "Այն ապահովում է կոնստրուկտորի կատարումը կոմպիլյացիայի փուլում (compile time):",
+            "Այն թույլ է տալիս կոնստրուկտորը կանչել առանց պարամետրեր փոխանցելու:"
           ]
         },
         "correct": 0,
         "explanation": {
-          "en": "Marking a single-parameter constructor as `explicit` prevents the compiler from performing implicit type conversions [4].",
-          "hy": "Մեկ պարամետրով կոնստրուկտորը `explicit` նշելը արգելում է կոմպիլյատորին կատարել տիպերի ոչ ակնհայտ (implicit) փոխարկումներ [4]:"
+          "en": "Marking a constructor as `explicit` prevents the compiler from using it for implicit type conversions (e.g. `myCell = \"6\"sv;`).",
+          "hy": "Կոնստրուկտորը `explicit` նշելը արգելում է կոմպիլյատորին կիրառել այն ոչ ակնհայտ (implicit) տիպերի փոխարկումների համար:"
         }
       },
       {
         "text": {
-          "en": "In what order are objects created on the stack destroyed when they go out of scope?",
-          "hy": "Ի՞նչ հերթականությամբ են ոչնչացվում stack-ի վրա ստեղծված օբյեկտները, երբ դրանք դուրս են գալիս տեսանելիության տիրույթից (out of scope):"
+          "en": "In what order are stack-allocated objects destroyed when execution leaves their enclosing block?",
+          "hy": "Ի՞նչ հերթականությամբ են ոչնչացվում stack-ում ստեղծված օբյեկտները, երբ ծրագրի կատարումը դուրս է գալիս դրանց տեսանելիության տիրույթից (scope):"
         },
         "options": {
           "en": [
-            "In the exact order of their declaration.",
+            "In the exact same order as their construction.",
             "In the reverse order of their declaration and construction.",
-            "In random order determined by the garbage collector.",
-            "Objects are destroyed simultaneously."
+            "In a random order non-deterministically managed by runtime.",
+            "All stack objects are destroyed simultaneously."
           ],
           "hy": [
-            "Դրանց հայտարարման ճշգրիտ հերթականությամբ:",
+            "Դրանց ստեղծման ճշգրիտ հերթականությամբ:",
             "Դրանց հայտարարման և ստեղծման հակառակ հերթականությամբ:",
-            "Պատահական հերթականությամբ՝ աղբահավաքի (garbage collector) կողմից:",
-            "Օբյեկտները ոչնչացվում են միաժամանակ:"
+            "Պատահական հերթականությամբ:",
+            "Բոլոր stack օբյեկտները ոչնչացվում են միաժամանակ:"
           ]
         },
         "correct": 1,
         "explanation": {
-          "en": "Objects on the stack are destroyed in the reverse order of their declaration and construction when the execution block ends [5].",
-          "hy": "Stack-ի վրա ստեղծված օբյեկտները ոչնչացվում են դրանց հայտարարման և ստեղծման հակառակ հերթականությամբ, երբ կոդի բլոկն ավարտվում է [5]:"
+          "en": "Stack objects are automatically destroyed in the reverse order of their declaration when they go out of scope.",
+          "hy": "Stack-ում ստեղծված օբյեկտներն ավտոմատ ոչնչացվում են դրանց հայտարարման հակառակ հերթականությամբ, երբ դուրս են գալիս տեսանելիության տիրույթից:"
+        }
+      },
+      {
+        "text": {
+          "en": "What happens if an object is allocated on the free store with `new` and its pointer goes out of scope without calling `delete` or using a smart pointer?",
+          "hy": "Ի՞նչ է տեղի ունենում, երբ օբյեկտը հատկացվում է free store-ում `new`-ով, և դրա ցուցիչը (pointer) դուրս է գալիս scope-ից առանց `delete` կանչելու կամ smart pointer օգտագործելու:"
+        },
+        "options": {
+          "en": [
+            "The object's destructor is automatically invoked when the pointer goes out of scope.",
+            "The memory remains allocated and the object is never destroyed, resulting in a memory leak.",
+            "The compiler emits a fatal runtime panic and halts execution.",
+            "The operating system automatically garbage collects the object immediately."
+          ],
+          "hy": [
+            "Օբյեկտի դեստրուկտորն ավտոմատ կանչվում է, երբ ցուցիչը դուրս է գալիս scope-ից:",
+            "Հիշողությունը մնում է հատկացված, իսկ օբյեկտը չի ոչնչացվում՝ առաջացնելով հիշողության կորուստ (memory leak):",
+            "Կոմպիլյատորը գեներացնում է runtime սխալ և կանգնեցնում ծրագիրը:",
+            "Օպերացիոն համակարգը ավտոմատ մաքրում է հիշողությունը garbage collector-ով:"
+          ]
+        },
+        "correct": 1,
+        "explanation": {
+          "en": "Objects allocated with raw `new` are not automatically destroyed. Failing to call `delete` (or not using smart pointers like `std::unique_ptr`) causes a memory leak.",
+          "hy": "Raw `new`-ով հատկացված օբյեկտները ավտոմատ չեն ոչնչացվում: `delete` չկանչելը (կամ smart pointer չօգտագործելը) հանգեցնում է հիշողության կորստի (memory leak):"
+        }
+      },
+      {
+        "text": {
+          "en": "What is the correct signature for the copy constructor of a class named `SpreadsheetCell`?",
+          "hy": "Ո՞րն է `SpreadsheetCell` դասի պատճենման կոնստրուկտորի (copy constructor) ճիշտ սիգնատուրան:"
+        },
+        "options": {
+          "en": [
+            "`SpreadsheetCell(const SpreadsheetCell& src);`",
+            "`SpreadsheetCell(SpreadsheetCell src);`",
+            "`void SpreadsheetCell(const SpreadsheetCell* src);`",
+            "`SpreadsheetCell& operator=(const SpreadsheetCell& src);`"
+          ],
+          "hy": [
+            "`SpreadsheetCell(const SpreadsheetCell& src);`",
+            "`SpreadsheetCell(SpreadsheetCell src);`",
+            "`void SpreadsheetCell(const SpreadsheetCell* src);`",
+            "`SpreadsheetCell& operator=(const SpreadsheetCell& src);`"
+          ]
+        },
+        "correct": 0,
+        "explanation": {
+          "en": "A copy constructor must take a reference (typically `const SpreadsheetCell&`) to the source object. Passing by value (`SpreadsheetCell src`) would cause infinite recursion.",
+          "hy": "Պատճենման կոնստրուկտորը պետք է ընդունի հղում (սովորաբար `const SpreadsheetCell&`) աղբյուր օբյեկտին: Ըստ արժեքի (by value) փոխանցումը կառաջացներ անվերջ ռեկուրսիա:"
+        }
+      },
+      {
+        "text": {
+          "en": "Why should a custom copy assignment operator (`operator=`) check for self-assignment (e.g. `if (this == &rhs)`)?",
+          "hy": "Ինչո՞ւ պետք է վերագրման օպերատորը (`operator=`) ստուգի ինքնավերագրումը (self-assignment, օրինակ՝ `if (this == &rhs)`):"
+        },
+        "options": {
+          "en": [
+            "To prevent releasing resources (like dynamically allocated memory) before copying them from the same object.",
+            "To comply with C++ syntax requirements that forbid self-assignment.",
+            "To transform the assignment operation into a move operation automatically.",
+            "To prevent compilation errors when assigning constant references."
+          ],
+          "hy": [
+            "Որպեսզի կանխվի ռեսուրսների (օրինակ՝ դինամիկ հիշողության) ազատումը նախքան նույն օբյեկտից դրանք պատճենելը:",
+            "C++ սինտաքսի պահանջներին համապատասխանելու համար, որոնք արգելում են ինքնավերագրումը:",
+            "Վերագրման գործողությունը ավտոմատ move գործողության փոխարկելու համար:",
+            "Const հղումներ վերագրելիս կոմպիլյացիայի սխալները կանխելու համար:"
+          ]
+        },
+        "correct": 0,
+        "explanation": {
+          "en": "Checking `if (this == &rhs)` prevents self-assignment issues where deallocating current resources would destroy the source data being copied.",
+          "hy": "`if (this == &rhs)` ստուգումը կանխում է ինքնավերագրման խնդիրները, երբ ընթացիկ ռեսուրսների ազատումը կոչնչացներ պատճենվող աղբյուրի տվյալները:"
+        }
+      },
+      {
+        "text": {
+          "en": "Consider the delegating constructor syntax:\n\n```cpp\nSpreadsheetCell::SpreadsheetCell(std::string_view initialValue)\n    : SpreadsheetCell { stringToDouble(initialValue) } {}\n```\nWhere must the target constructor call be located?",
+          "hy": "Դիտարկենք պատվիրակող կոնստրուկտորի (delegating constructor) սինտաքսը՝\n\n```cpp\nSpreadsheetCell::SpreadsheetCell(std::string_view initialValue)\n    : SpreadsheetCell { stringToDouble(initialValue) } {}\n```\nՈրտե՞ղ պետք է գտնվի թիրախային կոնստրուկտորի կանչը:"
+        },
+        "options": {
+          "en": [
+            "Inside the ctor-initializer list as the sole initializer.",
+            "Inside the body of the constructor as an explicit function call.",
+            "In a static factory method preceding object construction.",
+            "In the destructor prior to resource cleanup."
+          ],
+          "hy": [
+            "Ctor-initializer ցուցակում՝ որպես միակ ինիցիալիզատոր:",
+            "Կոնստրուկտորի մարմնում (body)՝ որպես ակնհայտ ֆունկցիայի կանչ:",
+            "Ստատիկ factory մեթոդում:",
+            "Դեստրուկտորում՝ նախքան հիշողության ազատումը:"
+          ]
+        },
+        "correct": 0,
+        "explanation": {
+          "en": "In C++, delegating constructors must invoke the target constructor within the member initializer list (ctor-initializer), and it must be the only entry in that list.",
+          "hy": "C++-ում պատվիրակող կոնստրուկտորները թիրախային կոնստրուկտորին պետք է կանչեն ctor-initializer ցուցակում, և դա պետք է լինի այդ ցուցակի միակ գրառումը:"
+        }
+      },
+      {
+        "text": {
+          "en": "What does declaring a member function as `const` (e.g. `double getValue() const;`) signify in C++?",
+          "hy": "Ի՞նչ է նշանակում անդամ-ֆունկցիան `const` հայտարարելը (օրինակ՝ `double getValue() const;`) C++-ում:"
+        },
+        "options": {
+          "en": [
+            "The method guarantees it will not modify any data members of the object, allowing it to be called on `const` objects.",
+            "The method returns a `const` reference to a global literal.",
+            "The method can only be executed at compile time.",
+            "The method prevents other threads from accessing the object."
+          ],
+          "hy": [
+            "Մեթոդը երաշխավորում է, որ չի փոփոխի օբյեկտի տվյալների անդամները, ինչը թույլ է տալիս այն կանչել `const` օբյեկտների վրա:",
+            "Մեթոդը վերադարձնում է `const` հղում գլոբալ լիտերալին:",
+            "Մեթոդը կարող է կատարվել միայն կոմպիլյացիայի փուլում:",
+            "Մեթոդը արգելափակում է այլ stream-ների մուտքը օբյեկտ:"
+          ]
+        },
+        "correct": 0,
+        "explanation": {
+          "en": "Declaring a member function `const` promises that it will not alter the state of the object, enabling callers to invoke it on `const` instances of the class.",
+          "hy": "Անդամ-ֆունկցիան `const` հայտարարելը երաշխավորում է, որ այն չի փոխի օբյեկտի վիճակը, ինչը թույլ է տալիս այն կանչել class-ի `const` օբյեկտների վրա:"
+        }
+      },
+      {
+        "text": {
+          "en": "What is the purpose of using `= delete` on a special member function (e.g. `SpreadsheetCell(const SpreadsheetCell&) = delete;`)?",
+          "hy": "Ո՞րն է `= delete` օգտագործելու նպատակը հատուկ անդամ-ֆունկցիայի վրա (օրինակ՝ `SpreadsheetCell(const SpreadsheetCell&) = delete;`):"
+        },
+        "options": {
+          "en": [
+            "It explicitly prevents the compiler from generating or allowing calls to that member function.",
+            "It instructs the compiler to generate a default no-op implementation.",
+            "It marks the function as deprecated and triggers a compiler warning.",
+            "It automatically frees memory when the function returns."
+          ],
+          "hy": [
+            "Այն ակնհայտորեն արգելում է կոմպիլյատորին գեներացնել կամ թույլատրել այդ անդամ-ֆունկցիայի կանչերը:",
+            "Այն հանձնարարում է կոմպիլյատորին գեներացնել լռելյայն դատարկ իրականացում:",
+            "Այն նշում է ֆունկցիան որպես հնացած (deprecated):",
+            "Այն ավտոմատ ազատում է հիշողությունը, երբ ֆունկցիան վերադառնում է:"
+          ]
+        },
+        "correct": 0,
+        "explanation": {
+          "en": "Using `= delete` explicitly disables a specific member function, causing a compile-time error if any code attempts to invoke or implicitly generate it.",
+          "hy": "`= delete` օգտագործելը ակնհայտորեն անջատում է տվյալ անդամ-ֆունկցիան՝ առաջացնելով կոմպիլյացիայի սխալ, եթե կոդը փորձի կանչել կամ ոչ ակնհայտորեն գեներացնել այն:"
         }
       }
     ]
