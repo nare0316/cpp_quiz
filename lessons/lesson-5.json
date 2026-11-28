@@ -1,0 +1,138 @@
+{
+    "id": 5,
+    "title": {
+      "en": "Lesson 5: Classes and Objects in C++",
+      "hy": "Դաս 3: C++ Դասեր և Օբյեկտներ"
+    },
+    "subtitle": {
+      "en": "Class Definition, Access Control, Constructors and Destructors",
+      "hy": "Դասի սահմանում, Հասանելիության վերահսկում, Կոնստրուկտորներ և Դեստրուկտորներ"
+    },
+    "questions": [
+      {
+        "text": {
+          "en": "What is the key difference between a `class` and a `struct` in C++ regarding default access control?",
+          "hy": "Ո՞րն է `class`-ի և `struct`-ի հիմնական տարբերությունը C++-ում՝ լռելյայն հասանելիության (access control) տեսանկյունից:"
+        },
+        "options": {
+          "en": [
+            "`class` members are `private` by default, while `struct` members are `public` by default.",
+            "`class` members are `public` by default, while `struct` members are `private` by default.",
+            "`struct` cannot have member functions, whereas `class` can.",
+            "`class` objects are created on the heap, while `struct` objects are created on the stack."
+          ],
+          "hy": [
+            "`class`-ի անդամները լռելյայն `private` են, իսկ `struct`-ինը՝ `public`:",
+            "`class`-ի անդամները լռելյայն `public` են, իսկ `struct`-ինը՝ `private`:",
+            "`struct`-ը չի կարող ունենալ անդամ-ֆունկցիաներ, իսկ `class`-ը կարող է:",
+            "`class`-ի օբյեկտները ստեղծվում են heap-ում, իսկ `struct`-ինը՝ stack-ում:"
+          ]
+        },
+        "correct": 0,
+        "explanation": {
+          "en": "In C++, the only fundamental difference between a class and a struct is that class members are private by default, whereas struct members are public by default [1].",
+          "hy": "C++-ում class-ի և struct-ի միակ հիմնական տարբերությունն այն է, որ class-ի անդամները լռելյայն private են, իսկ struct-ինը՝ public [1]:"
+        }
+      },
+      {
+        "text": {
+          "en": "What happens when you write `SpreadsheetCell myCell();` on the stack inside a function?",
+          "hy": "Ի՞նչ է տեղի ունենում, երբ ֆունկցիայի ներսում stack-ի վրա գրում եք `SpreadsheetCell myCell();`:"
+        },
+        "options": {
+          "en": [
+            "It creates an object named `myCell` using the default constructor.",
+            "It is interpreted by the compiler as a function declaration returning a `SpreadsheetCell` (the 'most vexing parse').",
+            "It causes a compilation error because default constructors cannot be called.",
+            "It allocates memory on the free store dynamically."
+          ],
+          "hy": [
+            "Ստեղծվում է `myCell` անունով օբյեկտ՝ օգտագործելով լռելյայն կոնստրուկտորը:",
+            "Կոմպիլյատորն այն ընկալում է որպես `SpreadsheetCell` վերադարձնող ֆունկցիայի հայտարարություն («most vexing parse»):",
+            "Առաջացնում է կոմպիլյացիայի սխալ, քանի որ լռելյայն կոնստրուկտորը չի կարող կանչվել:",
+            "Հիշողություն է հատկացնում free store-ում dynamic կերպով:"
+          ]
+        },
+        "correct": 1,
+        "explanation": {
+          "en": "This syntax is known as the 'most vexing parse', where the compiler treats the statement as a function declaration taking zero arguments and returning a `SpreadsheetCell` object, rather than creating an object [2].",
+          "hy": "Այս սինտաքսը հայտնի է որպես «most vexing parse», որտեղ կոմպիլյատորը տողը ընկալում է որպես 0 արգումենտ ընդունող և `SpreadsheetCell` վերադարձնող ֆունկցիայի հայտարարություն, այլ ոչ թե օբյեկտի ստեղծում [2]:"
+        }
+      },
+      {
+        "text": {
+          "en": "In what order are class data members initialized when using a constructor initializer list (ctor-initializer)?",
+          "hy": "Ի՞նչ հերթականությամբ են ինիցիալիզացվում դասի տվյալների անդամները (data members) կոնստրուկտորի ինիցիալիզացիոն ցուցակում (ctor-initializer):"
+        },
+        "options": {
+          "en": [
+            "In the order they are listed in the ctor-initializer list.",
+            "In the order they are declared in the class definition.",
+            "In alphabetical order of member names.",
+            "Primitives first, followed by object members."
+          ],
+          "hy": [
+            "Այն հերթականությամբ, ինչ գրված են ctor-initializer ցուցակում:",
+            "Այն հերթականությամբ, ինչ հայտարարված են դասի սահմանման (class definition) մեջ:",
+            "Անդամների անունների այբբենական հերթականությամբ:",
+            "Սկզբում պրիմիտիվ տիպերը, ապա օբյեկտային անդամները:"
+          ]
+        },
+        "correct": 1,
+        "explanation": {
+          "en": "Constructor initializers initialize data members in the order that they appear in the class definition, not their order in the ctor-initializer list [3].",
+          "hy": "Կոնստրուկտորի ինիցիալիզատորները տվյալների անդամները ինիցիալիզացնում են դասի սահմանման մեջ դրանց հայտարարման հերթականությամբ, այլ ոչ թե ctor-initializer ցուցակի հերթականությամբ [3]:"
+        }
+      },
+      {
+        "text": {
+          "en": "Consider the following constructor declaration:\n\n```cpp\nexplicit SpreadsheetCell(std::string_view initialValue);\n```\nWhat is the purpose of the `explicit` keyword here?",
+          "hy": "Դիտարկենք հետևյալ կոնստրուկտորի հայտարարությունը՝\n\n```cpp\nexplicit SpreadsheetCell(std::string_view initialValue);\n```\nՈ՞րն է `explicit` բանալի բառի նպատակը այստեղ:"
+        },
+        "options": {
+          "en": [
+            "It prevents the compiler from performing implicit conversions using this constructor.",
+            "It deletes the constructor so it cannot be called.",
+            "It forces the constructor to be executed at compile time.",
+            "It allows the constructor to be called without any arguments."
+          ],
+          "hy": [
+            "Այն արգելում է կոմպիլյատորին կատարել ոչ ակնհայտ (implicit) փոխարկումներ այս կոնստրուկտորի միջոցով:",
+            "Այն ջնջում է կոնստրուկտորը, որպեսզի այն չկարողանա կանչվել:",
+            "Այն ստիպում է, որ կոնստրուկտորը կատարվի կոմպիլյացիայի փուլում (compile time):",
+            "Այն թույլ է տալիս կոնստրուկտորը կանչել առանց արգումենտների:"
+          ]
+        },
+        "correct": 0,
+        "explanation": {
+          "en": "Marking a single-parameter constructor as `explicit` prevents the compiler from performing implicit type conversions [4].",
+          "hy": "Մեկ պարամետրով կոնստրուկտորը `explicit` նշելը արգելում է կոմպիլյատորին կատարել տիպերի ոչ ակնհայտ (implicit) փոխարկումներ [4]:"
+        }
+      },
+      {
+        "text": {
+          "en": "In what order are objects created on the stack destroyed when they go out of scope?",
+          "hy": "Ի՞նչ հերթականությամբ են ոչնչացվում stack-ի վրա ստեղծված օբյեկտները, երբ դրանք դուրս են գալիս տեսանելիության տիրույթից (out of scope):"
+        },
+        "options": {
+          "en": [
+            "In the exact order of their declaration.",
+            "In the reverse order of their declaration and construction.",
+            "In random order determined by the garbage collector.",
+            "Objects are destroyed simultaneously."
+          ],
+          "hy": [
+            "Դրանց հայտարարման ճշգրիտ հերթականությամբ:",
+            "Դրանց հայտարարման և ստեղծման հակառակ հերթականությամբ:",
+            "Պատահական հերթականությամբ՝ աղբահավաքի (garbage collector) կողմից:",
+            "Օբյեկտները ոչնչացվում են միաժամանակ:"
+          ]
+        },
+        "correct": 1,
+        "explanation": {
+          "en": "Objects on the stack are destroyed in the reverse order of their declaration and construction when the execution block ends [5].",
+          "hy": "Stack-ի վրա ստեղծված օբյեկտները ոչնչացվում են դրանց հայտարարման և ստեղծման հակառակ հերթականությամբ, երբ կոդի բլոկն ավարտվում է [5]:"
+        }
+      }
+    ]
+  }
